@@ -444,11 +444,12 @@ int main(int argc, char *argv[]){
   // reference details for low stats cats
   // need to make this configurable ?! -LC
   //referenceProc_="ggh";
-  referenceProc_="GG2H";
+  //referenceProc_="GG2H";
+  referenceProc_="tth";
   //referenceProcTTH_="tth";
-  referenceProcTTH_="TTH";
-  referenceTagWV_="UntaggedTag_2"; // histest stats WV is ggh Untagged 3. 
-  referenceTagRV_="UntaggedTag_2"; // fairly low resolution tag even for ggh, more approprioate as te default than re-using the original tag.
+  referenceProcTTH_="tth";
+  referenceTagWV_="TTHHadronicTag"; // histest stats WV is ggh Untagged 3. 
+  referenceTagRV_="TTHHadronicTag"; // fairly low resolution tag even for ggh, more approprioate as te default than re-using the original tag.
   // are WV which needs to borrow should be taken from here
   
   // isFlashgg should now be the only option.
