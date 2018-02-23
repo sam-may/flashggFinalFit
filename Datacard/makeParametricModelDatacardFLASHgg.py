@@ -60,7 +60,8 @@ class WSTFileWrapper:
         for i in range(len(self.fnList)):
           if self.fnList[i]!="current file":
             if newProcName not in self.fnList[i] and newProcName!="": continue
-            this_result_obj = self.wsList[i].data(newDataName);
+            this_result_obj = self.wsList[i].data(dataName);
+            #this_result_obj = self.wsList[i].data(newDataName);
             if ( result and this_result_obj and (not complained_yet) ):
               complained_yet = True;
             if this_result_obj: # [3]
@@ -216,7 +217,9 @@ else: options.globalScalesCorr = options.globalScalesCorr.split(',')
 ###############################################################################
 ## OPEN WORKSPACE AND EXTRACT INFO # ##########################################
 sqrts=13
+print(options.infilename)
 inWS = WSTFileWrapper(options.infilename,"tagsDumper/cms_hgg_%sTeV"%sqrts)
+#inWS = WSTFileWrapper(options.infilename,"wsig_13TeV")
 #inWS = inFile.Get('wsig_13TeV')
 #if (inWS==None) : inWS = inFile.Get('tagsDumper/cms_hgg_%sTeV'%sqrts)
 #intL = inWS.var('IntLumi').getVal() #FIXME
@@ -302,7 +305,7 @@ result ={}
 mass = inWS.var("CMS_hgg_mass")
 norm_factors_file = open('norm_factors_new.py','w')
 inclusiveCats = list(options.cats) #need the list() otherwise NoTag will also be appended to options.cats
-inclusiveCats.append("NoTag")
+#inclusiveCats.append("NoTag")
 for proc in options.procs:
   if proc in bkgProcs: continue
   for name in theorySyst.keys(): #wh_130_13TeV_UntaggedTag_1_pdfWeights
@@ -321,7 +324,7 @@ for proc in options.procs:
       weight_central = inWS.var("centralObjectWeight") 
       weight_sumW = inWS.var("sumW")
       for cat in inclusiveCats:
-        #print "---> this is proc ", proc, "look for", "%s_%d_13TeV_%s_pdfWeights"%(combProc.keys()[combProc.values().index(proc)],options.mass,cat) 
+        print "---> this is proc ", proc, "look for", "%s_%d_13TeV_%s_pdfWeights"%(combProc.keys()[combProc.values().index(proc)],options.mass,cat) 
         data_nominal= inWS.data("%s_%d_13TeV_%s_pdfWeights"%(combProc.keys()[combProc.values().index(proc)],options.mass,cat))
         data_nominal_sum = data_nominal.sumEntries()
         data_up = data_nominal.emptyClone();
@@ -451,6 +454,7 @@ def printTheorySysts():
 
 ## pdf weights printing tool 
 def getFlashggLineTheoryWeights(proc,cat,name,i,asymmetric,j=0,factor=1):
+  print(proc, cat, name, i)
   n = i
   m = i
   ad_hoc_factor =1.
@@ -820,7 +824,7 @@ if options.newGghScheme:
 tthSysts={}
 tthSysts['JEC'] = 'JEC_TTH'
 tthSysts['JER'] = 'JER_TTH'
-tthSysts['JetBTagReshapeWeight'] = 'BTagReshape_TTH'
+#tthSysts['JetBTagReshapeWeight'] = 'BTagReshape_TTH'
 btagReshapeSyst = 1.042 #ad hoc from Saranya for Moriond17, combination of various sources
 #flashggSysts['regSig'] = 'n_sigmae'
 #flashggSysts['idEff'] = 'n_id_eff'
@@ -1081,7 +1085,8 @@ def printNuisParams():
 def getFlashggLine(proc,cat,syst):
   asymmetric=False 
   eventweight=False 
-  #print "===========> SYST", syst ," PROC ", proc , ", TAG ", cat
+  print "===========> SYST", syst ," PROC ", proc , ", TAG ", cat
+  print("%s_%d_13TeV_%s_%s"%(flashggProc[proc],options.mass,cat,syst))
   dataSYMMETRIC =  inWS.data("%s_%d_13TeV_%s_%s"%(flashggProc[proc],options.mass,cat,syst)) #Will exist if the systematic is a symmetric uncertainty not stored as event weights
   dataDOWN =  inWS.data("%s_%d_13TeV_%s_%sDown01sigma"%(flashggProc[proc],options.mass,cat,syst)) # will exist if teh systematic is an asymetric uncertainty not strore as event weights
   dataUP =  inWS.data("%s_%d_13TeV_%s_%sUp01sigma"%(flashggProc[proc],options.mass,cat,syst))# will exist if teh systematic is an asymetric uncertainty not strore as event weights
@@ -1106,8 +1111,9 @@ def getFlashggLine(proc,cat,syst):
     data_nominal = dataNOMINAL.emptyClone();
     mass = inWS.var("CMS_hgg_mass")
     weight = r.RooRealVar("weight","weight",0)
-    weight_up = inWS.var("%sUp01sigma"%syst)
+    #weight_up = inWS.var("%sUp01sigma"%syst)
     #weight_down = inWS.var("%sDown01sigma"%sys)
+    weight_up = r.RooRealVar("%sUp01sigma"%syst,"%sUp01sigma"%syst,-1.)
     weight_down = r.RooRealVar("%sDown01sigma"%syst,"%sDown01sigma"%syst,-1.)
     weight_central = inWS.var("centralObjectWeight")
     zeroWeightEvents=0.
