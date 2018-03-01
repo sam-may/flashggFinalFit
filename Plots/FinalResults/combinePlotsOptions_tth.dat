@@ -1,0 +1,11 @@
+method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root,combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH
+
+
+#method=mu:files=combineJobs13TeV_tth/ExpMuScanStat/ExpMuScanStat.root,combineJobs13TeV_tth/ExpMuScan/ExpMuScan.root:colors=2,4:styles=1,1:widths=2,2:names=stat only,syststat:text=35.9 fb^{-1} (13TeV):outname=expected_mu
+
+# ones I actually use - observed
+#method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root:colors=2:styles=1:widths=2:names=syststat:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH
+#method=mu:files=combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=2:styles=1:widths=2:names=syststat:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMHStat
+#method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root,combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH #use also --MHtext 0.43:0.655:"m_{H} profiled" --legend 0.415,0.695,0.715,0.8 -x 0.7,1.6
+#method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root,combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH
+#method=mh:files=combineJobs13TeV_tth/MHScan/MHScan.root,combineJobs13TeV_tth/MHScanStat/MHScanStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MHScan:xvar=MH
