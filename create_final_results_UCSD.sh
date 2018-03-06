@@ -14,6 +14,6 @@ cp $DATACARD CMS-HGG_mva_13TeV_datacard.txt
 
 EXT=tth
 
-#./combineHarvester.py -d combineHarvesterOptions13TeV_"$EXT".dat --runLocal --parallel
+./combineHarvester.py -d combineHarvesterOptions13TeV_"$EXT".dat --runLocal --parallel
 ./combineHarvester.py --hadd combineJobs13TeV_$EXT
 ./makeCombinePlots.py -d combinePlotsOptions_"$EXT".dat
