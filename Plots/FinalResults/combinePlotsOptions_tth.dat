@@ -1,4 +1,5 @@
-method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root,combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH
+method=mu:files=combineJobs13TeV_tth/ExpMuScan/ExpMuScan.root,combineJobs13TeV_tth/ExpMuScanStat/ExpMuScanStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=ExpMuScan:xaxis=0.0,3.0
+method=mu:files=combineJobs13TeV_tth/MuScanProfileMH/MuScanProfileMH.root,combineJobs13TeV_tth/MuScanProfileMHStat/MuScanProfileMHStat.root:colors=4,2:styles=1,1:widths=2,2:names=stat+syst,stat only:text=35.9 fb^{-1} (13TeV):outname=MuScanProfileMH:xaxis=0.0,4.0
 
 
 #method=mu:files=combineJobs13TeV_tth/ExpMuScanStat/ExpMuScanStat.root,combineJobs13TeV_tth/ExpMuScan/ExpMuScan.root:colors=2,4:styles=1,1:widths=2,2:names=stat only,syststat:text=35.9 fb^{-1} (13TeV):outname=expected_mu

@@ -6,7 +6,9 @@ DATACARD=/afs/cern.ch/user/s/smay/public/CMSSW_7_4_7/src/flashggFinalFit/Datacar
 cd Plots/FinalResults
 
 cp $SIGFITLEP CMS-HGG_13TeV_sigfit_mva_tth_TTHLeptonicTag.root 
-cp $SIGFITHAD CMS-HGG_13TeV_sigfit_mva_tth_TTHHadronicTag.root 
+cp $SIGFITLEP CMS-HGG_sigfit_mva_tth_TTHLeptonicTag.root # readme says file should be named a la previous line, but some parts of script try to access file with this name
+cp $SIGFITHAD CMS-HGG_13TeV_sigfit_mva_tth_TTHHadronicTag.root
+cp $SIGFITHAD CMS-HGG_sigfit_mva_tth_TTHHadronicTag.root # readme says file should be named a la previous line, but some parts of script try to access file with this name
 cp $BKGFIT CMS-HGG_mva_13TeV_multipdf.root
 cp $DATACARD CMS-HGG_mva_13TeV_datacard.txt
 
@@ -15,5 +17,3 @@ EXT=tth
 ./combineHarvester.py -d combineHarvesterOptions13TeV_"$EXT".dat -q 1nh --batch LSF
 ./combineHarvester.py --hadd combineJobs13TeV_$EXT
 ./makeCombinePlots.py -d combinePlotsOptions_"$EXT".dat
-
-
