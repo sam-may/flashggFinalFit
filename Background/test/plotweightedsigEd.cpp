@@ -414,11 +414,11 @@ int main(int argc, char *argv[]) {
     printf("[INFO] Channel %d  : combcat_unweighted",chan->numTypes()+1);
     std::cout << "[INFO] --> description :" << "#splitline{fiducial phase space}{All classes} "<< std::endl;
     catnames.push_back("combcat_unweighted");
-    catdesc.push_back("#splitline{All Categories}{}");
+    catdesc.push_back("#splitline{All categories}{}");
     printf("[INFO] Channel %d  : combcat_weighted",chan->numTypes()+2);
     std::cout << "[INFO] --> description :" << "#splitline{fiducial phase space}{S/(S+B) weighted}" << std::endl;
     catnames.push_back("combcat_weighted");
-    catdesc.push_back("#splitline{All Categories}{S/(S+B) weighted}");
+    catdesc.push_back("#splitline{All categories}{S/(S+B) weighted}");
     
     // loop through categories and make calulcations for nEvents, etc 
     for (int i=0; i<chan->numTypes(); ++i) {

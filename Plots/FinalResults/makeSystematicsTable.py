@@ -185,6 +185,8 @@ if opts.makePlot:
     obs_directory="%s/SystematicsTable%s/%s"%(os.getcwd(),opts.folderName.replace('Expected','Observed'),POI)
     expNominalValues = getUpDownUncertainties(exp_directory,"none",POI) 
     obsNominalValues = getUpDownUncertainties(obs_directory,"none",POI) 
+    poiExpSum = 0.
+    poiObsSum = 0.
     for ng in plotNuisances:
       expValues= getUpDownUncertainties(exp_directory,ng,POI)
       obsValues= getUpDownUncertainties(obs_directory,ng,POI)
@@ -193,16 +195,32 @@ if opts.makePlot:
       thisDownWrtCentral = (abs(expNominalValues[1] **2 - expValues[1]**2))**(0.5)
       thisSymmWrtCentral = (abs(expNominalValues[2] **2 - expValues[2]**2))**(0.5)
       exp_poi_array[ng]=[thisUpWrtCentral,thisDownWrtCentral,thisSymmWrtCentral]
+      poiExpSum += thisSymmWrtCentral*thisSymmWrtCentral
       thisUpWrtCentral = (abs(obsNominalValues[0] **2 - obsValues[0]**2))**(0.5)
       thisDownWrtCentral = (abs(obsNominalValues[1] **2 - obsValues[1]**2))**(0.5)
       thisSymmWrtCentral = (abs(obsNominalValues[2] **2 - obsValues[2]**2))**(0.5)
       obs_poi_array[ng]=[thisUpWrtCentral,thisDownWrtCentral,thisSymmWrtCentral]
+      poiObsSum += thisSymmWrtCentral*thisSymmWrtCentral
+    poiExpSum = poiExpSum**0.5
+    poiObsSum = poiObsSum**0.5
+    expStatValues = getUpDownUncertainties(exp_directory,"all",POI) 
+    obsStatValues = getUpDownUncertainties(obs_directory,"all",POI) 
+    expRestValue = (abs(expNominalValues[2]**2 - poiExpSum**2))**(0.5)
+    obsRestValue = (abs(obsNominalValues[2]**2 - poiObsSum**2))**(0.5)
+    expRestValue = (abs(expStatValues[2]**2 - expRestValue**2))**(0.5)
+    obsRestValue = (abs(obsStatValues[2]**2 - obsRestValue**2))**(0.5)
     expValueMap=ordict()
     obsValueMap=ordict()
     for this_ng in exp_poi_array.items():
+      if this_ng[0] not in plotNuisances: continue
       expValueMap[this_ng[0]]=this_ng[1][2]
+      if 'Branching_ratio' in this_ng[0]: 
+        expValueMap['Other experimental uncertainties'] = expRestValue
     for this_ng in obs_poi_array.items():
+      if this_ng[0] not in plotNuisances: continue
       obsValueMap[this_ng[0]]=this_ng[1][2]
+      if 'Branching_ratio' in this_ng[0]: 
+        obsValueMap['Other experimental uncertainties'] = obsRestValue
     exp_overall_array[POI]=expValueMap
     obs_overall_array[POI]=obsValueMap
   r.gROOT.SetBatch()
@@ -213,11 +231,13 @@ if opts.makePlot:
   obsHists = {}
   legends = {}
   for POI in plotPOIs:
-    expHists[POI] = r.TH1F('expHist_%s'%POI, 'expHist_%s'%POI, 2*numNuis+1, 0, 2*numNuis)
+    #expHists[POI] = r.TH1F('expHist_%s'%POI, 'expHist_%s'%POI, 2*numNuis+1, 0, 2*numNuis)
+    expHists[POI] = r.TH1F('expHist_%s'%POI, 'expHist_%s'%POI, 2*numNuis+3, 0, 2*numNuis+2)
     expHists[POI].SetFillStyle(0)
     expHists[POI].SetLineStyle(1)
     expHists[POI].SetMarkerStyle(1)
-    obsHists[POI] = r.TH1F('obsHist_%s'%POI, 'obsHist_%s'%POI, 2*numNuis+1, 0, 2*numNuis)
+    #obsHists[POI] = r.TH1F('obsHist_%s'%POI, 'obsHist_%s'%POI, 2*numNuis+1, 0, 2*numNuis)
+    obsHists[POI] = r.TH1F('obsHist_%s'%POI, 'obsHist_%s'%POI, 2*numNuis+3, 0, 2*numNuis+2)
     obsHists[POI].SetLineColor(0)
     obsHists[POI].SetTitle('')
     obsHists[POI].GetYaxis().SetNdivisions(2,5,0)
@@ -251,6 +271,9 @@ if opts.makePlot:
     #expHists[plotPOIs[0]].GetXaxis().SetBinLabel(nuisCounter, nuisLabel)
     for POI in plotPOIs:
       expHists[POI].Fill( nuisCounter, exp_overall_array[POI][this_ng[0]] )
+      if 'Branching_ratio' in this_ng[0]: 
+        expHists[POI].Fill( nuisCounter+2, exp_overall_array[POI]['Other experimental uncertainties'] )
+    if 'Branching_ratio' in this_ng[0]: nuisCounter+=2
     nuisCounter += 2
   nuisCounter = 1
   for this_ng in obs_overall_array[POIs[0]].items():
@@ -264,14 +287,23 @@ if opts.makePlot:
     nuisLabel = nuisLabel.replace('contamination in VBF categories','jet multiplicity')
     nuisLabel = nuisLabel.replace('UE and PS','Underlying event and parton shower')
     nuisLabel = nuisLabel.replace('alphaS','#alpha_{s}')
+    nuisLabel = nuisLabel.replace('Branching ratio','Branching fraction')
     obsHists[plotPOIs[0]].GetXaxis().SetBinLabel(nuisCounter+1, nuisLabel)
     for POI in plotPOIs:
       obsHists[POI].Fill( nuisCounter, obs_overall_array[POI][this_ng[0]] )
+      if 'Branching_ratio' in this_ng[0]: 
+        obsHists[POI].Fill( nuisCounter+2, obs_overall_array[POI]['Other experimental uncertainties'] )
+    if 'Branching_ratio' in this_ng[0]: 
+      nuisCounter+=2
+      obsHists[plotPOIs[0]].GetXaxis().SetBinLabel(nuisCounter+1, 'Other experimental uncertainties')
     nuisCounter += 2
   canv = r.TCanvas('canv','canv',700,400)
-  pad1 = r.TPad('pad1','pad1',0.0, 0.,0.5 ,1.)
-  pad2 = r.TPad('pad2','pad2',0.5, 0.,0.75,1.)
-  pad3 = r.TPad('pad3','pad3',0.75,0.,1.,  1.)
+  #pad1 = r.TPad('pad1','pad1',0.0, 0.,0.5 ,1.)
+  #pad2 = r.TPad('pad2','pad2',0.5, 0.,0.75,1.)
+  #pad3 = r.TPad('pad3','pad3',0.75,0.,1.,  1.)
+  pad1 = r.TPad('pad1','pad1',0.0, 0.,0.5 ,0.9)
+  pad2 = r.TPad('pad2','pad2',0.5, 0.,0.75,0.9)
+  pad3 = r.TPad('pad3','pad3',0.75,0.,1.,  0.9)
   #pad1.SetBottomMargin(10)
   #pad1.SetTopMargin(10)
   #pad1.SetRightMargin(0.02)
@@ -300,6 +332,7 @@ if opts.makePlot:
   obsHists[plotPOIs[0]].SetMinimum(0.)
   obsHists[plotPOIs[0]].SetMaximum(0.1)
   obsHists[plotPOIs[0]].GetXaxis().SetTickSize(0.)
+  obsHists[plotPOIs[0]].GetXaxis().SetLabelSize(0.0435)
   obsHists[plotPOIs[0]].Draw('hbar')
   expHists[plotPOIs[0]].Draw('hbar,same')
   legends[plotPOIs[0]].Draw()
@@ -343,16 +376,19 @@ if opts.makePlot:
   lat.SetTextSize(0.06)
   #lat.SetLineWidth(2)
   #lat.SetTextAlign(31)
-  lat.DrawLatex(0.01,0.93,'#bf{CMS}  H#rightarrow#gamma#gamma')
+  lat.DrawLatex(0.01,0.94,'#bf{CMS}  H#rightarrow#gamma#gamma')
+  lat.SetTextSize(0.05)
+  lat.DrawLatex(0.8,0.94,'35.9 fb^{-1} (13 TeV)')
   lat.SetTextSize(0.03)
-  #lat.DrawLatex(0.3,0.96,'Uncertainty on #mu')
-  #lat.DrawLatex(0.55,0.96,'Uncertainty on #mu VBF')
-  #lat.DrawLatex(0.8,0.96,'Uncertainty on #mu ttH')
-  lat.DrawLatex(0.27,0.96,'Uncertainty on overall #mu')
-  lat.DrawLatex(0.57,0.96,'Uncertainty on #mu_{VBF}')
-  lat.DrawLatex(0.82,0.96,'Uncertainty on #mu_{ttH}')
+  #lat.DrawLatex(0.27,0.96,'Uncertainty on overall #mu')
+  #lat.DrawLatex(0.57,0.96,'Uncertainty on #mu_{VBF}')
+  #lat.DrawLatex(0.82,0.96,'Uncertainty on #mu_{ttH}')
+  lat.DrawLatex(0.27,0.87,'Uncertainty on overall #mu')
+  lat.DrawLatex(0.57,0.87,'Uncertainty on #mu_{VBF}')
+  lat.DrawLatex(0.82,0.87,'Uncertainty on #mu_{t#bar{t}H}')
   canv.SaveAs('testSystematicsPlot.pdf')
   canv.SaveAs('testSystematicsPlot.png')
+  canv.SaveAs('testSystematicsPlot.root')
   
 
 #default groupings

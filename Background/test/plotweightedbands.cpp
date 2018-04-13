@@ -788,13 +788,17 @@ int main(int argc, char *argv[]) {
     catplot->Draw();
     
     TGraphAsymmErrors *twosigma = twosigmas[i];
-    twosigma->SetFillColor(kYellow);
+    twosigma->SetFillColor(kOrange);
     twosigma->SetFillStyle(1001);
+    twosigma->SetLineWidth(0); //FIXME
+    twosigma->SetLineColor(kOrange); //FIXME
     twosigma->Draw("LE3SAME");  
     
     TGraphAsymmErrors *onesigma = onesigmas[i];
-    onesigma->SetFillColor(kGreen);
+    onesigma->SetFillColor(kGreen+1);
     onesigma->SetFillStyle(1001);
+    onesigma->SetLineWidth(0); //FIXME
+    onesigma->SetLineColor(kGreen+1); //FIXME
     onesigma->Draw("LE3SAME");   
     std::cout << "[INFO] drew bands on main plot" << std::endl; 
 
@@ -855,7 +859,9 @@ int main(int argc, char *argv[]) {
     leg2->AddEntry(hsigbkg,"S+B fit","L");  
     leg2->AddEntry(hbkg,"B component","L");  
     leg2->AddEntry(onesigma,"#pm1 #sigma","F");  
-    leg2->AddEntry(twosigma,"#pm2 #sigma","F");       
+    leg2->AddEntry(twosigma,"#pm2 #sigma","F"); //FIXME
+    //leg2->AddEntry(onesigma,"#pm1 s.d.","F");  
+    //leg2->AddEntry(twosigma,"#pm2 s.d.","F");       
     leg2->SetBorderSize(0);
     leg2->SetFillStyle(0);
     leg2->Draw();      
@@ -931,12 +937,12 @@ int main(int argc, char *argv[]) {
     hdummy->GetYaxis()->SetNdivisions(808);
 
     TGraphAsymmErrors *restwosigma = restwosigmas[i];
-    restwosigma->SetFillColor(kYellow);
+    restwosigma->SetFillColor(kOrange);
     restwosigma->SetFillStyle(1001);
     restwosigma->Draw("LE3SAME");  
     
     TGraphAsymmErrors *resonesigma = resonesigmas[i];
-    resonesigma->SetFillColor(kGreen);
+    resonesigma->SetFillColor(kGreen+1);
     resonesigma->SetFillStyle(1001);
     resonesigma->Draw("LE3SAME");       
     

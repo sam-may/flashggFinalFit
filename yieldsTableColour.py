@@ -694,7 +694,7 @@ for ih in options.order.split(":")[0].split(","):
   h.SetMarkerColor(colorList[iColor])
   h.SetBarWidth(0.9)
   ih = ih.replace("test","")
-  ih = ih.replace("TTH","ttH")
+  ih = ih.replace("TTH","t#bar{t}H")
   ih = ih.replace("GG2H","ggH")
   ih = ih.replace("BBH","bbH")
   ih = ih.replace("THQ","tHq")
@@ -791,7 +791,7 @@ for ih in options.order.split(":")[1].split(","):
 
 lat.SetTextAlign(31)
 lat.SetTextSize(0.04)
-lat.DrawLatex(0.5,0.02,"Signal Fraction (%)")
+lat.DrawLatex(0.5,0.02,"Signal fraction (%)")
 lat.DrawLatex(0.71,0.02,"Width (GeV)")
 lat.DrawLatex(0.95,0.02,"S/(S+B) in #pm #sigma_{eff}")
 lat.SetTextSize(0.05)

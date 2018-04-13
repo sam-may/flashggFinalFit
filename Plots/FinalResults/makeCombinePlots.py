@@ -645,7 +645,7 @@ def plot1DNLL(returnErrors=False,xvar="", ext=""):
     xtitle = '#mu_{qqH+VH}'
   elif options.method=='rf':
     x = 'RF'
-    xtitle = '#mu_{ggH+ttH}'
+    xtitle = '#mu_{ggH+t#bar{t}H}'
   else:
     sys.exit('Method not recognised for 1D scan %s'%options.method)
 
@@ -822,7 +822,7 @@ def plot1DNLL(returnErrors=False,xvar="", ext=""):
     lat2.DrawLatex(0.52,0.84,"#hat{#mu} = %4.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(fit,eplus0,eminus0)) #LHCP17
     #lat2.DrawLatex(0.47,0.84,"#hat{#mu} = %4.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(fit,eplus0,eminus0))
   elif options.method=='rv': lat2.DrawLatex(0.5,0.85,"#hat{#mu}_{qqH+VH} = %4.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(fit,eplus0,eminus0))
-  elif options.method=='rf': lat2.DrawLatex(0.5,0.85,"#hat{#mu}_{ggH+ttH} = %4.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(fit,eplus0,eminus0))
+  elif options.method=='rf': lat2.DrawLatex(0.5,0.85,"#hat{#mu}_{ggH+t#bar{t}H} = %4.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(fit,eplus0,eminus0))
 
   #draw CL lines
   if options.method=='mu':
@@ -845,7 +845,7 @@ def plot1DNLL(returnErrors=False,xvar="", ext=""):
 
 
 # 2DNLL plots, can input histos externally
-def plot2DNLL(xvar="RF",yvar="RV",xtitle="#mu_{ggH+ttH}",ytitle="#mu_{qqH+VH}"):
+def plot2DNLL(xvar="RF",yvar="RV",xtitle="#mu_{ggH+t#bar{t}H}",ytitle="#mu_{qqH+VH}"):
   
   #if len(options.files)>1:  sys.exit('Just one file for 2D scans please')
   canv = r.TCanvas("%s_%s"%(xvar,yvar),"%s_%s"%(xvar,yvar),750,750)
@@ -1312,7 +1312,7 @@ def plotMPdfChComp(plottype="perTag"):
            if "qqH" in catName: catName ="#scale[1.5]{VBF}"
            #if "ttH" in catName: catName ="#scale[1.5]{#sigma_{ttH}/#sigma_{theo}}"
            if "ttH" in catName: catName ="#scale[1.5]{TTH}"
-           if "TTH" in catName: catName ="#scale[1.5]{ttH}"
+           if "TTH" in catName: catName ="#scale[1.5]{t#bar{t}H}"
            #if "VH"  in catName: catName ="#scale[1.5]{#sigma_{VH}}"
            if "VH2HQQ"  in catName: catName ="#scale[1.5]{VH2HQQ}"
            if "VH2HQQ"  in catName: catName ="#scale[1.5]{VH hadronic}"
@@ -1324,14 +1324,19 @@ def plotMPdfChComp(plottype="perTag"):
            print "DEBUG LC b CATBAME ", catName
 
          else:
-           if "ggH" in catName: catName ="#scale[1.5]{#mu_{ggH}}"
+           #FIXME just putting the name now, no mu
+           #if "ggH" in catName: catName ="#scale[1.5]{#mu_{ggH}}"
+           if "ggH" in catName: catName ="#scale[1.5]{ggH}"
            #if "ggH" in catName: catName ="#scale[1.5]{#mu_{GG2H}}"
-           if "qqH" in catName: catName ="#scale[1.5]{#mu_{VBF}}"
-           if "ttH" in catName: catName ="#scale[1.5]{#mu_{ttH}}"
+           #if "qqH" in catName: catName ="#scale[1.5]{#mu_{VBF}}"
+           if "qqH" in catName: catName ="#scale[1.5]{VBF}"
+           #if "ttH" in catName: catName ="#scale[1.5]{#mu_{t#bar{t}H}}"
+           if "ttH" in catName: catName ="#scale[1.5]{t#bar{t}H}"
            #if "ttH" in catName: catName ="#scale[1.5]{#mu_{TTH}}"
            #if "VH"  in catName: catName ="#scale[1.5]{#mu_{VH}}"
            if "VH2HQQ"  in catName: catName ="#scale[1.5]{#mu_{VH2HQQ}}"
-           if catName == "VH": catName ="#scale[1.5]{#mu_{VH}}"
+           #if catName == "VH": catName ="#scale[1.5]{#mu_{VH}}"
+           if catName == "VH": catName ="#scale[1.5]{VH}"
            if "QQ2HLNU"  in catName: catName ="#scale[1.5]{#mu_{QQ2HLNU}}"
            if "QQ2HLL"  in catName: catName ="#scale[1.5]{#mu_{QQ2HLL}}"
       else:
@@ -1411,6 +1416,7 @@ def plotMPdfChComp(plottype="perTag"):
 
 
   #xtitle = "#sigma/#sigma_{sm}"
+  #FIXME
   #xtitle = "#mu"
   xtitle = "#hat{#mu}"
   if doStxs: xtitle = "#sigma_{proc}/#sigma_{theo}"
@@ -1464,10 +1470,13 @@ def plotMPdfChComp(plottype="perTag"):
       else:
         if (point[2]<0.354 or point[3]<0.354):
           binlabel = "%s      %.2f ^{+%.2f}_{-%.2f}"%(catNames[p],point[1],point[2],point[3])
+          #binlabel = "%s      %.2f ^{+%.2f}_{#minus%.2f}"%(catNames[p],point[1],point[2],point[3])
           if (point[1]<0.001): 
             binlabel = "%s        %.1f ^{+%.1f}_{-%.1f}"%(catNames[p],point[1],point[2],point[3])
+            #binlabel = "%s        %.1f ^{+%.1f}_{#minus%.1f}"%(catNames[p],point[1],point[2],point[3])
         else:
           binlabel = "%s        %.1f ^{+%.1f}_{-%.1f}"%(catNames[p],point[1],point[2],point[3])
+          #binlabel = "%s        %.1f ^{+%.1f}_{#minus%.1f}"%(catNames[p],point[1],point[2],point[3])
     elif point[0]=='' and len(catFits)>10: 
       if ( "Dummy" in catNames[p]) :
         binlabel = ""
@@ -1488,7 +1497,8 @@ def plotMPdfChComp(plottype="perTag"):
     else: binlabel = point[0]
     dummyHist.GetYaxis().SetBinLabel(p+1,binlabel)
     dummyHist.GetYaxis().SetLabelOffset(-0.045)
-    dummyHist.GetYaxis().SetLabelSize(0.05)
+    #dummyHist.GetYaxis().SetLabelSize(0.05) #FIXME FR
+    dummyHist.GetYaxis().SetLabelSize(0.053) #FIXME FR
     if options.percatchcomp: dummyHist.GetYaxis().SetTickSize(0.02)
 
     catGraph1sig[grIndex].SetLineColor(int(options.colors[grIndex]))
@@ -1635,7 +1645,7 @@ def plotMPdfChComp(plottype="perTag"):
     line.SetLineStyle(1)
     line.SetLineWidth(1)
     line.SetLineColor(r.kBlack)
-    legendLine = r.TLine(3.75,5.23,3.75,5.85)
+    legendLine = r.TLine(3.75,5.23,3.75,5.846)
     legendLine.SetLineStyle(1)
     legendLine.SetLineWidth(3)
     legendLine.SetLineColor(r.kBlack)
@@ -1658,13 +1668,16 @@ def plotMPdfChComp(plottype="perTag"):
       #smBoxes[proc].SetFillColor(r.kGreen-3) #default darkish green
       #smBoxes[proc].SetFillColor(r.kGray+1)
       smBoxes[proc].SetFillColor(9) #blue chosen for LHCP17 PAS
+      smBoxes[proc].SetLineWidth(0)
+      smBoxes[proc].SetLineColor(9)
       #smBoxes[proc].SetFillColor(r.kOrange+6)
       #if proc=="GG2H":
       #  smBoxes[proc].SetLineStyle(1)
-      #  smBoxes[proc].SetLineWidth(1)
+      #  smBoxes[proc].SetLineWidth(0)
       #  smBoxes[proc].SetLineColor(r.kBlack)
       smBoxes[proc].Draw("same")
-    leg.AddEntry(smBoxes["GG2H"],"SM Prediction","F")
+    theLegEntry = leg.AddEntry(smBoxes["GG2H"],"SM Prediction","F")
+    theLegEntry.SetLineWidth(0)
   line.Draw("same")
 
   # draw fit value
@@ -1673,6 +1686,7 @@ def plotMPdfChComp(plottype="perTag"):
   lat2.SetTextAlign(12)
   #lat2.SetTextSize(0.035)
   lat2.SetTextSize(0.04)
+  #FIXME
   if not doStxs: lat2.DrawLatex(0.57,0.59,"#hat{#mu}_{combined} = %6.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(bestFit[1],bestFit[2],bestFit[3]))
   #else: lat2.DrawLatex(0.57,0.59,"#sigma_{combined}/#sigma_{theo} = %6.2f ^{#font[122]{+}%4.2f}_{#font[122]{-}%4.2f}"%(bestFit[1],bestFit[2],bestFit[3]))
   if (options.mhval==None):
@@ -1815,7 +1829,8 @@ def plotMPdfMaxLH():
 
   dummyHist.SetStats(0)
   #dummyHist.GetYaxis().SetTitle("#sigma/#sigma_{SM}")
-  dummyHist.GetYaxis().SetTitle("#hat{#mu}")
+  #dummyHist.GetYaxis().SetTitle("#hat{#mu}")
+  dummyHist.GetYaxis().SetTitle("#mu")
   dummyHist.GetYaxis().SetTitleSize(0.05)
   dummyHist.GetYaxis().SetTitleOffset(0.7)
   #dummyHist.GetYaxis().SetTitle("#mu = #sigma/#sigma_{SM} ")
@@ -1919,7 +1934,7 @@ def run():
     #plot2DNLL("MH","r","m_{H} (GeV)","#sigma/#sigma_{SM}")
     plot2DNLL("MH","r","m_{H} (GeV)","#mu")
   elif options.method=='rvrf':
-    plot2DNLL("RF","RV","#mu_{ggH,ttH}","#mu_{VBF,VH}")
+    plot2DNLL("RF","RV","#mu_{ggH,t#bar{t}H}","#mu_{VBF,VH}")
   elif options.method=='cvcf':
     plot2DNLL("kappa_V","kappa_F","#kappa_{V}","#kappa_{f}")
   elif options.method=='xdm':
