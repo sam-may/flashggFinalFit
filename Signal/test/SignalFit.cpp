@@ -102,13 +102,15 @@ float mcBeamSpotWidth_=5.14; //cm // the beamspot has a certain width in MC whic
 //float dataBeamSpotWidth_=4.24; //cm
 float dataBeamSpotWidth_=3.5; //cm
 //string referenceProc_="ggh";
-string referenceProc_="GG2H";
+
+//CHANGED REFERENCE FOR TTH ONLY PURPOSE
+string referenceProc_="TTH";
 //string referenceProcWV_="ggh";
-string referenceProcWV_="GG2H";
+string referenceProcWV_="TTH";
 //string referenceProcTTH_="tth";
 string referenceProcTTH_="TTH";
-string referenceTagWV_="UntaggedTag_2";
-string referenceTagRV_="UntaggedTag_2";
+string referenceTagWV_="TTHHadronicTag";
+string referenceTagRV_="TTHHadronicTag";
 vector<string> map_proc_;
 vector<string> map_cat_;
 vector<string> map_replacement_proc_RV_;
@@ -442,13 +444,14 @@ int main(int argc, char *argv[]){
 	sw.Start();
 
   // reference details for low stats cats
+  // CHANGED FOR TTH ONLY PURPOSE: want category + process combination with highest stats
   // need to make this configurable ?! -LC
   //referenceProc_="ggh";
-  referenceProc_="GG2H";
+  referenceProc_="TTH";
   //referenceProcTTH_="tth";
   referenceProcTTH_="TTH";
-  referenceTagWV_="UntaggedTag_2"; // histest stats WV is ggh Untagged 3. 
-  referenceTagRV_="UntaggedTag_2"; // fairly low resolution tag even for ggh, more approprioate as te default than re-using the original tag.
+  referenceTagWV_="TTHHadronicTag"; // histest stats WV is ggh Untagged 3. 
+  referenceTagRV_="TTHHadronicTag"; // fairly low resolution tag even for ggh, more approprioate as te default than re-using the original tag.
   // are WV which needs to borrow should be taken from here
   
   // isFlashgg should now be the only option.

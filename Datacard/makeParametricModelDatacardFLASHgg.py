@@ -135,7 +135,8 @@ flashggProc = {'ggH_hgg':'ggh','qqH_hgg':'vbf','VH':'wzh','WH_hgg':'wh','ZH_hgg'
 if options.doSTXS: 
   flashggProc = {'ggH_hgg':'GG2H','qqH_hgg':'VBF','ttH_hgg':'TTH','WH_lep_hgg':'QQ2HLNU','ZH_lep_hgg':'QQ2HLL','WH_had_hgg':'WH2HQQ','ZH_had_hgg':'ZH2HQQ','bbH_hgg':'testBBH','tHq_hgg':'testTHQ','tHW_hgg':'testTHW','bkg_mass':'bkg_mass'}
 procId = {'ggH_hgg':0,'qqH_hgg':-1,'ttH_hgg':-2,'WH_lep_hgg':-2,'ZH_lep_hgg':-3,'WH_had_hgg':-4,'ZH_had_hgg':-5,'bbH_hgg':-6,'tHq_hgg':-7,'tHW_hgg':-8,'bkg_mass':1}
-bkgProcs = ['bkg_mass','bbH_hgg','tHq_hgg','tHW_hgg'] #what to treat as background
+#CHANGED FOR TTH only: including all but ttH as a background
+bkgProcs = ['bkg_mass','bbH_hgg','tHq_hgg','tHW_hgg','ggH_hgg','qqH_hgg','WH_lep_hgg','ZH_lep_hgg','WH_had_hgg','ZH_had_hgg'] #what to treat as background
 #Determine if VH or WZH_hgg
 splitVH=False
 if 'wzh'in options.procs.split(','):
@@ -409,7 +410,7 @@ def printTheorySysts():
         for c in options.cats:
           for p in options.procs:
             #with new WG1 prescription, specific other nuisances deal with ggH theory uncerts
-            if "bkg" in flashggProc[p] or "BBH" in flashggProc[p] or "THQ" in flashggProc[p] or "THW" in flashggProc[p] or ('scaleWeight' in systName and options.newGghScheme and 'ggH' in p):
+            if p in bkgProcs:
               outFile.write('- ')
               continue
             else:
@@ -1180,7 +1181,9 @@ def printFlashggSysts():
         for p in options.procs:
           if '%s:%s'%(p,c) in options.toSkip: continue
           #print "p,c is",p,c
-          if p in bkgProcs or ('pdfWeight' in flashggSyst and (p!='ggH_hgg' and p!='qqH_hgg')) or ('THU_ggH' in flashggSyst and p!='ggH_hgg'):
+          if ('THU_ggH' in flashggSyst and p=='ggH_hgg'):
+            outFile.write(getFlashggLine(p,c,flashggSyst))
+          elif p in bkgProcs or ('pdfWeight' in flashggSyst and (p!='ggH_hgg' and p!='qqH_hgg')) or ('THU_ggH' in flashggSyst and p!='ggH_hgg'):
             outFile.write('- ')
           else:
             outFile.write(getFlashggLine(p,c,flashggSyst))
@@ -1504,7 +1507,7 @@ if (len(tthCats) > 0 ):  printTTHSysts()
 printTheorySysts()
 # lnN systematics
 printFlashggSysts()
-printUEPSSyst()
+#printUEPSSyst()
 #catgeory migrations
 #if (len(dijetCats) > 0 and len(tthCats)>0):  printVbfSysts()
 if (len(dijetCats) > 0 ):  printVbfSysts()
