@@ -20,7 +20,8 @@ QUEUE="1nh"
 echo "Batch is $QUEUE"
 
 #SIGFILE="/vols/build/cms/jl2117/ttHOnlyTest/CMSSW_7_4_7/src/flashggFinalFit/Signal/outdir_${EXT}/CMS-HGG_sigfit_${EXT}.root"
-SIGFILE="/afs/cern.ch/work/s/smay/public/ttH_only_flashggFinalFit/CMSSW_7_4_7/src/flashggFinalFit/Signal/outdir_${EXT}/CMS-HGG_sigfit_${EXT}.root"
+#SIGFILE="/afs/cern.ch/work/s/smay/public/ttH_only_flashggFinalFit/CMSSW_7_4_7/src/flashggFinalFit/Signal/outdir_${EXT}/CMS-HGG_sigfit_${EXT}.root"
+SIGFILE="/home/users/sjmay/ttH/FinalFits/CMSSW_7_4_7/src/flashggFinalFit/Signal/outdir_${EXT}/CMS-HGG_sigfit_${EXT}.root"
 
 echo "./runBackgroundScripts.sh -i $DATA -p $PROCS -f $CATS --ext $EXT --intLumi $INTLUMI --batch $BATCH --sigFile $SIGFILE --isData --unblind"
 ./runBackgroundScripts.sh -i $DATA -p $PROCS -f $CATS --ext $EXT --intLumi $INTLUMI --batch $BATCH --sigFile $SIGFILE --isData --unblind

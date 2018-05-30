@@ -39,12 +39,12 @@ MHIGH=130
 echo "Masslist is $MASSLIST"
 
 # Create datacard
-#./runFinalFitsScripts.sh -i $FILE125 -p $PROCS -f $CATS --ext $EXT --intLumi $INTLUMI --batch $BATCH --dataFile $DATA --isData --datacardOnly \
- #                        --smears $SMEARS --scales $SCALES --scalesCorr $SCALESCORR --scalesGlobal $SCALESGLOBAL --doSTXS --newGghScheme #--uepsFile $UEPSFILE 
+./runFinalFitsScripts.sh -i $FILE125 -p $PROCS -f $CATS --ext $EXT --intLumi $INTLUMI --batch $BATCH --dataFile $DATA --isData --datacardOnly \
+                         --smears $SMEARS --scales $SCALES --scalesCorr $SCALESCORR --scalesGlobal $SCALESGLOBAL --doSTXS --newGghScheme #--uepsFile $UEPSFILE 
 
 # Run combine
 ./combineHarvester.py -d combineHarvesterOptions13TeV_"$EXT".dat --runLocal --parallel
-./combineHarvester.py --hadd combineJobs13TeV_$EXT
+./combineHarvester.py --hadd combineJobs13TeV_"$EXT"
 ./makeCombinePlots.py -d combinePlotsOptions_"$EXT".dat -b --MHtext 0.43:0.655:"m_{H} profiled" --legend 0.415,0.695,0.715,0.8 -x 0.0,4.0 --specifyX r_ttH
 
 #./runFinalFitsScripts.sh -i $FILE -p $PROCS -f $CATS --ext $EXT --intLumi $INTLUMI --batch $BATCH --dataFile $DATA --isData --combineOnly
