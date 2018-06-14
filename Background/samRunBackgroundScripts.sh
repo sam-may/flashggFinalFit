@@ -4,7 +4,9 @@
 
 #DATA="/afs/cern.ch/work/s/smay/public/CMSSW_8_0_28/src/flashgg/Systematics/test/data_jobs_916/allData.root"
 #DATA="/afs/cern.ch/work/s/smay/public/allData.root"
-DATA="/home/users/sjmay/ttH/FinalFits/CMSSW_7_4_7/src/flashggFinalFit/ws_flashgg_std/allData.root"
+#DATA="/home/users/sjmay/ttH/FinalFits/CMSSW_7_4_7/src/flashggFinalFit/ws_flashgg_std/allData.root"
+DIR="ws_ttHOnlyTest_v1"
+DATA="/home/users/sjmay/ttH/FinalFits/CMSSW_7_4_7/src/flashggFinalFit/$DIR/allData.root"
 
 EXT="ttHOnly"
 echo "Ext is $EXT"
