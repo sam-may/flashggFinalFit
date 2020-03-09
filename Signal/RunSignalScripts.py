@@ -13,6 +13,7 @@ def get_options():
 
   # Setup
   parser.add_option('--inputWSDir', dest='inputWSDir', default='/eos/home-j/jlangfor/hgg/ws/test_legacy_runII_102x', help="Directory storing flashgg workspaces" )
+  parser.add_option('--procs', dest='procs', default='auto', help="Procs: auto mean will determine from input WS filenames")
   parser.add_option('--cats', dest='cats', default='UntaggedTag_0,VBFTag_0', help="Define categories")
   parser.add_option('--ext', dest='ext', default='test', help="Extension: defines output dir where signal models are saved")
   parser.add_option('--analysis', dest='analysis', default='test', help="Analysis handle: used in Signal/python/replacementMap.py to specify replacement dataset mapping when too few entries")
@@ -58,6 +59,7 @@ if opt.inputConfig != '':
 
     #Extract options
     inputWSDir   = _cfg['inputWSDir']
+    procs        = _cfg['procs']
     cats         = _cfg['cats']
     ext          = _cfg['ext']
     analysis     = _cfg['analysis']
@@ -87,6 +89,7 @@ if opt.inputConfig != '':
 #Else extract from option parser
 else:
   inputWSDir   = opt.inputWSDir
+  procs        = opt.procs
   cats         = opt.cats
   ext          = opt.ext
   analysis     = opt.analysis
@@ -141,6 +144,7 @@ elif mode == "writePhotonSyst":
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 else:
+
   # Extract list of input ws filenames
   ws_fileNames = []
   for root, dirs, files in os.walk( inputWSDir ):
@@ -154,16 +158,13 @@ else:
   for fileName in ws_fileNames: ws_fullFileNames+="%s/%s,"%(inputWSDir,fileName)
   ws_fullFileNames = ws_fullFileNames[:-1]
 
-  # Extract list of procs
-  #procs = ''
-  #for fileName in ws_fileNames:
-  #  if '125' not in fileName: continue
-  #  procs += "%s,"%fileName.split('pythia8_')[1].split('.root')[0]
-  #procs = procs[:-1]
-  #procs = 'ggh,tth,vbf,zh,wh'
-  #procs = 'tth,ggh,vbf,zh,wh,fcnc'
-  #procs = 'wh,zh,vbf,ggh,tth'
-  #procs = 'fcnc'
+  if procs == "auto":
+    # Extract list of procs
+    procs = ''
+    for fileName in ws_fileNames:
+      if 'M125' not in fileName: continue
+      procs += "%s,"%fileName.split('pythia8_')[1].split('.root')[0]
+    procs = procs[:-1]
 
   # Extract low and high MH values
   mps = []
