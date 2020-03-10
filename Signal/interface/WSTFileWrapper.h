@@ -29,6 +29,7 @@ class WSTFileWrapper  {
     RooAbsReal* function(std::string, std::string);
     std::pair<std::string,std::string> convertTemplatedName(std::string);
     std::string fileToKey(std::string);
+    std::string fileToKeyFCNC(std::string);
     int nFiles() { return fileList.size(); }
     void Close();
   private:

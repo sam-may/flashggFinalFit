@@ -17,7 +17,7 @@ WSTFileWrapper::WSTFileWrapper( std::string files, std::string wsname, std::stri
 
   std::cout << "inside WST contructor, about to loop over files" << std:: endl;
   for ( std::vector<std::string>::iterator fn = fnList.begin() ; fn != fnList.end() ; fn++ ) {
-    std::string keyName = std::string( fileToKey( *fn ) );
+    std::string keyName = std::string( fileToKeyFCNC( *fn ) );
     fileList.emplace( keyName, TFile::Open(fn->c_str()) );
     if (fileList.rbegin()->second == 0) {
       std::cout << "[WSTFileWrapper] got 0 for what should be this file: " << (*fn) << std::endl;
@@ -78,6 +78,31 @@ RooWorkspace* WSTFileWrapper::getSpecificWorkspace( int i ) {
 RooRealVar* WSTFileWrapper::var(std::string varName) {
   fileList.begin()->second->cd();
   return wsList[0]->var(varName.c_str());
+}
+
+std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
+    TString procName = TString(fileName);
+    TString coupling;
+
+    if (procName.Contains("data")) 
+        return std::string("data");
+    else if (procName.Contains("Hct"))
+        coupling = "Hct";
+    else if (procName.Contains("Hut"))
+        coupling = "Hut";
+    else
+        std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
+
+    procName = procName(procName.Index("ws_merged"), procName.Length() -1);
+    procName = procName(procName.Index(coupling) + 4, procName.Length() - 1);
+    procName = procName.ReplaceAll(".root", "");
+    procName = procName(0, procName.Length() - 5);
+    TString mass = procName(procName.Length() - 3, procName.Length() - 1);
+    procName = procName(0, procName.Length() - 4);
+    std::string keyName = TString ( TString(mass.Data()) + TString(procName.Data()) ).Data();
+    std::cout << "[WSTFileWrapper::fileToKeyFCNC] Extracted keyName of: " << keyName << " from file: " << fileName << std::endl;
+    return keyName;
+
 }
 
 std::string WSTFileWrapper::fileToKey( std::string fileName ) {
