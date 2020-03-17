@@ -86,6 +86,16 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
 
     if (procName.Contains("data")) 
         return std::string("data");
+    else if (procName.Contains("ws_merged_fcnc")) {
+        if (procName.Contains("st"))
+            return std::string("125stfcnc");
+        else if (procName.Contains("tt"))
+            return std::string("125ttfcnc");
+        else {
+            std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
+            return "";
+        }
+    }
     else if (procName.Contains("Hct"))
         coupling = "Hct";
     else if (procName.Contains("Hut"))
@@ -100,7 +110,7 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
     TString mass = procName(procName.Length() - 3, procName.Length() - 1);
     procName = procName(0, procName.Length() - 4);
     std::string keyName = TString ( TString(mass.Data()) + TString(procName.Data()) ).Data();
-    std::cout << "[WSTFileWrapper::fileToKeyFCNC] Extracted keyName of: " << keyName << " from file: " << fileName << std::endl;
+    //std::cout << "[WSTFileWrapper::fileToKeyFCNC] Extracted keyName of: " << keyName << " from file: " << fileName << std::endl;
     return keyName;
 
 }

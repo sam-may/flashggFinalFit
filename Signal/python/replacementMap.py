@@ -9,10 +9,12 @@ replacementProcWV = {
   "hig-16-040":"GG2H",
   "stage1":"GG2H_0J",
   "stage1_1":"GG2H_0J_PTH_GT10",
-  "stage1_2":"GG2H_0J_PTH_GT10"
+  "stage1_2":"GG2H_0J_PTH_GT10",
+  "fcnc":"tth"
 }
 # Replacement cat for WV fit: 
 replacementCatWV = {
+  "fcnc":"FCNCHadronicTag_1",
   "hig-16-040":"UntaggedTag_2",
   "stage1":"RECO_0J_Tag1",
   "stage1_1":"RECO_0J_PTH_GT10_Tag1",
@@ -26,6 +28,13 @@ replacementCatWV = {
 
 # Replacement process for RV fit:
 replacementProcRVMap = {
+
+  "fcnc":[
+      "FCNCHadronicTag_0:FCNCHadronicTag_1",
+      "FCNCHadronicTag_1:FCNCHadronicTag_1",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_1",
+      "FCNCLeptonicTag_1:FCNCLeptonicTag_1"
+  ],
 
   # HIG-16-040 categorisation
   "hig-16-040":[
@@ -176,6 +185,13 @@ replacementProcRVMap = {
 
 # Replacement category for RV fit:
 replacementCatRVMap = {
+
+  "fcnc":[
+      "FCNCHadronicTag_0:FCNCHadronicTag_1",
+      "FCNCHadronicTag_1:FCNCHadronicTag_1",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_1",
+      "FCNCLeptonicTag_1:FCNCLeptonicTag_1"
+  ],
 
   # HIG-16-040 categorisation
   "hig-16-040":[

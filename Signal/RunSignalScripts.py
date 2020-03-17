@@ -142,7 +142,8 @@ else:
   ws_fileNames = []
   for root, dirs, files in os.walk( inputWSDir ):
     for fileName in files:
-      if not fileName.startswith('output_'): continue
+      if "ws_merged_data" in fileName: continue # skip data
+      if not fileName.startswith('ws_merged_'): continue
       if not fileName.endswith('.root'): continue
       ws_fileNames.append( fileName )
   # concatenate with input dir to get full list of complete file names
@@ -151,11 +152,14 @@ else:
   ws_fullFileNames = ws_fullFileNames[:-1]
 
   # Extract list of procs
-  procs = ''
-  for fileName in ws_fileNames:
-    if 'M125' not in fileName: continue
-    procs += "%s,"%fileName.split('pythia8_')[1].split('.root')[0]
-  procs = procs[:-1]
+  #procs = ''
+  #for fileName in ws_fileNames:
+  #  if '125' not in fileName: continue
+  #  procs += "%s,"%fileName.split('pythia8_')[1].split('.root')[0]
+  #procs = procs[:-1]
+  #procs = 'ggh,tth,vbf,zh,wh'
+  #procs = 'tth,ggh,vbf,zh,wh,fcnc'
+  procs = 'tth'
 
   # Extract low and high MH values
   mps = []

@@ -117,7 +117,7 @@ RooRealVar *dZ_;
 RooRealVar *intLumi_;
 bool beamSpotReweigh_ = false;
 bool useDCBplusGaus_ = false;
-string analysis_ = "hig-16-040"; // Option to define which replacement mapping to use, default is hig-16-040
+string analysis_ = "fcnc"; // Option to define which replacement mapping to use, default is hig-16-040
 
 void OptionParser(int argc, char *argv[]){
 	po::options_description desc1("Allowed options");
@@ -490,7 +490,7 @@ int main(int argc, char *argv[]){
   //time to open the signal file for the main script!
 	WSTFileWrapper *inWS;
 	if (isFlashgg_){
-    inWS = new WSTFileWrapper(filenameStr_,"tagsDumper/cms_hgg_13TeV");
+        inWS = new WSTFileWrapper(filenameStr_,"tagsDumper/cms_hgg_13TeV");
 	} else {
     std::cout << "[ERROR] script is only compatible with flashgg! exit(1)." << std::endl;
     exit(1);
@@ -1051,6 +1051,10 @@ int main(int argc, char *argv[]){
     // if we are doing jobs for each proc/tag, want to do the split.
     bool split =0;
     if (split_.size() > 0) split=1; 
+    std::cout << "Split is: ";
+    for (unsigned int i = 0; i < split_.size(); i++)
+        std::cout << split_[i] << " ";
+    std::cout << std::endl;
     packager.packageOutput(/*split*/split, /*proc*/split_[0], /*tag*/ split_[1] );
     sw.Stop();
     cout << "[INFO] Combination complete." << endl;
