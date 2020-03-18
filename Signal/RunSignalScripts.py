@@ -117,7 +117,11 @@ if mode not in ['std','calcPhotonSyst','writePhotonSyst','sigFitOnly','packageOn
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # FIXME: configure also for CONDOR
 # If mode == calcPhotonSyst: submit a job to the batch for each category
-if mode == "calcPhotonSyst":
+#if mode == "getFractions":
+#  if not os.path.isdir("./jsons"): os.system("mkdir ./jsons")
+#  os.system("./getFractions.py --ext %s -f %s --cats %s"%(ext,inputWSDir,cats))
+
+elif mode == "calcPhotonSyst":
   print " --> Calculating photon systematics: %s"%ext
   if not os.path.isdir("./outdir_%s"%ext): os.system("mkdir ./outdir_%s"%ext)
   if not os.path.isdir("./outdir_%s/calcPhotonSyst"%ext): os.system("mkdir ./outdir_%s/calcPhotonSyst"%ext)
