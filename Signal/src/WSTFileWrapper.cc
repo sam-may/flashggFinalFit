@@ -93,15 +93,17 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
             return std::string("125ttfcnc");
         else {
             std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
-            return "";
+            return this->fileToKey(fileName); // fall back to default method
         }
     }
     else if (procName.Contains("Hct"))
         coupling = "Hct";
     else if (procName.Contains("Hut"))
         coupling = "Hut";
-    else
+    else {
         std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
+        return this->fileToKey(fileName); // fall back to default method
+    }
 
     procName = procName(procName.Index("ws_merged"), procName.Length() -1);
     procName = procName(procName.Index(coupling) + 4, procName.Length() - 1);
