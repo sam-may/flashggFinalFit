@@ -17,6 +17,8 @@ from threading import Thread, Semaphore
 from multiprocessing import cpu_count
 import subprocess
 
+import parallel_utils
+
 class Wrap:
     def __init__(self, func, args, queue):
         self.queue = queue
@@ -87,6 +89,7 @@ parser.add_option("--massList",default="120,125,130")
 parser.add_option("-f","--flashggCats",default=None)
 parser.add_option("--bs",default=5.14)
 parser.add_option("--expected",type="int",default=None)
+parser.add_option("--nPar",type="int",default=8)
 (opts,args) = parser.parse_args()
 
 defaults = copy(opts)
@@ -153,7 +156,8 @@ def writePostamble(sub_file, exec_line):
                              stderr=subprocess.PIPE,
                              close_fds=True)
   if opts.runLocal:
-     system('bash %s'%os.path.abspath(sub_file.name))
+    return 'bash %s'%os.path.abspath(sub_file.name)
+      #system('bash %s'%os.path.abspath(sub_file.name))
 
 
 #######################################
@@ -162,6 +166,8 @@ def writePostamble(sub_file, exec_line):
 system('mkdir -p %s/SignalFitJobs/outputs'%opts.outDir)
 print ('mkdir -p %s/SignalFitJobs/outputs'%opts.outDir)
 counter=0
+if opts.runLocal:
+    command_list = []
 for proc in  opts.procs.split(","):
   for cat in opts.flashggCats.split(","):
     print "job ", counter , " - ", proc, " - ", cat
@@ -175,7 +181,11 @@ for proc in  opts.procs.split(","):
       bsRW=1
     exec_line = "%s/bin/SignalFit --verbose 0 -i %s -d %s/%s  --mhLow=%s --mhHigh=%s -s %s/%s --procs %s -o  %s/%s -p %s/%s -f %s --changeIntLumi %s --binnedFit 1 --nBins 320 --split %s,%s --beamSpotReweigh %d --dataBeamSpotWidth %f --massList %s --useDCBplusGaus %s --useSSF %s --analysis %s --year %s -C -1" %(os.getcwd(), opts.infile,os.getcwd(),opts.datfile,opts.mhLow, opts.mhHigh, os.getcwd(),opts.systdatfile, opts.procs,os.getcwd(),opts.outfilename.replace(".root","_%s_%s.root"%(proc,cat)), os.getcwd(),opts.outDir, opts.flashggCats ,opts.changeIntLumi, proc,cat,bsRW,float(opts.bs), opts.massList, opts.useDCB_1G, opts.useSSF, opts.analysis, opts.year)
     #print exec_line
-    writePostamble(file,exec_line) #includes submission
+    if opts.runLocal:
+      command_list.append(writePostamble(file,exec_line))
+    else:
+      writePostamble(file,exec_line) #includes submission
 
-
+if opts.runLocal:
+    parallel_utils.submit_jobs(command_list, opts.nPar)
 

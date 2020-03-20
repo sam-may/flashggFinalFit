@@ -30,10 +30,10 @@ replacementCatWV = {
 replacementProcRVMap = {
 
   "fcnc":[
-      "FCNCHadronicTag_0:FCNCHadronicTag_1",
-      "FCNCHadronicTag_1:FCNCHadronicTag_1",
-      "FCNCLeptonicTag_0:FCNCLeptonicTag_1",
-      "FCNCLeptonicTag_1:FCNCLeptonicTag_1"
+      "FCNCHadronicTag_0:tth",
+      "FCNCHadronicTag_1:tth",
+      "FCNCLeptonicTag_0:tth",
+      "FCNCLeptonicTag_1:tth"
   ],
 
   # HIG-16-040 categorisation
@@ -187,9 +187,9 @@ replacementProcRVMap = {
 replacementCatRVMap = {
 
   "fcnc":[
-      "FCNCHadronicTag_0:FCNCHadronicTag_1",
+      "FCNCHadronicTag_0:FCNCHadronicTag_0",
       "FCNCHadronicTag_1:FCNCHadronicTag_1",
-      "FCNCLeptonicTag_0:FCNCLeptonicTag_1",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_0",
       "FCNCLeptonicTag_1:FCNCLeptonicTag_1"
   ],
 
