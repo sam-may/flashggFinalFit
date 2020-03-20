@@ -157,6 +157,9 @@ system('mkdir -p %s/PackagerJobs/outputs'%opts.outDir)
 print ('mkdir -p %s/PackagerJobs/outputs'%opts.outDir)
 counter=0
 if opts.basepath!="" and not opts.basepath.endswith('/'): opts.basepath = opts.basepath+'/'
+
+intermediate_files = ""
+
 for cat in opts.flashggCats.split(","):
   specificFiles = ''
   for infile in opts.infile.split(','):
@@ -168,8 +171,11 @@ for cat in opts.flashggCats.split(","):
   writePreamble(file)
   counter =  counter+1
   exec_line = "%s/bin/PackageOutput -i %s --basepath %s --procs %s -l %s -p %s/%s -W %s -f %s -L %s -H %s -o %s/%s --year %s"%(os.getcwd(), specificFiles, opts.basepath, opts.procs, opts.lumi, os.getcwd(), opts.outDir, opts.workspace, cat, opts.mhLow, opts.mhHigh, os.getcwd(), opts.outfilename.replace(".root","_%s.root"%(cat)),opts.year)
+  intermediate_files += (opts.outfilename.replace(".root","_%s.root"%(cat))) + ","
   #print exec_line
   writePostamble(file,exec_line)
 
 
-
+file = open('%s/PackagerJobs/sub%d.sh'%(opts.outDir,counter),'w')
+exec_line = "%s/bin/PackageOutput -i %s --basepath %s --procs %s -l %s -p %s/%s -W %s -f %s -L %s -H %s -o %s/%s --year %s" % (os.getcwd(), opts.infile, opts.basepath, opts.procs, opts.lumi, os.getcwd(), opts.outDir, opts.workspace, opts.flashggCats, opts.mhLow, opts.mhHigh, os.getcwd(), opts.outfilename, opts.year)
+writePostamble(file,exec_line)
