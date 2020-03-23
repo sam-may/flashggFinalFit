@@ -743,7 +743,8 @@ int main(int argc, char* argv[]){
         if( isFlashgg_ ){
           if( year_ == "all" ){ ext = "13TeV"; }
           //else{ ext = "13TeV"; } //FIXME 
-          else{ ext = Form("%s_13TeV",year_); }
+          //else{ ext = Form("%s_13TeV",year_); }
+          else{ ext = "2017_13TeV"; } // FIXME temporary hack 
         }
 	//if (isFlashgg_) ext = "13TeV";
         //FIXME trying to remove duplicated names for 2016+2017 combination
@@ -778,8 +779,8 @@ int main(int argc, char* argv[]){
 		if (verbose) std::cout << "[INFO] opened data for  "  << Form("Data_%s",catname.c_str()) <<" - " << dataFull <<std::endl;
     }
 		else 
-    {dataFull = (RooDataSet*)inWS->data(Form("data_mass_%s",catname.c_str()));
-		if (verbose) std::cout << "[INFO] opened data for  "  << Form("data_mass_%s",catname.c_str()) <<" - " << dataFull <<std::endl;
+    {dataFull = (RooDataSet*)inWS->data(Form("Data_mass_%s",catname.c_str()));
+		if (verbose) std::cout << "[INFO] opened data for  "  << Form("Data_mass_%s",catname.c_str()) <<" - " << dataFull <<std::endl;
     }
 
 
