@@ -66,13 +66,15 @@ void Packager::packageOutput(bool split, string process , string tag){
                                 if( split_ ) { // no need for all this if only considering one proc,cat...
                                         if( process!=(*proc) || tag!=catname ) { continue; }
                                 }
-        if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW") ) continue; //FIXME
-				RooDataSet *tempData = 0;
+        if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW" || *proc=="bbh" || *proc=="thq" || *proc=="thw" || *proc=="fcnc") ) continue; //FIXME
+	    else { std::cout << "Not skipping Proc and mass: " << *proc << ", " << mh << std::endl; }
+                RooDataSet *tempData = 0;
 				if( merge ) { 
 					tempData = (RooDataSet*)mergeWS->data(Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str()));
 					if(tempData && !saveWS->data(Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str())))  saveWS->import(*tempData); //FIXME
 				} else {
-					tempData = (RooDataSet*)WS->data(Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str()));
+                    std::cout << "Trying to grab: " << Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str()) << std::endl;
+                    tempData = (RooDataSet*)WS->data(Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str()));
 					if(tempData && !saveWS->data(Form("sig_%s_mass_m%d_%s",proc->c_str(),mh,catname.c_str())))  saveWS->import(*tempData); //FIXME
 				}
 				if (!tempData) {
@@ -89,12 +91,14 @@ void Packager::packageOutput(bool split, string process , string tag){
          std::cout << "ED DEBUG procs_.begin() " << *procs_.begin() << std::endl;
          //allDataThisMass->Print();
          if (!split_){
-				if ( cat==0 && proc==procs_.begin()) allDataThisMass = (RooDataSet*)tempData->Clone(Form("sig_mass_m%d_AllCats",mh));
-				else allDataThisMass->append(*tempData);
-        }
+                std::cout << "Proc and mass: " << *procs_.begin() << ", " << mh << std::endl;
+                if ( cat==0 && proc==procs_.begin()) allDataThisMass = (RooDataSet*)tempData->Clone(Form("sig_mass_m%d_AllCats",mh));
+				else if (allDataThisMass) allDataThisMass->append(*tempData);
+                
+         }
 				//if (proc==procs_.begin()) allDataThisCat = (RooDataSet*)tempData->Clone(Form("sig_mass_m%d_%s",mh,catname.c_str()));
 				if (!allDataThisCat) allDataThisCat = (RooDataSet*)tempData->Clone(Form("sig_mass_m%d_%s",mh,catname.c_str()));
-				else allDataThisCat->append(*tempData);
+				else if (allDataThisCat) allDataThisCat->append(*tempData);
 			}
 			if (!allDataThisCat) {
 			if (!split_)	cerr << "[WARNING] -- allData for cat " << catname.c_str() << " is NULL. Probably because the relevant datasets couldn't be found. Skipping.. (ignore this warning if just running one tag/proc)" << endl;

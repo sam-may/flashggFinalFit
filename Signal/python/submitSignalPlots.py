@@ -17,6 +17,8 @@ from threading import Thread, Semaphore
 from multiprocessing import cpu_count
 import subprocess
 
+import parallel_utils
+
 class Wrap:
     def __init__(self, func, args, queue):
         self.queue = queue
@@ -75,6 +77,7 @@ parser.add_option("-o","--outDir",default="./")
 parser.add_option("-p","--procs",default=None)
 parser.add_option("-f","--flashggCats",default=None)
 parser.add_option("-y","--year",default="2016")
+parser.add_option("--nPar",type="int",default=12)
 (opts,args) = parser.parse_args()
 
 defaults = copy(opts)
@@ -141,7 +144,7 @@ def writePostamble(sub_file, exec_line):
                              stderr=subprocess.PIPE,
                              close_fds=True)
   if opts.runLocal:
-     system('bash %s'%os.path.abspath(sub_file.name))
+     return 'bash %s'%os.path.abspath(sub_file.name)
 
 
 #######################################
@@ -150,6 +153,8 @@ def writePostamble(sub_file, exec_line):
 system('mkdir -p %s/PlottingJobs/outputs'%opts.outDir)
 print ('mkdir -p %s/PlottingJobs/outputs'%opts.outDir)
 counter=0
+if opts.runLocal:
+    command_list = []
 for cat in opts.flashggCats.split(","):
   print "job ", counter , " - ", cat
   file = open('%s/PlottingJobs/sub%d.sh'%(opts.outDir,counter),'w')
@@ -157,4 +162,10 @@ for cat in opts.flashggCats.split(","):
   counter =  counter+1
   exec_line = "%s/bin/makeParametricSignalModelPlots -i %s/%s -o %s/%s -p %s -f %s --year %s"%(os.getcwd(), os.getcwd(), opts.infile.replace(".root","_%s.root"%(cat)), os.getcwd(), opts.outDir, opts.procs, cat, opts.year)
   #print exec_line
-  writePostamble(file,exec_line)
+  if opts.runLocal:
+    command_list.append(writePostamble(file,exec_line))
+  else:
+    writePostamble(file,exec_line)
+
+if opts.runLocal:
+    parallel_utils.submit_jobs(command_list, opts.nPar)

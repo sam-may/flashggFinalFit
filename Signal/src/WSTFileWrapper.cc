@@ -87,10 +87,10 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
     if (procName.Contains("data")) 
         return std::string("data");
     else if (procName.Contains("ws_merged_fcnc")) {
-        if (procName.Contains("st"))
-            return std::string("125stfcnc");
-        else if (procName.Contains("tt"))
-            return std::string("125ttfcnc");
+        //if (procName.Contains("st"))
+        //    return std::string("125stfcnc");
+        if (procName.Contains("tt"))
+            return std::string("125fcnc");
         else {
             std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
             return this->fileToKey(fileName); // fall back to default method
@@ -111,8 +111,19 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
     procName = procName(0, procName.Length() - 5);
     TString mass = procName(procName.Length() - 3, procName.Length() - 1);
     procName = procName(0, procName.Length() - 4);
+
+    // Rename bbH, tHQ, tHW
+    /*
+    if (procName == "bbh")
+        procName = "testBBH";
+    if (procName == "thq")
+        procName = "testTHQ";
+    if (procName == "thw")
+        procName = "testTHW";
+    */
+
     std::string keyName = TString ( TString(mass.Data()) + TString(procName.Data()) ).Data();
-    //std::cout << "[WSTFileWrapper::fileToKeyFCNC] Extracted keyName of: " << keyName << " from file: " << fileName << std::endl;
+    std::cout << "[WSTFileWrapper::fileToKeyFCNC] Extracted keyName of: " << keyName << " from file: " << fileName << std::endl;
     return keyName;
 
 }
@@ -191,6 +202,9 @@ RooAbsData* WSTFileWrapper::data(std::string dataName) {
 RooAbsData* WSTFileWrapper::data(std::string keyName, std::string dataName) {
   std::pair<std::string,std::string> thePair = convertTemplatedName(dataName);
   std::string newDataName = thePair.first;
+
+  std::cout << "Trying to match keyName: " << keyName << std::endl;
+
   fileList[keyName]->cd();
   RooAbsData* result = (RooAbsData*)((RooWorkspace*)fileList[keyName]->Get(wsName.c_str()))->data(newDataName.c_str());
   if (!result) {

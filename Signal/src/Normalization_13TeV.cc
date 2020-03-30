@@ -302,15 +302,15 @@ TGraph * Normalization_13TeV::GetSigmaGraph(TString process)
           XSectionMap = &XSectionMap_TTH_PTH_GT300;
   } else if ( process == "BBH_FWDH" ){
           XSectionMap = &XSectionMap_BBH_FWDH;
-  } else if ( process == "BBH" ){
+  } else if ( process == "BBH" || process == "bbh" ){
           XSectionMap = &XSectionMap_BBH;
   } else if ( process == "THQ_FWDH" ){
           XSectionMap = &XSectionMap_THQ_FWDH;
-  } else if ( process == "THQ" ){
+  } else if ( process == "THQ" || process == "thq" ){
           XSectionMap = &XSectionMap_THQ;
   } else if ( process == "THW_FWDH" ){
           XSectionMap = &XSectionMap_THW_FWDH;
-  } else if ( process == "THW" ){
+  } else if ( process == "THW" || process == "thq" ){
           XSectionMap = &XSectionMap_THW;
   // Stage 0
   } else if ( process == "ggh" || process=="GG2H" ) {
@@ -532,15 +532,15 @@ double Normalization_13TeV::GetXsection(double mass, TString HistName) {
           XSectionMap = &XSectionMap_TTH_PTH_GT300;
   } else if ( HistName.Contains("BBH_FWDH") ){
           XSectionMap = &XSectionMap_BBH_FWDH;
-  } else if ( HistName.Contains("BBH") ){
+  } else if ( HistName.Contains("BBH") || HistName.Contains("bbh") ){
           XSectionMap = &XSectionMap_BBH;
   } else if ( HistName.Contains("THQ_FWDH") ){
           XSectionMap = &XSectionMap_THQ_FWDH;
-  } else if ( HistName.Contains("THQ") ){
+  } else if ( HistName.Contains("THQ") || HistName.Contains("thq") ){
           XSectionMap = &XSectionMap_THQ;
   } else if ( HistName.Contains("THW_FWDH") ){
           XSectionMap = &XSectionMap_THW_FWDH;
-  } else if ( HistName.Contains("THW") ){
+  } else if ( HistName.Contains("THW") ||HistName.Contains("thw") ){
           XSectionMap = &XSectionMap_THW;
   // Stage 0
   } else if ( HistName.Contains("ggh") || HistName.Contains("GG2H") ) {
@@ -563,11 +563,11 @@ double Normalization_13TeV::GetXsection(double mass, TString HistName) {
     XSectionMap = &XSectionMap_QQ2HLL;
   } else if ( HistName.Contains("GG2HLL") ) {
     XSectionMap = &XSectionMap_GG2HLL;
-  } else if ( HistName.Contains("BBH") ) {
+  } else if ( HistName.Contains("BBH") || HistName.Contains("bbh") ) {
     XSectionMap = &XSectionMap_BBH;
-  } else if ( HistName.Contains("THQ") ) {
+  } else if ( HistName.Contains("THQ") || HistName.Contains("thq") ) {
     XSectionMap = &XSectionMap_THQ;
-  } else if ( HistName.Contains("THW") ) {
+  } else if ( HistName.Contains("THW") || HistName.Contains("thw") ) {
     XSectionMap = &XSectionMap_THW;
   } else {
     std::cout << "[WARNING] Normalization_13TeV: No known process found in the name!!" << HistName << std::endl;

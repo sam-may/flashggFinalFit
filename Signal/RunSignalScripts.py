@@ -39,6 +39,7 @@ def get_options():
   # Miscellaneous options: only performing a single function
   parser.add_option('--mode', dest='mode', default='std', help="Allows single function [std,phoSystOnly,sigFitOnly,packageOnly,sigPlotsOnly]")
   parser.add_option('--printOnly', dest='printOnly', default=0, type='int', help="Dry run: print command only")
+  parser.add_option('--procs', dest='procs', default='tth', type='str', help="list of production modes to consider")
   return parser.parse_args()
 
 (opt,args) = get_options()
@@ -72,6 +73,7 @@ if opt.inputConfig != '':
     batch        = _cfg['batch']
     queue        = _cfg['queue']
     mode         = _cfg['mode']
+    procs        = _cfg['procs']
     printOnly    = opt.printOnly # Still take printOnly from options
   
     #Delete copy of file
@@ -100,6 +102,7 @@ else:
   batch        = opt.batch
   queue        = opt.queue
   mode         = opt.mode
+  procs        = opt.procs
   printOnly    = opt.printOnly
 
 # Check if mode in allowed options
@@ -159,7 +162,8 @@ else:
   #procs = procs[:-1]
   #procs = 'ggh,tth,vbf,zh,wh'
   #procs = 'tth,ggh,vbf,zh,wh,fcnc'
-  procs = 'tth'
+  #procs = 'wh,zh,vbf,ggh,tth'
+  #procs = 'fcnc'
 
   # Extract low and high MH values
   mps = []
@@ -192,6 +196,21 @@ else:
   elif mode == "sigPlotsOnly": print " --> Running the signal plotting scripts only..."
   print " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
+  # Delete previous files
+  print " \n\nDeleting old files!"
+  deleter = "rm -rf %s" % ("outdir_" + ext)
+  print deleter
+  os.system(deleter)
+ 
+  # Make dummy dat file
+  print "\n\n Making dummy dat file"
+  with open("dat/newConfig_%s.dat" % ext, "w") as f_out:
+      f_out.write("#proc cat nGausRV nGausWV\n")
+      for proc in procs.split(","):
+          for cat in cats.split(","):
+              f_out.write("%s %s 4 1\n" % (proc, cat))
+      f_out.close()
+
   # Construct input command
   print " --> Constructing the input command..."
 
@@ -207,5 +226,18 @@ else:
   # Either print command to screen or run
   if printOnly: print "\n%s"%cmdLine
   else: os.system( cmdLine )
+
+  # Copy to public_html
+  import datetime
+  d = datetime.datetime.today()
+  public_html_dir = "~/public_html/FCNC/FinalFits/" + ext + "_" + d.strftime("%d-%B-%Y")
+  print "Copying to public_html: %s" % public_html_dir
+  os.system("mkdir -p %s" % public_html_dir)
+  os.system("mkdir -p %s" % public_html_dir + "/sigfit")
+  os.system("mkdir -p %s" % public_html_dir + "/sigplots")
+  os.system("cp %s %s" % ("outdir_" + ext + "/sigfit/*.pdf", public_html_dir + "/sigfit/"))
+  os.system("cp %s %s" % ("outdir_" + ext + "/sigplots/*.pdf", public_html_dir + "/sigplots/"))
+  os.system("chmod 755 -R %s" % public_html_dir)
+  print "Copied plots to %s" % public_html_dir
 
 print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ RUNNING SIGNAL SCRIPTS (END) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"

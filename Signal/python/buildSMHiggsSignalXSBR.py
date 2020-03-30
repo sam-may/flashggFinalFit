@@ -65,7 +65,7 @@ def getBR(mh):
  return funcBR.getVal()
  
 def getXS(mh,prod):
- if prod == "tHq" or prod == "tHW":
+ if not (prod == "ttH" or prod == "ggH" or prod == "WH" or prod == "ZH" or prod == "VBF"): 
      return 1.
  mhVar.setVal(mh)
  funcXS = SM.modelBuilder.out.function("SM_XS_%s_%s"%(prod,options.funcXSext))

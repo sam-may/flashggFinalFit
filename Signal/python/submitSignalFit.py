@@ -89,7 +89,7 @@ parser.add_option("--massList",default="120,125,130")
 parser.add_option("-f","--flashggCats",default=None)
 parser.add_option("--bs",default=5.14)
 parser.add_option("--expected",type="int",default=None)
-parser.add_option("--nPar",type="int",default=8)
+parser.add_option("--nPar",type="int",default=12)
 (opts,args) = parser.parse_args()
 
 defaults = copy(opts)
