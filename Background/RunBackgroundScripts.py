@@ -44,6 +44,7 @@ if opt.inputConfig != '':
 
     # Extract options
     inputWSDir   = _cfg['inputWSDir']
+    input        = _cfg['input']
     cats         = _cfg['cats']
     ext          = _cfg['ext']
     year         = _cfg['year']
@@ -82,9 +83,10 @@ if mode not in ['std','fTestOnly','bkgPlotsOnly']:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Extrct list of input ws filenames
 ws_fileNames = []
+
 for root, dirs, files in os.walk( inputWSDir ):
   for fileName in files:
-    if not fileName.startswith('output_'): continue
+    #if not fileName.startswith('output_'): continue
     if not fileName.endswith('.root'): continue
     ws_fileNames.append( fileName )
 # concatenate with input dir to get full list of complete file names
@@ -101,7 +103,8 @@ procs = procs[:-1]
 if len(procs)==0: procs = 'arbitrary'
 
 # Extract data file name and signal fit workspace filename
-dataFile = "%s/allData.root"%inputWSDir
+#dataFile = "%s/allData.root"%inputWSDir
+dataFile = input
 signalFitWSFile = "%s/../Signal/outdir_%s/CMS-HGG_sigfit_%s.root"%(os.environ['PWD'],ext,ext)
 
 if not os.path.exists( signalFitWSFile ):
@@ -133,5 +136,18 @@ if unblind and not fTestOnly: cmdLine += '--undblind '
 # Either print command to screen or run
 if printOnly: print "\n%s"%cmdLine
 else: os.system( cmdLine )
+
+import datetime
+d = datetime.datetime.today()
+public_html_dir = "~/public_html/FCNC/FinalFits/" + ext + "_" + d.strftime("%d-%B-%Y")
+print "Copying to public_html: %s" % public_html_dir
+os.system("mkdir -p %s" % public_html_dir)
+os.system("mkdir -p %s" % public_html_dir + "/bkgfTest-Data")
+os.system("mkdir -p %s" % public_html_dir + "/bkgPlots-Data")
+os.system("cp %s %s" % ("outdir_" + ext + "/bkgfTest-Data/*.pdf", public_html_dir + "/bkgfTest-Data/"))
+os.system("cp %s %s" % ("outdir_" + ext + "/bkgPlots-Data/*.pdf", public_html_dir + "/bkgPlots-Data/"))
+os.system("chmod 755 -R %s" % public_html_dir)
+print "Copied plots to %s" % public_html_dir
+
 
 print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ RUNNING BACKGROUND SCRIPTS (END) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"

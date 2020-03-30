@@ -26,10 +26,15 @@ parser.add_option("--dryRun",default=False,action="store_true",help="Dont submit
 parser.add_option("-q","--queue",default="espresso",help="Which batch queue")
 parser.add_option("--batch",default="HTCONDOR",help="Which batch system to use (HTCONDOR,IC)")
 parser.add_option("-v","--verbose",default=False,action="store_true",help="Print more output")
+parser.add_option("--nPar",type="int",default=12)
 (options,args) = parser.parse_args()
 
 import os
 import subprocess
+
+import parallel_utils
+
+
 
 os.system('mkdir -p %s'%options.outDir)
 
@@ -47,6 +52,9 @@ else:
 print ""
 print options.catLabels
 print ""
+
+if options.runLocal:
+    command_list = []
 
 #for cat in range(options.cats):
 for cat in range(ncats):
@@ -86,7 +94,7 @@ for cat in range(ncats):
   print execLine
   
   os.system('chmod +x %s'%f.name)
-  if options.runLocal: os.system('./%s'%f.name)
+  if options.runLocal: command_list.append('./%s' % f.name) #os.system('./%s'%f.name)
   else:
     if (options.batch == "IC") : os.system('qsub -q %s -o %s.log %s'%(options.queue,os.path.abspath(f.name),os.path.abspath(f.name)))
     elif( options.batch == "HTCONDOR" ):
@@ -108,3 +116,6 @@ for cat in range(ncats):
                              stderr=subprocess.PIPE,
                              close_fds=True)
     else: print "Batch %s is not supported. Exiting..."%options.batch
+
+if options.runLocal:
+    parallel_utils.submit_jobs(command_list, options.nPar)

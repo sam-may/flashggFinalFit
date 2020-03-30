@@ -59,6 +59,7 @@ RooAbsData* WSTFileWrapper::data(std::string dataName) {
   RooAbsData* result = 0;
   bool complained_yet = 0;
   for (unsigned int i = 0 ; i < fileList.size() ; i++) {
+    std::cout << i << std::endl;
     fileList[i]->cd();
     RooAbsData* this_result = (RooAbsData*)wsList[i]->data(dataName.c_str());
     if (result && this_result && !complained_yet) {
