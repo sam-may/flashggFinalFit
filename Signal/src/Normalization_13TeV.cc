@@ -310,7 +310,7 @@ TGraph * Normalization_13TeV::GetSigmaGraph(TString process)
           XSectionMap = &XSectionMap_THQ;
   } else if ( process == "THW_FWDH" ){
           XSectionMap = &XSectionMap_THW_FWDH;
-  } else if ( process == "THW" || process == "thq" ){
+  } else if ( process == "THW" || process == "thw" ){
           XSectionMap = &XSectionMap_THW;
   // Stage 0
   } else if ( process == "ggh" || process=="GG2H" ) {
