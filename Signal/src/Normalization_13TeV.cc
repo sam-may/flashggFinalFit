@@ -317,6 +317,10 @@ TGraph * Normalization_13TeV::GetSigmaGraph(TString process)
           XSectionMap = &XSectionMap_THQ_FWDH;
   } else if ( process == "TH" ){
           XSectionMap = &XSectionMap_THQ;
+  } else if ( process == "TH_FWDH" ){
+          XSectionMap = &XSectionMap_THQ_FWDH;
+  } else if ( process == "TH" ){
+          XSectionMap = &XSectionMap_THQ;
   } else if ( process == "THW_FWDH" ){
           XSectionMap = &XSectionMap_THW_FWDH;
   } else if ( process == "THW" || process == "thw" ){
@@ -548,6 +552,10 @@ double Normalization_13TeV::GetXsection(double mass, TString HistName) {
   } else if ( HistName.Contains("THQ_FWDH") ){
           XSectionMap = &XSectionMap_THQ_FWDH;
   } else if ( HistName.Contains("THQ") || HistName.Contains("thq") ){
+          XSectionMap = &XSectionMap_THQ;
+  } else if ( HistName.Contains("TH_FWDH") ){
+          XSectionMap = &XSectionMap_THQ_FWDH;
+  } else if ( HistName.Contains("TH") ){
           XSectionMap = &XSectionMap_THQ;
   } else if ( HistName.Contains("TH_FWDH") ){
           XSectionMap = &XSectionMap_THQ_FWDH;

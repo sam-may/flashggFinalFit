@@ -1231,13 +1231,8 @@ void FinalModelConstruction::makeSTDdatasets(){
 	if (sqrts_ ==13) catname = Form("%s",cat_.c_str());
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-<<<<<<< HEAD
     if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc") && mh!=125 ) continue;
 		RooDataSet *data = (RooDataSet*)rvDatasets[mh]->Clone(Form("sig_%s_mass_m%d_%s",proc_.c_str(),mh,catname.c_str()));
-=======
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW") && mh!=125 ) continue;
-		RooDataSet *data = (RooDataSet*)rvDatasets[mh]->Clone(Form("sig_%s_%d_mass_m%d_%s",proc_.c_str(),year_,mh,catname.c_str()));
->>>>>>> 96432fe... added plotting script for S model + tweaks to THU
 		data->append(*wvDatasets[mh]);
 		stdDatasets.insert(pair<int,RooDataSet*>(mh,data));
 	}	
@@ -1343,6 +1338,10 @@ RooSpline1D* FinalModelConstruction::graphToSpline(string name, TGraph *graph, R
   return res;
 }
 
+void FinalModelConstruction::setEffAccValues(float effAccVal) {
+  effAccValue_ = effAccVal;
+}
+
 //here is how the normalisation is set
 void FinalModelConstruction::getNormalization(){
 	string catname;
@@ -1361,15 +1360,19 @@ void FinalModelConstruction::getNormalization(){
 	double effAcc =0.;
 	if (intLumi) {
     // calcu eA as sumEntries / totalxs * totalbr * intL
-    float sumEntries = data->sumEntries(); 
-    if (sumEntries <0 ) {
-    sumEntries =0; //negative eff*acc makes no sense...
-    fitToConstant=1;
-    }
-    effAcc = (sumEntries/(intLumi->getVal()*norm->GetXsection(mh,procLowerCase_)*norm->GetBR(mh)));
-		if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) intLumi " << intLumi->getVal() <<", effAcc " << effAcc << std::endl;
-		if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) data " << *data << std::endl;
-		if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) sumEntries " << sumEntries <<", norm->GetXsection(mh,procLowerCase_) " << norm->GetXsection(mh,procLowerCase_) << " norm->GetBR(mh) " << norm->GetBR(mh)<< std::endl;
+    //float sumEntries = data->sumEntries(); 
+    //if (sumEntries <0 ) {
+    //sumEntries =0; //negative eff*acc makes no sense...
+    //fitToConstant=1;
+    //}
+    //effAcc = (sumEntries/(intLumi->getVal()*norm->GetXsection(mh,procLowerCase_)*norm->GetBR(mh)));
+		//if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) intLumi " << intLumi->getVal() <<", effAcc " << effAcc << std::endl;
+		//if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) data " << *data << std::endl;
+		//if(verbosity_)std::cout << "[INFO] (FinalModelConstruction) sumEntries " << sumEntries <<", norm->GetXsection(mh,procLowerCase_) " << norm->GetXsection(mh,procLowerCase_) << " norm->GetBR(mh) " << norm->GetBR(mh)<< std::endl;
+    
+    // replace treatment above with pre-calculated eff * acc calculated using NoTag info (allows subset of MC to be used)
+    effAcc = effAccValue_;
+    if (effAcc < 0.) effAcc = 0.;
 		} else {
 		  std::cout << "[ERROR] IntLumi rooRealVar is not in this workspace. exit." << std::endl;
 		return ;

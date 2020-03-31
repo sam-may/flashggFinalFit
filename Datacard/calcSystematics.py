@@ -106,6 +106,7 @@ def calcSystYields(_nominalDataName,_inputWS,_systFactoryTypes,skipCOWCorr=True)
     w = rdata_nominal.weight()
     # Loop over systematics:
     for s, f in _systFactoryTypes.iteritems():
+
       if f == "a_h": continue
 
       # If asymmetric weights:

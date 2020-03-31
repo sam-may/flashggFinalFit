@@ -222,6 +222,7 @@ theory_systematics = [
 def get_options():
   parser = OptionParser()
   parser.add_option('--mergeYears', dest='mergeYears', default=False, action="store_true", help="Merge specified categories across years")
+  parser.add_option('--tagSplit', dest='tagSplit', default=False, action="store_true", help="If tags are split according to above splitting scheme")
   parser.add_option('--skipBkg', dest='skipBkg', default=False, action="store_true", help="Only add signal processes to datacard")
   parser.add_option('--skipCOWCorr', dest='skipCOWCorr', default=False, action="store_true", help="Skip centralObjectWeight correction for events in acceptance")
   parser.add_option('--prune', dest='prune', default=False, action="store_true", help="Prune proc x cat which make up less than pruneThreshold (default 0.1%) of given total category")
@@ -270,7 +271,13 @@ if not skipData:
     for year in opt.years.split(","):
       procsByYear[year] = []
       wsFullFileNamesByYear[year] = ''
-      inputWSDir = "%s_%s"%(opt.inputWSDir,year)
+      if opt.tagSplit: # only take procs from first tag set 
+        inputWSDir = "%s_%s/%s"%(opt.inputWSDir,year,catsSplittingScheme.keys()[0])
+        # Check if input dir exists
+        if not os.path.isdir(inputWSDir): 
+          print " --> [ERROR] Specified option tagSplit but %s does not exist. Leaving..."%inputWSDir
+          leave()
+      else: inputWSDir = "%s_%s"%(opt.inputWSDir,year)
       # Extract full list of input ws filenames
       ws_fileNames = []
       for root, dirs, files in os.walk( inputWSDir ):
@@ -286,6 +293,8 @@ if not skipData:
       for fileName in ws_fileNames:
 	if 'M125' not in fileName: continue
 	procsByYear[year].append( fileName.split("pythia8_")[1].split(".root")[0] )  
+
+      # FIXME: add check to see if tagsSplits have equal number of procs
 
       # Check equal and save as comma separated string
       if len(procsByYear) != 1:
@@ -362,7 +371,10 @@ if not skipData:
       for cat in opt.cats.split(","):
 	_proc_bkg = "bkg_mass"
 	_proc_data = "data_obs"
-	_modelWSFile = "./%s/background_merged/CMS-HGG_mva_13TeV_multipdf.root"%opt.modelWSDir  
+        if opt.tagSplit:
+          for splitname,splitcats in catsSplittingScheme.iteritems():
+            if cat in splitcats: _modelWSFile = "./%s/background_merged/CMS-HGG_mva_13TeV_multipdf_%s.root"%(opt.modelWSDir,splitname)
+        else: _modelWSFile = "./%s/background_merged/CMS-HGG_mva_13TeV_multipdf.root"%opt.modelWSDir
 	_inputWSFile = '-' #not needed for data/bkg
 	_nominalDataName = '-' #not needed for data/bkg
 
@@ -394,7 +406,10 @@ if not skipData:
 	  # FIXME: change year tag to after sqrts to suit current models
 	  _cat = "%s_%s"%(cat,year)
 	  _catStripYear = cat
-	  _modelWSFile = "./%s/background_%s/CMS-HGG_mva_13TeV_multipdf.root"%(opt.modelWSDir,year)
+	  if opt.tagSplit:
+	    for splitname,splitcats in catsSplittingScheme.iteritems():
+	      if cat in splitcats: _modelWSFile = "./%s/background_%s/CMS-HGG_mva_13TeV_multipdf_%s.root"%(opt.modelWSDir,year,splitname)
+	  else: _modelWSFile = "./%s/background_%s/CMS-HGG_mva_13TeV_multipdf.root"%(opt.modelWSDir,year)
 	  _inputWSFile = '-' #not needed for data/bk
 	  _nominalDataName = '-' #not needed for data/bkg
 	  _model_bkg = "multipdf:CMS_hgg_%s_13TeV_bkgshape"%_cat
@@ -404,7 +419,6 @@ if not skipData:
 	  print " --> [VERBOSE] Adding to dataFrame: (proc,cat) = (%s,%s)"%(_proc_data,_cat)
 	  data.loc[len(data)] = [year,'bkg',_proc_bkg,'-',_cat,_inputWSFile,_nominalDataName,_modelWSFile,_model_bkg,1.,0]
 	  data.loc[len(data)] = [year,'data',_proc_data,'-',_cat,_inputWSFile,_nominalDataName,_modelWSFile,_model_data,-1,0]
-
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Yields: for each signal row in dataFrame extract the yield
@@ -494,6 +508,7 @@ if not skipData:
     inputWS.Delete()
     f_in.Delete()
     f_in.Close()
+
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Systematics: use factory function to calculate yield variations
   print " .........................................................................................."
@@ -538,9 +553,7 @@ if not skipData:
     catYields = {}
     for cat in data.cat.unique(): catYields[cat] = data[(data['cat']==cat)&(data['type']=='sig')].nominal_yield.sum()
     # Set prune = 1 if < 0.1% of total cat yield
-    # FIXME: never prune ttH as limited set of samples
-    #mask = (data['nominal_yield']<opt.pruneThreshold*data.apply(lambda x: catYields[x['cat']], axis=1))&(data['type']=='sig')
-    mask = (data['nominal_yield']<opt.pruneThreshold*data.apply(lambda x: catYields[x['cat']], axis=1))&(data['type']=='sig')&(~data['proc'].str.contains("ttH"))
+    mask = (data['nominal_yield']<opt.pruneThreshold*data.apply(lambda x: catYields[x['cat']], axis=1))&(data['type']=='sig')
     data.loc[mask,'prune'] = 1
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
