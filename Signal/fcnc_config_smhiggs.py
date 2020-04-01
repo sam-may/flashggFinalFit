@@ -8,7 +8,7 @@ signalScriptCfg = {
         'beamspot' : '3.4',
         'numberOfBins' : '320',
         'massPoints' : '120,125,130',
-        'procs' : 'bbh,wh,zh,vbf,ggh,tth',
+        'procs' : 'thw,thq,bbh,wh,zh,vbf,ggh,tth',
 
         # Use DCB
         'useDCB' : 1,

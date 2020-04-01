@@ -35,6 +35,8 @@ int Normalization_13TeV::Init(int sqrtS){
         double valXSWH2HQQ     = valXSWH*(67.41*0.01)/*BR(W to hadrons)*/;
         double valXSZH2HQQ     = valXSZH*(69.91*0.01)/*BR(Z to hadrons)*/;  
 
+        double valXSfcnc       = 1.; // FIXME
+
         BranchingRatioMap[mH] = valBR;
 
         XSectionMap_ggh[mH] = valXSggH;   
@@ -42,6 +44,8 @@ int Normalization_13TeV::Init(int sqrtS){
         XSectionMap_tth[mH] = valXSttH;   
         XSectionMap_wh[mH]  = valXSWH;  
         XSectionMap_zh[mH]  = valXSZH;  
+
+        XSectionMap_fcnc[mH] = valXSfcnc;
 
         XSectionMap_QQ2HLNU[mH] = valXSQQ2HLNU;
         XSectionMap_QQ2HLL[mH]  = valXSQQ2HLL;
@@ -333,6 +337,8 @@ TGraph * Normalization_13TeV::GetSigmaGraph(TString process)
     XSectionMap = &XSectionMap_WH2HQQ;
   } else if ( process=="ZH2HQQ" ) {
     XSectionMap = &XSectionMap_ZH2HQQ;
+  } else if ( process=="fcnc" || process=="FCNC" ) {
+    XSectionMap = &XSectionMap_fcnc;
   } else {
     std::cout << "[WARNING] Normalization_13TeV: No known process found in the name!!" << std::endl;
     std::cout << "[DEBUG] Normalization_13TeV failed for process = " << process << std::endl;
@@ -569,6 +575,8 @@ double Normalization_13TeV::GetXsection(double mass, TString HistName) {
     XSectionMap = &XSectionMap_THQ;
   } else if ( HistName.Contains("THW") || HistName.Contains("thw") ) {
     XSectionMap = &XSectionMap_THW;
+  } else if ( HistName.Contains("FCNC") || HistName.Contains("fcnc") ) {
+    XSectionMap = &XSectionMap_fcnc;
   } else {
     std::cout << "[WARNING] Normalization_13TeV: No known process found in the name!!" << HistName << std::endl;
     //exit(1);

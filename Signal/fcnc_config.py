@@ -3,7 +3,7 @@ signalScriptCfg = {
         'inputWSDir' : '/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_Hct_2018_prod_v2.1_2-March-2020',
         'cats' : 'FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCLeptonicTag_0,FCNCLeptonicTag_1',
         'ext' : 'fcnc_2018',
-        'analysis':'stage1_1',
+        'analysis':'fcnc',
         'year' : '2018',
         'beamspot' : '3.4',
         'numberOfBins' : '320',
@@ -19,8 +19,8 @@ signalScriptCfg = {
         'smears':'HighR9EBPhi,HighR9EBRho,HighR9EEPhi,HighR9EERho,LowR9EBPhi,LowR9EBRho,LowR9EEPhi,LowR9EERho',
 
         # Job Submission
-        'batch' : 'None',
-        'queue' : 'None',
+        'batch' : 'uaf',
+        'queue' : '1nh',
 
         # Mode
         'mode' : 'std',
