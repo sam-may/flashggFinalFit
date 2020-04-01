@@ -15,7 +15,6 @@ def get_options():
 
   # Setup
   parser.add_option('--inputWSDir', dest='inputWSDir', default='/eos/home-j/jlangfor/hgg/ws/test_legacy_runII_102x', help="Directory storing flashgg workspaces" )
-  parser.add_option('--procs', dest='procs', default='auto', help="Procs: auto mean will determine from input WS filenames")
   parser.add_option('--cats', dest='cats', default='UntaggedTag_0,VBFTag_0', help="Define categories")
   parser.add_option('--ext', dest='ext', default='test', help="Extension: defines output dir where signal models are saved")
   parser.add_option('--analysis', dest='analysis', default='test', help="Analysis handle: used in Signal/python/replacementMap.py to specify replacement dataset mapping when too few entries")
@@ -61,7 +60,6 @@ if opt.inputConfig != '':
 
     #Extract options
     inputWSDir   = _cfg['inputWSDir']
-    procs        = _cfg['procs']
     cats         = _cfg['cats']
     ext          = _cfg['ext']
     analysis     = _cfg['analysis']
@@ -91,7 +89,6 @@ if opt.inputConfig != '':
 #Else extract from option parser
 else:
   inputWSDir   = opt.inputWSDir
-  procs        = opt.procs
   cats         = opt.cats
   ext          = opt.ext
   analysis     = opt.analysis
@@ -120,8 +117,8 @@ if mode not in ['std','calcPhotonSyst','writePhotonSyst','sigFitOnly','packageOn
 # FIXME: configure also for CONDOR
 # If mode == calcPhotonSyst: submit a job to the batch for each category
 #if mode == "getFractions":
-#  if not os.path.isdir("./jsons"): os.system("mkdir ./jsons")
-#  os.system("./getFractions.py --ext %s -f %s --cats %s"%(ext,inputWSDir,cats))
+if not os.path.isdir("./jsons"): os.system("mkdir ./jsons")
+os.system("python getFractions.py --ext %s --inputWSDir %s --cats %s --doEffAcc" % (ext, inputWSDir, cats))
 
 elif mode == "calcPhotonSyst":
   print " --> Calculating photon systematics: %s"%ext

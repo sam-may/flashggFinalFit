@@ -43,13 +43,21 @@ def procToData( _proc, pmap=proc_map ):
     if key == _proc.split("_")[0]: _proc = re.sub( key, pmap[key], _proc )
   return _proc
 
+def extractProcFromFile(_file):
+    if "ws_merged_fcnc" in _file and "tt" in _file:
+        return "fcnc"
+    elif "sm_higgs" in _file:
+        return _file.split("/")[-1].split("_")[5]
+    else:
+        return ""
+
 # Extract processes and nominal names from tagsetone
 baseFilePath  = opt.inputWSDir
 if not baseFilePath.endswith('/'): baseFilePath += '/'
 if opt.tagSplit: baseFilePath += "tagsetone/"
 fileNames     = []
 for fileName in listdir(baseFilePath): 
-  if not fileName.startswith('output_'): continue
+  if not fileName.startswith('ws_merged_sm_higgs'): continue
   if not fileName.endswith('.root'):     continue
   fileNames.append(fileName)
 fullFileNames = '' 
@@ -58,7 +66,7 @@ fullFileNames = fullFileNames[:-1]
 fullFileNames = fullFileNames.split(',')
 
 # Add No tag to cats
-if "NOTAG" not in opt.cats: opt.cats += ",NOTAG"
+#if "NOTAG" not in opt.cats: opt.cats += ",NOTAG"
 
 # Define dataframe to store yields: cow = centralObjectWeight
 if opt.skipCOWCorr: columns_data = ['proc','cat','granular_key','nominal_yield']
@@ -66,9 +74,11 @@ else: columns_data = ['proc','cat','granular_key','nominal_yield','nominal_yield
 data = pd.DataFrame( columns=columns_data )
 
 # Loop over files and fill entries in dataframe
+print "fullFileNames", fullFileNames
 for _fileName in fullFileNames:
-  if 'M%s'%opt.mass not in _fileName: continue 
-  _proc = _fileName.split('pythia8_')[1].split('.root')[0]
+  if '%s'%opt.mass not in _fileName: continue 
+  #_proc = _fileName.split('pythia8_')[1].split('.root')[0]
+  _proc = extractProcFromFile(_fileName) 
   print " --> Processing: %s"%_proc
   _f, _ws = {}, {}
   if opt.tagSplit:
@@ -86,7 +96,8 @@ for _fileName in fullFileNames:
       for ts,tsCats in catsSplittingScheme.iteritems():
         if _cat in tsCats: key = ts
 
-    _nominalDataName = "%s_125_13TeV_%s"%(procToData(_proc.split("_")[0]),_cat)
+    #_nominalDataName = "%s_125_13TeV_%s"%(procToData(_proc.split("_")[0]),_cat)
+    _nominalDataName = "%s_125_13TeV_%s"%(_proc,_cat)
     _granular_key = "%s__%s"%(_proc,_cat)
     _nominalData = _ws[key].data(_nominalDataName)
     _nominal_yield = _nominalData.sumEntries()

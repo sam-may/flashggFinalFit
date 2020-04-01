@@ -10,7 +10,7 @@ replacementProcWV = {
   "stage1":"GG2H_0J",
   "stage1_1":"GG2H_0J_PTH_GT10",
   "stage1_2":"GG2H_0J_PTH_GT10",
-  "fcnc":"tth"
+  "fcnc":"tth",
   "stage1_2_ts1":"GG2H_0J_PTH_GT10",
   "stage1_2_ts2":"VBF_GE2J_MJJ_350_700_PTH_0_200_PTHJJ_0_25",
   "stage1_2_ts3":"QQ2HLNU_PTV_0_75"
