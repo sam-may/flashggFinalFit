@@ -78,7 +78,7 @@ def factoryType(d,s):
   dataHistDown = "%s_%sDown01sigma"%(r0.nominalDataName,s['name'])
   if(ws.data(dataHistUp)!=None)&(ws.data(dataHistDown)!=None): return "a_h"
   
-  print " --> [ERROR] systematic %s: cannot extract type in factoryType function. Doesn't match requirement for (anti)-symmetric weights or anti-symmetric histograms. Leaving..."
+  print " --> [ERROR] systematic %s: cannot extract type in factoryType function. Doesn't match requirement for (anti)-symmetric weights or anti-symmetric histograms. Leaving..." % s['name']
   sys.exit(1)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

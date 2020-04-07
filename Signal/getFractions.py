@@ -150,6 +150,7 @@ if opt.doEffAcc:
     for ir,r in data.iterrows():
       if r['cat']=='NOTAG': continue
       proc_yield = data[data['proc']==r['proc']].nominal_yield.sum()
+      print r['proc'], "nominal yield: ", r['nominal_yield'], " proc_yield: ", proc_yield
       ea = r['nominal_yield']/proc_yield
       if ea < 0.: ea = 0.
       outFile.write("%s %.6f\n"%(r['granular_key'],ea))
