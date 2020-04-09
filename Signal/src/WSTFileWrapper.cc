@@ -96,6 +96,8 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
             return this->fileToKey(fileName); // fall back to default method
         }
     }
+    else if (!procName.Contains("ws_merged"))
+        return this->fileToKey(fileName); // fall back to default method
     else if (procName.Contains("Hct"))
         coupling = "Hct";
     else if (procName.Contains("Hut"))

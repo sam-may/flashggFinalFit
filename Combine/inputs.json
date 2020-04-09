@@ -1,4 +1,11 @@
 {
+    "mu_ttH" : {
+        "pois" : "r_ttH",
+        "fits" : "profile1D:syst:all",
+        "points" : "20:1",
+        "fit_opts":"--saveSpecifiedNuis all --saveInactivePOI 1"
+    },
+
     "mu_inclusive":{
         "pois":"r",
         "fits":"profile1D:statonly:all",

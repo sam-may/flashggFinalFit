@@ -241,7 +241,7 @@ def get_options():
   parser.add_option('--inputWSDir', dest='inputWSDir', default='/vols/cms/jl2117/hgg/ws/test_stage1_1', help='Input WS directory (without year tag _201X)') 
   parser.add_option('--saveDataFrame', dest='saveDataFrame', default='', help='Specify name of dataFrame if want to be saved') 
   parser.add_option('--loadDataFrame', dest='loadDataFrame', default='', help='Load dataFrame. Crucial generated with same options or likely to fail!') 
-  parser.add_option('--output', dest='output', default='Datacard_dummy.txt', help='Datacard name') 
+  parser.add_option('--output', dest='output', default='Datacard_dummy1.txt', help='Datacard name') 
   return parser.parse_args()
 (opt,args) = get_options()
 
@@ -332,7 +332,7 @@ if not skipData:
 
 	# If want to merge some categories
 	if opt.mergeYears:
-	  if cat in mergedYear_cats: _cat = cat
+	  if cat in mergedYear_cats or opt.mergeYears: _cat = cat
 	  else: _cat = "%s_%s"%(cat,year)
 	else: _cat = "%s_%s"%(cat,year)
 
@@ -382,7 +382,7 @@ if not skipData:
 	_inputWSFile = '-' #not needed for data/bkg
 	_nominalDataName = '-' #not needed for data/bkg
 
-	if cat in mergedYear_cats:
+	if cat in mergedYear_cats or opt.mergeYears:
 	  _cat = cat
 	  _model_bkg = "multipdf:CMS_hgg_%s_13TeV_bkgshape"%_cat
 	  _model_data = "multipdf:roohist_data_mass_%s"%_cat
@@ -391,7 +391,7 @@ if not skipData:
 	  data.loc[len(data)] = ["merged",'bkg',_proc_bkg,'-',_cat,_inputWSFile,_nominalDataName,_modelWSFile,_model_bkg,1.,0]
 	  data.loc[len(data)] = ["merged",'data',_proc_data,'-',_cat,_inputWSFile,_nominalDataName,_modelWSFile,_model_data,-1,0]
 	else:
-	  # Loop over years and fill entry per year
+        # Loop over years and fill entry per year
 	  for year in opt.years.split(","):
 	    _cat = "%s_%s"%(cat,year)
 	    _model_bkg = "multipdf:CMS_hgg_%s_13TeV_bkgshape"%_cat

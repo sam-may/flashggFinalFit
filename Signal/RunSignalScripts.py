@@ -215,6 +215,9 @@ else:
               f_out.write("%s %s 4 1\n" % (proc, cat))
       f_out.close()
 
+  print "\n\n Making dummy effAcc json"
+  os.system("cp jsons/granularEffAcc_fcnc_dummy.json jsons/granularEffAcc_%s.json" % ext)
+
   # Construct input command
   print " --> Constructing the input command..."
 

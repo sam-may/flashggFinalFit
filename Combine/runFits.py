@@ -16,7 +16,8 @@ def run(cmd):
   os.system(cmd)
 
 common_opts = '--cminDefaultMinimizerStrategy 0 --X-rtd MINIMIZER_freezeDisassociatedParams --X-rtd MINIMIZER_multiMin_hideConstants --X-rtd MINIMIZER_multiMin_maskConstraints --X-rtd MINIMIZER_multiMin_maskChannels=2'
-job_opts = '--job-mode SGE --sub-opts "-q hep.q -l h_rt=3:0:0 -l h_vmem=24G"'
+job_opts = '--job-mode interactive --parallel 8'
+#job_opts = '--job-mode SGE --sub-opts "-q hep.q -l h_rt=3:0:0 -l h_vmem=24G"'
 
 def getPdfIndicesFromJson(pdfjson):
   pdfStr = "--setParameters "
