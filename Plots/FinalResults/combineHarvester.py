@@ -890,10 +890,12 @@ def writeMultiDimFit(method=None,wsOnly=False):
           print 'Creating workspace for %s...'%method
           exec_line = ''
           if not opts.loadWorkspace: 
-              exec_line += 'text2workspace.py %s -o %s %s -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(os.path.abspath(opts.datacard),os.path.abspath(opts.datacard).replace('.txt',method+'.root'),ws_args[method]) 
+              exec_line += 'text2workspace.py %s -o %s %s'%(os.path.abspath(opts.datacard),os.path.abspath(opts.datacard).replace('.txt',method+'.root'),ws_args[method]) 
+              #exec_line += 'text2workspace.py %s -o %s %s -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(os.path.abspath(opts.datacard),os.path.abspath(opts.datacard).replace('.txt',method+'.root'),ws_args[method]) 
           print exec_line
           if opts.postFit:
-                          exec_line += ' && combine -m %.2f -M MultiDimFit --saveWorkspace -n %s_postFit %s -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so' % ( opts.mh, datacardname+method, os.path.abspath(opts.datacard).replace('.txt',method+'.root') )
+                          exec_line += ' && combine -m %.2f -M MultiDimFit --saveWorkspace -n %s_postFit %s' % ( opts.mh, datacardname+method, os.path.abspath(opts.datacard).replace('.txt',method+'.root') )
+                          #exec_line += ' && combine -m %.2f -M MultiDimFit --saveWorkspace -n %s_postFit %s -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so' % ( opts.mh, datacardname+method, os.path.abspath(opts.datacard).replace('.txt',method+'.root') )
                           exec_line += ' && cp higgsCombine%s_postFit.MultiDimFit.mH%.2f.root %s' % ( datacardname+method, opts.mh, os.path.abspath(opts.datacard).replace('.txt',method+'_postFit.root') )
                           if opts.minimizerStrategyFix: exec_line += ' --cminDefaultMinimizerStrategy=0'
           if opts.parallel and opts.dryRun:
@@ -951,9 +953,11 @@ def writeMultiDimFit(method=None,wsOnly=False):
           file = open('%s/sub_m%1.5g_job%d.sh'%(opts.outDir,getattr(opts,"mh",0.),i),'w')
           writePreamble(file)
           if not opts.loadWorkspace: 
-              exec_line = 'combine %s  -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(opts.datacard,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
+              exec_line = 'combine %s  -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d '%(opts.datacard,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
+              #exec_line = 'combine %s  -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(opts.datacard,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
           else:
-              exec_line = 'combine %s --snapshotName MultiDimFit -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(opts.loadWorkspace,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
+              exec_line = 'combine %s --snapshotName MultiDimFit -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d '%(opts.loadWorkspace,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
+              #exec_line = 'combine %s --snapshotName MultiDimFit -M MultiDimFit --algo=grid  %s --points=%d --firstPoint=%d --lastPoint=%d -n %sJob%d -L $CMSSW_BASE/lib/$SCRAM_ARCH/libHiggsAnalysisGBRLikelihood.so'%(opts.loadWorkspace,combine_args[method],opts.pointsperjob*opts.jobs,i*opts.pointsperjob,(i+1)*opts.pointsperjob-1,method,i)
           if ("FloatMH" in opts.outDir) : exec_line += " --saveSpecifiedNuis MH" 
           if method in par_ranges.keys(): exec_line+=" --setParameterRanges %s "%(par_ranges[method])
           if getattr(opts,"mh",None): exec_line += ' -m %6.2f'%opts.mh

@@ -722,7 +722,7 @@ int main(int argc, char *argv[]){
     for (int mhIndex=0; mhIndex< massList_.size() ; mhIndex++){
       int mh=massList_[mhIndex];
       if (skipMass(mh)) continue;
-      if( (mh!=125) && (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc") ) continue;
+      if( (mh!=125) && (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct") ) continue;
       RooDataSet *dataRV; 
       RooDataSet *dataWV; 
       RooDataSet *dataRVRef; 
@@ -909,7 +909,7 @@ int main(int argc, char *argv[]){
     // right vertex
     if (verbose_) std::cout << "[INFO] preapraing initialfit RV, massList size "<< massList_.size() << std::endl;
     int maxOrder = 1;
-    if( (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc") ) maxOrder=0;
+    if( (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct") ) maxOrder=0;
     SimultaneousFit simultaneousFitRV(mass_,MH,mhLow_,mhHigh_,skipMasses_,binnedFit_,nBins_,massList_,cat,proc,Form("%s/rv",plotDir_.c_str()), /*maxOrder of MH depende of RooPolyVars*/ maxOrder);
     simultaneousFitRV.setVerbosity(verbose_);
     if (!cloneFits_) {

@@ -89,8 +89,12 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
     else if (procName.Contains("ws_merged_fcnc")) {
         //if (procName.Contains("st"))
         //    return std::string("125stfcnc");
-        if (procName.Contains("tt"))
-            return std::string("125fcnc");
+        if (procName.Contains("tt_st") || procName.Contains("st_tt")) {
+            if (procName.Contains("Hut"))
+                return std::string("125fcnc_hut");
+            else if (procName.Contains("Hct"))
+                return std::string("125fcnc_hct");
+        }
         else {
             std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;
             return this->fileToKey(fileName); // fall back to default method

@@ -22,17 +22,20 @@ else:
     intlumi = lumi[years[0]]
 
 os.system("cp %s %s" % (args.datacard, "Plots/FinalResults/CMS-HGG_mva_13TeV_datacard.txt"))
+
+os.system("mkdir -p Plots/FinalResults/Models/")
+os.system("mkdir -p Plots/FinalResults/Models/background_merged/")
+
 os.system("cp %s %s" % (args.bkg_model, "Plots/FinalResults/Models/background_merged/CMS-HGG_mva_13TeV_multipdf.root"))
 
 for year in years:
     sig_files = glob.glob(args.signal_model_dir + "_%s/*.root" % year)
+    os.system("mkdir -p Plots/FinalResults/Models/signal_%s/" % year)
     for file in sig_files:
         target = file.split("/")[-1].replace("fcnc_%s" % year, "mva")
         command = "cp %s %s" % (file, "Plots/FinalResults/Models/signal_%s/%s" % (year, target))
         print command
         os.system(command)
-#os.system("cp %s %s" % (file
-    #os.system("cp %s %s" % (args.signal_model_dir + "_%s/*.root" % year, "Plots/FinalResults/Models/signal_%s/" % year))
 
 
 os.chdir("Plots/FinalResults")

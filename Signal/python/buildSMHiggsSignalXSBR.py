@@ -58,6 +58,8 @@ def Init13TeV():
   SM.makeXS("bbH","13TeV")
   SM.makeXS("WH","13TeV") 
   SM.makeXS("ZH","13TeV") 
+  SM.makeXS("fcnc_hut", "13TeV")
+  SM.makeXS("fcnc_hct", "13TeV")
   options.funcXSext = "13TeV" 
 
 def getBR(mh): 
@@ -65,8 +67,8 @@ def getBR(mh):
  return funcBR.getVal()
  
 def getXS(mh,prod):
- if not (prod == "ttH" or prod == "ggH" or prod == "WH" or prod == "ZH" or prod == "VBF"): 
-     return 1.
+ #if not (prod == "ttH" or prod == "ggH" or prod == "WH" or prod == "ZH" or prod == "VBF"): 
+ #    return 1.
  mhVar.setVal(mh)
  funcXS = SM.modelBuilder.out.function("SM_XS_%s_%s"%(prod,options.funcXSext))
  #return 1.

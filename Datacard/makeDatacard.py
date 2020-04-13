@@ -328,8 +328,10 @@ if not skipData:
       for proc in opt.procs.split(","):
 	# Mapping to STXS definition here
 	_proc = "%s_%s_hgg"%(procToSTXS(proc),year)
-	_proc_s0 = procToData(proc.split("_")[0])
-
+        if not "fcnc" in proc:
+          _proc_s0 = procToData(proc.split("_")[0])
+        else:
+          _proc_s0 = proc
 	# If want to merge some categories
 	if opt.mergeYears:
 	  if cat in mergedYear_cats or opt.mergeYears: _cat = cat
@@ -347,7 +349,11 @@ if not skipData:
 		_inputWSFile = glob.glob("%s_%s/%s/*M125*_%s*"%(opt.inputWSDir,year,splitname,proc))[0]
 		_nominalDataName = "%s_125_13TeV_%s"%(_proc_s0,cat)
         else:
-            _inputWSFile = glob.glob("%s_%s/*%s*_125*" % (opt.inputWSDir, year, proc))[0]
+            if not "fcnc" in proc:
+                _inputWSFile = glob.glob("%s_%s/*%s*_125*" % (opt.inputWSDir, year, proc))[0]
+            else:
+                _inputWSFile = glob.glob("%s_%s/*tt_st*" % (opt.inputWSDir, year))[0]
+                
             #_inputWSFile = glob.glob("%s_%s/*M125*_%s*"%(opt.inputWSDir,year,proc))[0]
             _nominalDataName = "%s_125_13TeV_%s"%(_proc_s0,cat)
 
@@ -359,8 +365,13 @@ if not skipData:
 
 	# Extract rate from lumi
 	_rate = float(lumi[year])*1000
-
-	# Prune NOTAG and if FWDH in process name
+        if proc == "fcnc_hut" or proc == "fcnc_hct":
+            print "INFO: Scaling FCNC rate by 0.01"
+            _rate *= 0.01
+            if "Leptonic" in cat:
+                print "Scaling FCNC leptonic yield by 1/1.527"
+                _rate *= 1./1.527
+    # Prune NOTAG and if FWDH in process name
 	if( cat == "NOTAG" )|( "FWDH" in proc ): _prune = 1
 	else: _prune = 0
 

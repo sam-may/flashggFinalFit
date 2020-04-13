@@ -60,10 +60,18 @@ for fidx in range(len(fits)):
   pdf_opts = getPdfIndicesFromJson("pdfindex%s.json"%opt.ext) if opt.setPdfIndices else ''
 
   # For 1D scan when profiling other pois
-  if _fit.split(":")[0] == "profile1D":
+  if _fit.split(":")[0] == "limit1D":
+      for poi in _fitpois:
+          expectSignal = "0"
+          fitcmd = "cd runFits%s_%s; combineTool.py --task-name %s_%s -M AsymptoticLimits -m 125 -d ../Datacard%s_%s.root --floatOtherPOIs 1 --expectSignal %s -t -1 -n _%s_%s -P %s --algo grid --points %s --alignEdges 1 --split-points %s %s %s %s %s; cd .."%(opt.ext,opt.mode,_name,poi,opt.ext,opt.mode,expectSignal,_name,poi,poi,_points.split(":")[0],_points.split(":")[1],_fit_opts,pdf_opts,common_opts,job_opts)
+          run(fitcmd)
+
+
+  elif _fit.split(":")[0] == "profile1D":
     if _fit.split(":")[1] == "statonly": _fit_opts += " --freezeParameters allConstrainedNuisances"
     for poi in _fitpois:
-      fitcmd = "cd runFits%s_%s; combineTool.py --task-name %s_%s -M MultiDimFit -m 125 -d ../Datacard%s_%s.root --floatOtherPOIs 1 --expectSignal 1 -t -1 -n _%s_%s -P %s --algo grid --points %s --alignEdges 1 --split-points %s %s %s %s %s; cd .."%(opt.ext,opt.mode,_name,poi,opt.ext,opt.mode,_name,poi,poi,_points.split(":")[0],_points.split(":")[1],_fit_opts,pdf_opts,common_opts,job_opts)
+      expectSignal = "0" if opt.mode == "mu_FCNC" else "1"
+      fitcmd = "cd runFits%s_%s; combineTool.py --task-name %s_%s -M MultiDimFit -m 125 -d ../Datacard%s_%s.root --floatOtherPOIs 1 --expectSignal %s -t -1 -n _%s_%s -P %s --algo grid --points %s --alignEdges 1 --split-points %s %s %s %s %s; cd .."%(opt.ext,opt.mode,_name,poi,opt.ext,opt.mode,expectSignal,_name,poi,poi,_points.split(":")[0],_points.split(":")[1],_fit_opts,pdf_opts,common_opts,job_opts)
       run(fitcmd)
   # For 1D scan when fixing other pois
   elif _fit.split(":")[0] == "scan1D":

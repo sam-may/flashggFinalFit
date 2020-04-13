@@ -40,6 +40,8 @@ class Normalization_13TeV {
 	std::map<double,double> XSectionMap_tth;
 
     std::map<double,double> XSectionMap_fcnc;
+    std::map<double,double> XSectionMap_fcnc_hut;
+    std::map<double,double> XSectionMap_fcnc_hct;
 
   // Stage 0 STXS
 	std::map<double,double> XSectionMap_QQ2HLNU;

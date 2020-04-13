@@ -29,6 +29,10 @@ int Normalization_13TeV::Init(int sqrtS){
         double valXStHq        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"tHq"));
         double valXStHW        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"tHW"));
         double valXSggZH       = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ggZH"));
+
+        double valXSfcnc_hut         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"fcnc_hut"));
+        double valXSfcnc_hct         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"fcnc_hct"));
+
         double valXSQQ2HLNU    = valXSWH*(3.*10.86*0.01)/*3xBR(W to lv)*/;  
         double valXSQQ2HLL     = valXSZH*(3*3.3658*0.01 + 20.00*0.01)/*BR(Z to ll) + BR(Z to invisible)*/;  
         double valXSGG2HLL     = valXSggZH*(3*3.3658*0.01 + 20.00*0.01)/*BR(Z to ll) + BR(Z to invisible)*/;  
@@ -46,6 +50,8 @@ int Normalization_13TeV::Init(int sqrtS){
         XSectionMap_zh[mH]  = valXSZH;  
 
         XSectionMap_fcnc[mH] = valXSfcnc;
+        XSectionMap_fcnc_hut[mH] = valXSfcnc_hut;
+        XSectionMap_fcnc_hct[mH] = valXSfcnc_hct;
 
         XSectionMap_QQ2HLNU[mH] = valXSQQ2HLNU;
         XSectionMap_QQ2HLL[mH]  = valXSQQ2HLL;
@@ -346,6 +352,10 @@ TGraph * Normalization_13TeV::GetSigmaGraph(TString process)
     XSectionMap = &XSectionMap_WH2HQQ;
   } else if ( process=="ZH2HQQ" ) {
     XSectionMap = &XSectionMap_ZH2HQQ;
+  } else if ( process=="fcnc_hut" || process=="FCNC_hut" ) {
+    XSectionMap = &XSectionMap_fcnc_hut;
+  } else if ( process=="fcnc_hct" || process=="FCNC_hct" ) {
+    XSectionMap = &XSectionMap_fcnc_hct; 
   } else if ( process=="fcnc" || process=="FCNC" ) {
     XSectionMap = &XSectionMap_fcnc;
   } else {
@@ -592,6 +602,10 @@ double Normalization_13TeV::GetXsection(double mass, TString HistName) {
     XSectionMap = &XSectionMap_THQ;
   } else if ( HistName.Contains("THW") || HistName.Contains("thw") ) {
     XSectionMap = &XSectionMap_THW;
+  } else if ( HistName.Contains("fcnc_hut") || HistName.Contains("FCNC_hut") ) {
+    XSectionMap = &XSectionMap_fcnc_hut;
+  } else if ( HistName.Contains("fcnc_hct") || HistName.Contains("FCNC_hct") ) {
+    XSectionMap = &XSectionMap_fcnc_hct;
   } else if ( HistName.Contains("FCNC") || HistName.Contains("fcnc") ) {
     XSectionMap = &XSectionMap_fcnc;
   } else {
