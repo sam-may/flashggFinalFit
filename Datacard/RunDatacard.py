@@ -1,6 +1,9 @@
 import sys, os
 import glob
 
+sys.path.append("../Signal/python/")
+import parallel_utils
+
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--tag", help = "tag to identify this datacard production", type=str, default="fcnc")
@@ -11,6 +14,8 @@ parser.add_argument("--bkg_model_dir", help = "dir with background model", type=
 parser.add_argument("--cats", help = "cats", type=str, default="FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCLeptonicTag_0,FCNCLeptonicTag_1")
 parser.add_argument("--couplings", help = "which fcnc couplings to consider", type=str, default="Hut,Hct")
 args = parser.parse_args()
+
+command_list = []
 
 years = args.years.split(",")
 couplings = args.couplings.split(",")
@@ -32,4 +37,9 @@ for coupling in couplings:
     os.system("mkdir -p ../Plots/FinalResults/Models_%s/background_merged" % coupling)
     os.system("cp %s/CMS-HGG_multipdf_fcnc_%s.root ../Plots/FinalResults/Models_%s/background_merged/CMS-HGG_mva_13TeV_multipdf.root" % (args.bkg_model_dir, coupling, coupling))
 
-    os.system("python makeDatacard.py --procs 'tth,ggh,wh,zh,thq,thw,bbh,fcnc_%s' --inputWSDir %s --cats %s --prune --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (coupling.lower(), args.tag + "_" + coupling + "_workspaces", args.cats, args.years, "Models_" + coupling, 'Datacard_' + coupling + '.txt')) 
+    command_list.append("python makeDatacard.py --procs 'tth,ggh,wh,zh,thq,thw,bbh,fcnc_%s' --inputWSDir %s --cats %s --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (coupling.lower(), args.tag + "_" + coupling + "_workspaces", args.cats, args.years, "Models_" + coupling, 'Datacard_' + coupling + '.txt'))
+    for cat in args.cats.split(","):
+        command_list.append("python makeDatacard.py --procs 'tth,ggh,wh,zh,thq,thw,bbh,fcnc_%s' --inputWSDir %s --cats %s --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (coupling.lower(), args.tag + "_" + coupling + "_workspaces", cat, args.years, "Models_" + coupling, 'Datacard_' + coupling + "_" + cat + '.txt'))
+
+parallel_utils.submit_jobs(command_list, 12)
+

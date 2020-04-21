@@ -43,7 +43,8 @@ def getValueFromJson(row,uncertainties,sname):
   p = re.sub("_2016_hgg","",row['proc'])
   p = re.sub("_2017_hgg","",p)
   p = re.sub("_2018_hgg","",p)
-  if p in uncertainties: 
+  #if p in uncertainties: 
+  if p in uncertainties and sname in uncertainties[p]: # doing things slightly differently
     if type(uncertainties[p][sname])==list: return uncertainties[p][sname]
     else: return [uncertainties[p][sname]]
   else: return '-'

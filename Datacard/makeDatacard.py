@@ -18,7 +18,7 @@ def leave():
 
 # cats = 'RECO_0J_PTH_0_10_Tag0,RECO_0J_PTH_0_10_Tag1,RECO_0J_PTH_0_10_Tag2,RECO_0J_PTH_GT10_Tag0,RECO_0J_PTH_GT10_Tag1,RECO_0J_PTH_GT10_Tag2,RECO_1J_PTH_0_60_Tag0,RECO_1J_PTH_0_60_Tag1,RECO_1J_PTH_0_60_Tag2,RECO_1J_PTH_60_120_Tag0,RECO_1J_PTH_60_120_Tag1,RECO_1J_PTH_60_120_Tag2,RECO_1J_PTH_120_200_Tag0,RECO_1J_PTH_120_200_Tag1,RECO_1J_PTH_120_200_Tag2,RECO_GE2J_PTH_0_60_Tag0,RECO_GE2J_PTH_0_60_Tag1,RECO_GE2J_PTH_0_60_Tag2,RECO_GE2J_PTH_60_120_Tag0,RECO_GE2J_PTH_60_120_Tag1,RECO_GE2J_PTH_60_120_Tag2,RECO_GE2J_PTH_120_200_Tag0,RECO_GE2J_PTH_120_200_Tag1,RECO_GE2J_PTH_120_200_Tag2,RECO_PTH_200_300_Tag0,RECO_PTH_200_300_Tag1,RECO_PTH_300_450_Tag0,RECO_PTH_300_450_Tag1,RECO_PTH_450_650_Tag0,RECO_PTH_450_650_Tag1,RECO_PTH_GT650_Tag0,RECO_PTH_GT650_Tag1,RECO_VBFTOPO_VHHAD_Tag0,RECO_VBFTOPO_VHHAD_Tag1,RECO_VBFTOPO_JET3VETO_LOWMJJ_Tag0,RECO_VBFTOPO_JET3VETO_LOWMJJ_Tag1,RECO_VBFTOPO_JET3VETO_HIGHMJJ_Tag0,RECO_VBFTOPO_JET3VETO_HIGHMJJ_Tag1,RECO_VBFTOPO_JET3_LOWMJJ_Tag0,RECO_VBFTOPO_JET3_LOWMJJ_Tag1,RECO_VBFTOPO_JET3_HIGHMJJ_Tag0,RECO_VBFTOPO_JET3_HIGHMJJ_Tag1,RECO_VBFTOPO_BSM_Tag0,RECO_VBFTOPO_BSM_Tag1,RECO_VBFLIKEGGH_Tag0,RECO_VBFLIKEGGH_Tag1,RECO_TTH_HAD_LOW_Tag0,RECO_TTH_HAD_LOW_Tag1,RECO_TTH_HAD_LOW_Tag2,RECO_TTH_HAD_LOW_Tag3,RECO_TTH_HAD_HIGH_Tag0,RECO_TTH_HAD_HIGH_Tag1,RECO_TTH_HAD_HIGH_Tag2,RECO_TTH_HAD_HIGH_Tag3,RECO_WH_LEP_LOW_Tag0,RECO_WH_LEP_LOW_Tag1,RECO_WH_LEP_LOW_Tag2,RECO_WH_LEP_HIGH_Tag0,RECO_WH_LEP_HIGH_Tag1,RECO_WH_LEP_HIGH_Tag2,RECO_ZH_LEP_Tag0,RECO_ZH_LEP_Tag1,RECO_TTH_LEP_LOW_Tag0,RECO_TTH_LEP_LOW_Tag1,RECO_TTH_LEP_LOW_Tag2,RECO_TTH_LEP_LOW_Tag3,RECO_TTH_LEP_HIGH_Tag0,RECO_TTH_LEP_HIGH_Tag1,RECO_TTH_LEP_HIGH_Tag2,RECO_TTH_LEP_HIGH_Tag3,RECO_THQ_LEP'
 
-mergedYear_cats = ['FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCLeptonicTag_0,FCNCLeptonicTag_1']
+mergedYear_cats = ['FCNCHadronicTag_0','FCNCHadronicTag_1','FCNCLeptonicTag_0','FCNCLeptonicTag_1']
 #mergedYear_cats = ['RECO_0J_PTH_0_10_Tag0', 'RECO_0J_PTH_0_10_Tag1', 'RECO_0J_PTH_0_10_Tag2', 'RECO_0J_PTH_GT10_Tag0', 'RECO_0J_PTH_GT10_Tag1', 'RECO_0J_PTH_GT10_Tag2', 'RECO_1J_PTH_0_60_Tag0', 'RECO_1J_PTH_0_60_Tag1', 'RECO_1J_PTH_0_60_Tag2', 'RECO_1J_PTH_60_120_Tag0', 'RECO_1J_PTH_60_120_Tag1', 'RECO_1J_PTH_60_120_Tag2', 'RECO_1J_PTH_120_200_Tag0', 'RECO_1J_PTH_120_200_Tag1', 'RECO_1J_PTH_120_200_Tag2', 'RECO_GE2J_PTH_0_60_Tag0', 'RECO_GE2J_PTH_0_60_Tag1', 'RECO_GE2J_PTH_0_60_Tag2', 'RECO_GE2J_PTH_60_120_Tag0', 'RECO_GE2J_PTH_60_120_Tag1', 'RECO_GE2J_PTH_60_120_Tag2', 'RECO_GE2J_PTH_120_200_Tag0', 'RECO_GE2J_PTH_120_200_Tag1', 'RECO_GE2J_PTH_120_200_Tag2', 'RECO_PTH_200_300_Tag0', 'RECO_PTH_200_300_Tag1', 'RECO_PTH_300_450_Tag0', 'RECO_PTH_300_450_Tag1', 'RECO_PTH_450_650_Tag0', 'RECO_PTH_450_650_Tag1', 'RECO_PTH_GT650_Tag0', 'RECO_PTH_GT650_Tag1', 'RECO_VBFTOPO_VHHAD_Tag0', 'RECO_VBFTOPO_VHHAD_Tag1', 'RECO_VBFTOPO_JET3VETO_LOWMJJ_Tag0', 'RECO_VBFTOPO_JET3VETO_LOWMJJ_Tag1', 'RECO_VBFTOPO_JET3VETO_HIGHMJJ_Tag0', 'RECO_VBFTOPO_JET3VETO_HIGHMJJ_Tag1', 'RECO_VBFTOPO_JET3_LOWMJJ_Tag0', 'RECO_VBFTOPO_JET3_LOWMJJ_Tag1', 'RECO_VBFTOPO_JET3_HIGHMJJ_Tag0', 'RECO_VBFTOPO_JET3_HIGHMJJ_Tag1', 'RECO_VBFTOPO_BSM_Tag0', 'RECO_VBFTOPO_BSM_Tag1', 'RECO_VBFLIKEGGH_Tag0', 'RECO_VBFLIKEGGH_Tag1', 'RECO_TTH_HAD_LOW_Tag0', 'RECO_TTH_HAD_LOW_Tag1', 'RECO_TTH_HAD_LOW_Tag2', 'RECO_TTH_HAD_LOW_Tag3', 'RECO_TTH_HAD_HIGH_Tag0', 'RECO_TTH_HAD_HIGH_Tag1', 'RECO_TTH_HAD_HIGH_Tag2', 'RECO_TTH_HAD_HIGH_Tag3', 'RECO_WH_LEP_LOW_Tag0', 'RECO_WH_LEP_LOW_Tag1', 'RECO_WH_LEP_LOW_Tag2', 'RECO_WH_LEP_HIGH_Tag0', 'RECO_WH_LEP_HIGH_Tag1', 'RECO_WH_LEP_HIGH_Tag2', 'RECO_ZH_LEP_Tag0', 'RECO_ZH_LEP_Tag1', 'RECO_TTH_LEP_LOW_Tag0', 'RECO_TTH_LEP_LOW_Tag1', 'RECO_TTH_LEP_LOW_Tag2', 'RECO_TTH_LEP_LOW_Tag3', 'RECO_TTH_LEP_HIGH_Tag0', 'RECO_TTH_LEP_HIGH_Tag1', 'RECO_TTH_LEP_HIGH_Tag2', 'RECO_TTH_LEP_HIGH_Tag3', 'RECO_THQ_LEP'] 
 
 # OLD CATEGORIES: for tests
@@ -159,9 +159,51 @@ experimental_systematics = [
 # Relations: shape = ishape/inorm
 #            norm  = inorm/inc
 # Specify as list in dict: e.g. 'tiers'=['inc','inorm','norm','ishape','shape']
-theory_systematics = [ 
+import copy
+import json
+def create_theory_syst_json(cats, nominal_json):
+    with open(nominal_json, "r") as f_in:
+        th_systs = json.load(f_in)
+    full_systs = {}
+    for cat in cats:
+        full_systs[cat] = copy.deepcopy(th_systs)
+    with open("theory_uncertainties/thu_fcnc.json", "w") as f_out:
+        json.dump(full_systs, f_out, sort_keys=True, indent=4)
+
+create_theory_syst_json(mergedYear_cats, "theory_uncertainties/fcnc.json")
+
+
+theory_systematics = [
+        {'name':'BR_hgg','title':'BR_hgg','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':"0.98/1.021"},
+        {'name':'QCDscale_wh','title':'QCDscale_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_wh','title':'pdf_Higgs_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_wh','title':'alphaS_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_zh','title':'QCDscale_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_zh','title':'pdf_Higgs_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_zh','title':'alphaS_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_thq','title':'QCDscale_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_thq','title':'pdf_Higgs_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_thq','title':'alphaS_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_thw','title':'QCDscale_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_thw','title':'pdf_Higgs_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_thw','title':'alphaS_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_vbf','title':'QCDscale_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_vbf','title':'pdf_Higgs_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_vbf','title':'alphaS_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_ggh','title':'QCDscale_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_ggh','title':'pdf_Higgs_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_ggh','title':'alphaS_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_tth','title':'QCDscale_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'pdf_Higgs_tth','title':'pdf_Higgs_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'alphaS_tth','title':'alphaS_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name':'QCDscale_bbh','title':'QCDscale_bbh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
+        {'name': 'norm_fcnc_hut', 'title':'norm_fcnc_hut', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc.json'},
+        {'name': 'norm_fcnc_hct', 'title':'norm_fcnc_hct', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc.json'}
+]
+    
+#theory_systematics = [ 
                 # Normalisation uncertainties: enter interpretations
-		{'name':'BR_hgg','title':'BR_hgg','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':"0.98/1.021"},
+#		{'name':'BR_hgg','title':'BR_hgg','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':"0.98/1.021"},
 		#{'name':'THU_ggH_Mu','title':'THU_ggH_Mu','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
 		#{'name':'THU_ggH_Res','title':'THU_ggH_Res','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
 		#{'name':'THU_ggH_Mig01','title':'THU_ggH_Mig01','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
@@ -171,7 +213,7 @@ theory_systematics = [
 		#{'name':'THU_ggH_PT60','title':'THU_ggH_PT60','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
 		#{'name':'THU_ggH_PT120','title':'THU_ggH_PT120','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
 		#{'name':'THU_ggH_qmtop','title':'THU_ggH_qmtop','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['inorm']},
-		###{'name':'QCDscale_ggH','title':'QCDscale_ggH','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'thu_ggh.json'},
+		#{'name':'QCDscale_ggH','title':'QCDscale_ggH','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'thu_ggh.json'},
 		###{'name':'THU_qqH_Yield','title':'THU_qqH_Yield','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'thu_qqh_stxs.json'},
 		###{'name':'THU_qqH_PTH200','title':'THU_qqH_PTH200','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'thu_qqh_stxs.json'},
 		###{'name':'THU_qqH_MJJ60','title':'THU_qqH_MJJ60','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'thu_qqh_stxs.json'},
@@ -219,7 +261,7 @@ theory_systematics = [
 		###{'name':'scaleWeight_8','title':'CMS_hgg_scaleWeight_8','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['shape','mnorm']},
 		###{'name':'alphaSWeight_0','title':'CMS_hgg_alphaSWeight_0','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['shape']},
 		###{'name':'alphaSWeight_1','title':'CMS_hgg_alphaSWeight_1','type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['shape']},
-]
+#]
 #for i in range(1,60): theory_systematics.append( {'name':'pdfWeight_%g'%i, 'title':'CMS_hgg_pdfWeight_%g'%i, 'type':'factory','prior':'lnN','correlateAcrossYears':1,'tiers':['shape']} )
 
 def get_options():
@@ -365,7 +407,7 @@ if not skipData:
 
 	# Extract rate from lumi
 	_rate = float(lumi[year])*1000
-        if proc == "fcnc_hut" or proc == "fcnc_hct":
+        if proc == "fcnc_hut" or proc == "fcnc_hct": # FIXME: fix these once normalization is accounted for in workspaces
             print "INFO: Scaling FCNC rate by 0.01"
             _rate *= 0.01
             if "Leptonic" in cat:
