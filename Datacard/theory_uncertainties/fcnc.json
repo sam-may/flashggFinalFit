@@ -2,7 +2,8 @@
     "tth": {
         "QCDscale_tth":[1.058,0.908],
         "pdf_Higgs_tth":1.030,
-        "alphaS_tth":1.020
+        "alphaS_tth":1.020,
+        "additional_unc_tth":-999.0
     },
 
     "ggh": {
@@ -49,14 +50,14 @@
         "QCDscale_fcnc_hut":[1.001,0.999],
         "pdf_Higgs_fcnc_hut":1.001,
         "alphaS_fcnc_hut":1.001,
-        "norm_fcnc_hut":1.300
+        "norm_fcnc_hut":1.001
     },
 
      "fcnc_hct" : {
         "QCDscale_fcnc_hct":[1.001,0.999],
         "pdf_Higgs_fcnc_hct":1.001,
         "alphaS_fcnc_hct":1.001,
-        "norm_fcnc_hct":1.300
+        "norm_fcnc_hct":1.001
     }
 
 }
