@@ -170,42 +170,44 @@ def create_theory_syst_json(cats, nominal_json, tth_unc):
     with open(nominal_json, "r") as f_in:
         th_systs = json.load(f_in)
     th_systs["tth"]["additional_unc_tth"] = tth_unc
+    with open("theory_uncertainties/fcnc_mod.json", "w") as f_out:
+        json.dump(th_systs, f_out, sort_keys=True, indent=4)
     full_systs = {}
-    for cat in cats:
-        full_systs[cat] = copy.deepcopy(th_systs)
-    with open("theory_uncertainties/thu_fcnc.json", "w") as f_out:
-        json.dump(full_systs, f_out, sort_keys=True, indent=4)
+    #for cat in cats:
+    #    full_systs[cat] = copy.deepcopy(th_systs)
+    #with open("theory_uncertainties/thu_fcnc.json", "w") as f_out:
+    #    json.dump(full_systs, f_out, sort_keys=True, indent=4)
 
 #create_theory_syst_json(mergedYear_cats, "theory_uncertainties/fcnc.json")
 
 
 theory_systematics = [
         {'name':'BR_hgg','title':'BR_hgg','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':"0.98/1.021"},
-        {'name':'QCDscale_wh','title':'QCDscale_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_wh','title':'pdf_Higgs_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_wh','title':'alphaS_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_zh','title':'QCDscale_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_zh','title':'pdf_Higgs_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_zh','title':'alphaS_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_thq','title':'QCDscale_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_thq','title':'pdf_Higgs_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_thq','title':'alphaS_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_thw','title':'QCDscale_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_thw','title':'pdf_Higgs_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_thw','title':'alphaS_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_vbf','title':'QCDscale_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_vbf','title':'pdf_Higgs_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_vbf','title':'alphaS_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_ggh','title':'QCDscale_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_ggh','title':'pdf_Higgs_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_ggh','title':'alphaS_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'QCDscale_tth','title':'QCDscale_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'pdf_Higgs_tth','title':'pdf_Higgs_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'alphaS_tth','title':'alphaS_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name':'additional_unc_tth','title':'additional_unc_tth', 'type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'}, # FIXME
-        #{'name':'QCDscale_bbh','title':'QCDscale_bbh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc.json'},
-        {'name': 'norm_fcnc_hut', 'title':'norm_fcnc_hut', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc.json'},
-        {'name': 'norm_fcnc_hct', 'title':'norm_fcnc_hct', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc.json'}
+        {'name':'QCDscale_wh','title':'QCDscale_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_wh','title':'pdf_Higgs_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_wh','title':'alphaS_wh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_zh','title':'QCDscale_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_zh','title':'pdf_Higgs_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_zh','title':'alphaS_zh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_thq','title':'QCDscale_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_thq','title':'pdf_Higgs_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_thq','title':'alphaS_thq','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_thw','title':'QCDscale_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_thw','title':'pdf_Higgs_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_thw','title':'alphaS_thw','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_vbf','title':'QCDscale_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_vbf','title':'pdf_Higgs_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_vbf','title':'alphaS_vbf','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_ggh','title':'QCDscale_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_ggh','title':'pdf_Higgs_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_ggh','title':'alphaS_ggh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'QCDscale_tth','title':'QCDscale_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'pdf_Higgs_tth','title':'pdf_Higgs_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'alphaS_tth','title':'alphaS_tth','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name':'additional_unc_tth','title':'additional_unc_tth', 'type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'}, # FIXME
+        #{'name':'QCDscale_bbh','title':'QCDscale_bbh','type':'constant','prior':'lnN','correlateAcrossYears':1,'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name': 'norm_fcnc_hut', 'title':'norm_fcnc_hut', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc_mod.json'},
+        {'name': 'norm_fcnc_hct', 'title':'norm_fcnc_hct', 'type':'constant', 'prior':'lnN', 'correlateAcrossYears':1, 'value':'theory_uncertainties/fcnc_mod.json'}
 ]
     
 #theory_systematics = [ 

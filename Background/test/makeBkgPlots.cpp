@@ -736,7 +736,8 @@ int main(int argc, char* argv[]){
 	bool useBinnedData=false;
 	bool isMultiPdf=false;
 	bool doSignal=false;
-	bool unblind=false;
+    bool doFCNC = true;
+    bool unblind=false;
 	bool makeCrossCheckProfPlots=false;
 	int mhLow;
 	int mhHigh;
@@ -1054,6 +1055,10 @@ int main(int argc, char* argv[]){
 			oneSigmaBand_r->SetFillColor(kGreen);
 			oneSigmaBand_r->SetMarkerColor(kGreen);
 		}
+
+        if (doFCNC) {
+            
+        }
 
 		if (doSignal){
       int SignalType=0;

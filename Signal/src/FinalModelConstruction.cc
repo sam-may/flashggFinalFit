@@ -1361,12 +1361,13 @@ void FinalModelConstruction::getNormalization(){
 	if (intLumi) {
     // calcu eA as sumEntries / totalxs * totalbr * intL
     float sumEntries = data->sumEntries(); 
-    if (sumEntries <0 ) {
-    sumEntries =0; //negative eff*acc makes no sense...
+    if (sumEntries <= 0 ) {
+    sumEntries =0.00000001; //negative eff*acc makes no sense...
     fitToConstant=1;
     }
     effAcc = (sumEntries/(intLumi->getVal()*norm->GetXsection(mh,procLowerCase_)*norm->GetBR(mh)));
-		std::cout << "[INFO] (FinalModelConstruction) intLumi " << intLumi->getVal() <<", effAcc " << effAcc << std::endl;
+
+        std::cout << "[INFO] (FinalModelConstruction) intLumi " << intLumi->getVal() <<", effAcc " << effAcc << std::endl;
 		std::cout << "[INFO] (FinalModelConstruction) data " << *data << std::endl;
 		std::cout << "[INFO] (FinalModelConstruction) sumEntries " << sumEntries <<", norm->GetXsection(mh,procLowerCase_) " << norm->GetXsection(mh,procLowerCase_) << " norm->GetBR(mh) " << norm->GetBR(mh)<< std::endl;
     
@@ -1377,6 +1378,7 @@ void FinalModelConstruction::getNormalization(){
 		  std::cout << "[ERROR] IntLumi rooRealVar is not in this workspace. exit." << std::endl;
 		return ;
 		}
+    //effAcc = 0.0000000001;
     if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") ){
       if (proc_ == "fcnc_hut" || proc_ == "fcnc_hct")
           temp->SetPoint(0,mh,effAcc);
@@ -1385,6 +1387,7 @@ void FinalModelConstruction::getNormalization(){
       fitToConstant=1;
     }
     else temp->SetPoint(i,mh,effAcc);
+    //fitToConstant=1; // don't use eff*acc to set normalization, take directly from workspace
   }
   //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW") ) temp->RemovePoint(0);
   temp->Print();

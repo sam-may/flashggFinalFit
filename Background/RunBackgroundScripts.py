@@ -110,8 +110,8 @@ if len(procs)==0: procs = 'arbitrary'
 dataFile = input
 signalFitWSFile = "%s/../Signal/outdir_%s/CMS-HGG_sigfit_%s.root"%(os.environ['PWD'],ext,ext)
 
-if not os.path.exists( signalFitWSFile ):
-  print " --> [ERROR] signal fit workspace (%s) does not exists. Please run signal fitting first. Leaving..."%signalFitWSFile
+#if not os.path.exists( signalFitWSFile ):
+#  print " --> [ERROR] signal fit workspace (%s) does not exists. Please run signal fitting first. Leaving..."%signalFitWSFile
 
 # Print info to user
 print " --> Input flashgg ws dir: %s"%inputWSDir
@@ -150,6 +150,8 @@ os.system("mkdir -p %s" % public_html_dir + "/bkgfTest-Data")
 os.system("mkdir -p %s" % public_html_dir + "/bkgPlots-Data")
 os.system("cp %s %s" % ("outdir_" + ext + "/bkgfTest-Data/*.pdf", public_html_dir + "/bkgfTest-Data/"))
 os.system("cp %s %s" % ("outdir_" + ext + "/bkgPlots-Data/*.pdf", public_html_dir + "/bkgPlots-Data/"))
+os.system("cp %s %s" % ("outdir_" + ext + "/bkgfTest-Data/*.png", public_html_dir + "/bkgfTest-Data/"))
+os.system("cp %s %s" % ("outdir_" + ext + "/bkgPlots-Data/*.png", public_html_dir + "/bkgPlots-Data/"))
 os.system("chmod 755 -R %s" % public_html_dir)
 print "Copied plots to %s" % public_html_dir
 

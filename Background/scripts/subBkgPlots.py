@@ -94,7 +94,8 @@ for cat in range(ncats):
   print execLine
   
   os.system('chmod +x %s'%f.name)
-  if options.runLocal: command_list.append('./%s' % f.name) #os.system('./%s'%f.name)
+  coupling = "hut" if "Hut" in options.bkgfilename else "hct"
+  if options.runLocal: command_list.append('./%s > bkg_yield_%s_%s.txt' % (f.name, coupling, options.catLabels[cat])) #os.system('./%s'%f.name)
   else:
     if (options.batch == "IC") : os.system('qsub -q %s -o %s.log %s'%(options.queue,os.path.abspath(f.name),os.path.abspath(f.name)))
     elif( options.batch == "HTCONDOR" ):

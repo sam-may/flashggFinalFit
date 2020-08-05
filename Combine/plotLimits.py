@@ -8,8 +8,9 @@ tdrStyle.setTDRStyle()
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--tag", help = "tag", type=str, default = "test")
-parser.add_argument("--cats", help = "subcategories to also run limits for", type=str, default = "FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCLeptonicTag_0,FCNCLeptonicTag_1")
+parser.add_argument("--cats", help = "subcategories to also run limits for", type=str, default = "FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCHadronicTag_2,FCNCHadronicTag_3,FCNCLeptonicTag_0,FCNCLeptonicTag_1,FCNCLeptonicTag_2")
 parser.add_argument("--couplings", help = "fcnc coupling", type=str, default="Hut,Hct")
+parser.add_argument("--stat_only", help = "use stat only combine results", action="store_true")
 args = parser.parse_args()
 
 cats = args.cats.split(",")
@@ -18,14 +19,15 @@ cats_full.append("All_Categories")
 couplings = args.couplings.split(",")
 
 assumed_br = 0.1441
-
+ROOT.gStyle.SetPaintTextFormat("4.3f")
 results = {}
+
 for coupling in couplings:
     results[coupling] = {}
     for cat in cats_full:
         results[coupling][cat] = {}
         cat_string = "" if cat == "All_Categories" else "_%s" % cat
-        results[coupling][cat]["input"] = "../Plots/FinalResults/limits_%s_%s%s.txt" % (args.tag, coupling.lower(), cat_string)
+        results[coupling][cat]["input"] = "../Plots/FinalResults/limits_%s_%s%s%s.txt" % (args.tag, coupling.lower(), cat_string, "_statonly" if args.stat_only else "")
         with open (results[coupling][cat]["input"], "r") as f_in:
             lines = f_in.readlines()
             for line in lines:
@@ -41,7 +43,7 @@ for coupling in couplings:
 with open("plot_results_%s.json" % args.tag, "w") as f_out:
     json.dump(results, f_out, sort_keys=True, indent=4)
 
-ylabel = { "Hut" : "BF (t #rightarrow Hu)", "Hct" : "BF (t #rightarrow Hc)" }
+ylabel = { "Hut" : "BF (t #rightarrow Hu) (%%)", "Hct" : "BF (t #rightarrow Hc) (%%)" }
 
 for coupling in couplings:
     c1 = ROOT.TCanvas("c1", "c1", 800, 800)
@@ -107,9 +109,11 @@ for coupling in couplings:
         hist.SetMarkerSize(0)
         hist.Draw("E2,SAME")
    
-    h_exp.Draw("SAME,E")
-    h_exp.SetMinimum(y_min * 0.9)
-    h_exp.SetMaximum(y_max * 1.1 * 0.5)
+    h_exp.Draw("SAME,E,TEXT0")
+    h_exp.SetMinimum(0.01)
+    h_exp.SetMaximum(3)
+    #h_exp.SetMinimum(y_min * 0.9)
+    #h_exp.SetMaximum(y_max * 1.1 * 0.5)
 
     h_exp.GetYaxis().SetTitle(ylabel[coupling])
     h_exp.GetYaxis().SetTitleOffset(1.23)
@@ -137,6 +141,8 @@ for coupling in couplings:
     latex.DrawLatex(0.215, 0.935, "#it{Preliminary}")
     
     latex.DrawLatex(0.67, 0.935, "137 fb^{-1} (13 TeV)")
-
-    c1.SaveAs("limits_%s_%s.pdf" % (coupling, args.tag))
+    
+    c1.SetLogy()
+    c1.SaveAs("limits_%s_%s%s.pdf" % (coupling, args.tag, "_statonly" if args.stat_only else ""))
+    c1.SaveAs("limits_%s_%s%s.png" % (coupling, args.tag, "_statonly" if args.stat_only else ""))
 

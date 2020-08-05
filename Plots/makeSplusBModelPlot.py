@@ -165,6 +165,7 @@ if opt.cat == 'all':
   cats = h_data.keys()
   for cidx in range(len(cats)):
     c = cats[cidx]
+    print c
     if cidx == 0: 
       h_data['all'] = h_data[c].Clone()
       h_sbpdfs['all'] = {'pdfNBins':h_sbpdfs[c]['pdfNBins'].Clone(),'nBins':h_sbpdfs[c]['nBins'].Clone()}
@@ -172,12 +173,12 @@ if opt.cat == 'all':
       h_spdfs['all'] = {'pdfNBins':h_spdfs[c]['pdfNBins'].Clone(),'nBins':h_spdfs[c]['nBins'].Clone()}
     else:
       h_data['all'] += h_data[c]
-      h_sbpdfs['all']['pdfnbins'] += h_sbpdfs[c]['pdfnbins']
-      h_sbpdfs['all']['nbins'] += h_sbpdfs[c]['nbins']
-      h_bpdfs['all']['pdfnbins'] += h_bpdfs[c]['pdfnbins']
-      h_bpdfs['all']['nbins'] += h_bpdfs[c]['nbins']
-      h_spdfs['all']['pdfnbins'] += h_spdfs[c]['pdfnbins']
-      h_spdfs['all']['nbins'] += h_spdfs[c]['nbins'] 
+      h_sbpdfs['all']['pdfNBins'] += h_sbpdfs[c]['pdfNBins']
+      h_sbpdfs['all']['nBins'] += h_sbpdfs[c]['nBins']
+      h_bpdfs['all']['pdfNBins'] += h_bpdfs[c]['pdfNBins']
+      h_bpdfs['all']['nBins'] += h_bpdfs[c]['nBins']
+      h_spdfs['all']['pdfNBins'] += h_spdfs[c]['pdfNBins']
+      h_spdfs['all']['nBins'] += h_spdfs[c]['nBins'] 
 
 # Extract histograms for ratio plot
 h_bpdfs_ratio = {} # Straight lines
@@ -344,6 +345,7 @@ for c in h_data:
 
   if "hut" in opt.parameterMap:
       canv.SaveAs("sPlusB_Hut_%s.pdf" % c)
+      canv.SaveAs("sPlusB_Hut_%s.png" % c)
   elif "hct" in opt.parameterMap:
       canv.SaveAs("sPlusB_Hct_%s.pdf" % c)
-    
+      canv.SaveAs("sPlusB_Hct_%s.png" % c)

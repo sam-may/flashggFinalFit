@@ -757,7 +757,7 @@ int main(int argc, char *argv[]){
         
         // if there are few atcual entries or if there is an  overall negative sum of weights...
         // or if it was specified that one should use the replacement dataset, then need to replace!
-        if (nEntriesRV < 200 || sEntriesRV < 0 || ( userSkipRV)){
+        if (nEntriesRV < 500 || sEntriesRV < 0 || ( userSkipRV)){
           std::cout << "[INFO] too few entries to use for fits in RV! nEntries " << nEntriesRV << " sumEntries " << sEntriesRV << "userSkipRV " << userSkipRV<< std::endl;
           isProblemCategory=true;
           
@@ -808,7 +808,7 @@ int main(int argc, char *argv[]){
       
         // if there are few atcual entries or if there is an  overall negative sum of weights...
         // or if it was specified that one should use the replacement dataset, then need to replace!
-        if (nEntriesWV < 200 || sEntriesWV < 0 || (userSkipWV)){
+        if (nEntriesWV < 500 || sEntriesWV < 0 || (userSkipWV)){
           std::cout << "[INFO] too few entries to use for fits in WV! nEntries " << nEntriesWV << " sumEntries " << sEntriesWV << "userSkipWV " << userSkipWV << std::endl;
         
           //things are simpler this time, since almost all WV are bad aside from ggh-UntaggedTag3

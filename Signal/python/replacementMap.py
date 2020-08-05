@@ -17,7 +17,7 @@ replacementProcWV = {
 }
 # Replacement cat for WV fit: 
 replacementCatWV = {
-  "fcnc":"FCNCHadronicTag_1",
+  "fcnc":"FCNCHadronicTag_3",
   "hig-16-040":"UntaggedTag_2",
   "stage1":"RECO_0J_Tag1",
   "stage1_1":"RECO_0J_PTH_GT10_Tag1",
@@ -38,8 +38,11 @@ replacementProcRVMap = {
   "fcnc":[
       "FCNCHadronicTag_0:tth",
       "FCNCHadronicTag_1:tth",
+      "FCNCHadronicTag_2:tth",
+      "FCNCHadronicTag_3:tth",
       "FCNCLeptonicTag_0:tth",
-      "FCNCLeptonicTag_1:tth"
+      "FCNCLeptonicTag_1:tth",
+      "FCNCLeptonicTag_2:tth"
   ],
 
   # HIG-16-040 categorisation
@@ -433,10 +436,13 @@ replacementProcRVMap = {
 replacementCatRVMap = {
 
   "fcnc":[
-      "FCNCHadronicTag_0:FCNCHadronicTag_0",
-      "FCNCHadronicTag_1:FCNCHadronicTag_1",
-      "FCNCLeptonicTag_0:FCNCLeptonicTag_0",
-      "FCNCLeptonicTag_1:FCNCLeptonicTag_1"
+      "FCNCHadronicTag_0:FCNCHadronicTag_3",
+      "FCNCHadronicTag_1:FCNCHadronicTag_3",
+      "FCNCHadronicTag_2:FCNCHadronicTag_3",
+      "FCNCHadronicTag_3:FCNCHadronicTag_3",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_2",
+      "FCNCLeptonicTag_1:FCNCLeptonicTag_2",
+      "FCNCLeptonicTag_2:FCNCLeptonicTag_2"
   ],
 
   # HIG-16-040 categorisation

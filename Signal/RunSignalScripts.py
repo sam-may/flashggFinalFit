@@ -201,10 +201,11 @@ else:
   print " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
   # Delete previous files
-  print " \n\nDeleting old files!"
-  deleter = "rm -rf %s" % ("outdir_" + ext)
-  print deleter
-  os.system(deleter)
+  if not printOnly:
+      print " \n\nDeleting old files!"
+      deleter = "rm -rf %s" % ("outdir_" + ext)
+      print deleter
+      os.system(deleter)
  
   # Make dummy dat file
   print "\n\n Making dummy dat file"
@@ -244,6 +245,8 @@ else:
   os.system("mkdir -p %s" % public_html_dir + "/sigplots")
   os.system("cp %s %s" % ("outdir_" + ext + "/sigfit/*.pdf", public_html_dir + "/sigfit/"))
   os.system("cp %s %s" % ("outdir_" + ext + "/sigplots/*.pdf", public_html_dir + "/sigplots/"))
+  #os.system("cp %s %s" % ("outdir_" + ext + "/sigfit/*.png", public_html_dir + "/sigfit/"))
+  #os.system("cp %s %s" % ("outdir_" + ext + "/sigplots/*.png", public_html_dir + "/sigplots/"))
   os.system("chmod 755 -R %s" % public_html_dir)
   print "Copied plots to %s" % public_html_dir
 
