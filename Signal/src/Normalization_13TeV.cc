@@ -21,17 +21,35 @@ int Normalization_13TeV::Init(int sqrtS){
     for (double mH=120;mH<130.05;mH+=0.1){ // breaks when extended beyond 130
         double valBR           = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getBR(%f)",mH));
         double valXSggH        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ggH"));
-        double valXSqqH        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"qqH"));
+        //double valXSqqH        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"qqH"));
         double valXSttH        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ttH"));
         double valXSWH         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"WH"));
         double valXSZH         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ZH"));
         double valXSbbH        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"bbH"));
         double valXStHq        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"tHq"));
         double valXStHW        = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"tHW"));
-        double valXSggZH       = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ggZH"));
+        //double valXSggZH       = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"ggZH"));
+
+        double valXSqqH = 1.;
+        double valXSggZH = 1.;
 
         double valXSfcnc_hut         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"fcnc_hut"));
         double valXSfcnc_hct         = (double)TPython::Eval(Form("buildSMHiggsSignalXSBR.getXS(%f,'%s')",mH,"fcnc_hct"));
+
+        /*
+        std::cout << std::endl << std::endl << " [Normalization_13TeV.cc] Got the following XS values: " << std::endl;
+        std::cout << "ggH: " << valXSggH << std::endl;
+        std::cout << "qqH: " << valXSqqH << std::endl;
+        std::cout << "ttH: " << valXSttH << std::endl;
+        std::cout << "WH: " << valXSWH << std::endl;
+        std::cout << "ZH: " << valXSZH << std::endl;
+        std::cout << "bbH: " << valXSbbH << std::endl;
+        std::cout << "tHq: " << valXStHq << std::endl;
+        std::cout << "ggZH: " << valXSggZH << std::endl;
+        std::cout << "fcnc_hut: " << valXSfcnc_hut << std::endl;
+        std::cout << "fcnc_hct: " << valXSfcnc_hct << std::endl;
+        std::cout << "tHW: " << valXStHW << std::endl;
+        */
 
         double valXSQQ2HLNU    = valXSWH*(3.*10.86*0.01)/*3xBR(W to lv)*/;  
         double valXSQQ2HLL     = valXSZH*(3*3.3658*0.01 + 20.00*0.01)/*BR(Z to ll) + BR(Z to invisible)*/;  
