@@ -493,7 +493,7 @@ void SimultaneousFit::runFits(int ncpu,string outdir, float epsilon){
     //prepare the individual normalised datasets, and put them into a map which the lcChi2 can understand
     std::map<int, RooDataHist*> ourDatasets;
     for (int iMH =0 ; iMH<allMH_.size() ; iMH++){
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_ == "fcnc_hut" || proc_ == "fcnc_hct") && allMH_[iMH]!=125 ) continue;
+    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_ == "fcnc_hut" || proc_ == "fcnc_hct") && allMH_[iMH]!=125 ) continue;
     ourDatasets.insert(pair<int, RooDataHist*>(allMH_[iMH], new RooDataHist(Form("%d_binned",allMH_[iMH]),Form("%d_binned",allMH_[iMH]),RooArgSet(*mass),*(normaliseDatasets(datasets[allMH_[iMH]])))));
     }
     

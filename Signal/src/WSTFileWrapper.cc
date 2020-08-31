@@ -87,13 +87,20 @@ std::string WSTFileWrapper::fileToKeyFCNC( std::string fileName ) {
     if (procName.Contains("data")) 
         return std::string("data");
     else if (procName.Contains("ws_merged_fcnc")) {
-        //if (procName.Contains("st"))
-        //    return std::string("125stfcnc");
+        std::string mass_point;
+        if (fileName.Contains("125"))
+            mass_point = "125";
+        else if (fileName.Contains("130"))
+            mass_point = "130";
+        else if (fileName.Contains("120"))
+            mass_point = "120";
+        else
+            std::cout << "[WSTFileWrapper] workspace " << fileName << " not matched to a mass point!." << std::endl;
         if (procName.Contains("tt_st") || procName.Contains("st_tt")) {
             if (procName.Contains("Hut"))
-                return std::string("125fcnc_hut");
+                return std::string(mass_point + "fcnc_hut");
             else if (procName.Contains("Hct"))
-                return std::string("125fcnc_hct");
+                return std::string(mass_point + "fcnc_hct");
         }
         else {
             std::cout << "[WSTFileWrapper] workspaces not named the way we expect!!!" << std::endl;

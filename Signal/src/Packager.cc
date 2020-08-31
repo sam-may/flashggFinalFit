@@ -66,8 +66,9 @@ void Packager::packageOutput(bool split, string process , string tag){
                                 if( split_ ) { // no need for all this if only considering one proc,cat...
                                         if( process!=(*proc) || tag!=catname ) { continue; }
                                 }
-        if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW" || *proc=="bbh" || *proc=="thq" || *proc=="thw" || *proc=="fcnc" || *proc=="fcnc_hut" || *proc=="fcnc_hct") ) continue; //FIXME
-	    else { std::cout << "Not skipping Proc and mass: " << *proc << ", " << mh << std::endl; }
+        //if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW" || *proc=="bbh" || *proc=="thq" || *proc=="thw" || *proc=="fcnc" || *proc=="fcnc_hut" || *proc=="fcnc_hct") ) continue; //FIXME
+                //else { std::cout << "Not skipping Proc and mass: " << *proc << ", " << mh << std::endl; }
+
                 RooDataSet *tempData = 0;
 				if( merge ) { 
 					tempData = (RooDataSet*)mergeWS->data(Form("sig_%s_%d_mass_m%d_%s",proc->c_str(),year_,mh,catname.c_str()));
