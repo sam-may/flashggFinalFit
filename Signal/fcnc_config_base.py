@@ -10,7 +10,7 @@ signalScriptCfg = {
         'numberOfBins' : '320',
         'massPoints' : '120,125,130',
         #'procs' : 'tth,vbf,ggh,wh',
-        'procs' : 'vbf,wh,zh,ggh,tth,thq,thw,fcnc_COUPLINGLOWER',
+        'procs' : 'bbh,vbf,wh,zh,ggh,tth,thq,thw,fcnc_COUPLINGLOWER',
 
         # Use DCB
         'useDCB' : 1,

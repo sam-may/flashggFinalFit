@@ -53,7 +53,13 @@ for coupling in couplings:
                 ws_file = ROOT.TFile.Open(signal_ws.replace("COUPLING", coupling).replace("YEAR", year).replace("PROC", proc).replace("CAT", cat))
                 ws = ws_file.Get("wsig_13TeV")
                 y = ws.data("sig_%s_mass_m125_%s" % (proc, cat)).sumEntries()
+                #n_entry = ws.data("sig_%s_mass_m125_%s" % (proc, cat)).numEntries()
+                #if n_entry <= 0:
+                #    n_entry = 1
+
+                #yerr_low_bound = y * (float(n_entry))**(-0.5)
                 
+
                 pdf = ws.pdf("")
 
                 if "fcnc" in proc:
@@ -61,6 +67,8 @@ for coupling in couplings:
 
                 yields[coupling][cat][proc]["yield"] += y
                 yields[coupling][cat][proc][year] += y
+
+                #print coupling, cat, p, y, "+/-", yerr_low_bound, "(%.2f percent error)" % (yerr_low_bound*100./y)
 
                 if not "fcnc" in proc:
                     yields[coupling][cat]["smhiggs"]["yield"] += y

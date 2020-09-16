@@ -1,6 +1,11 @@
 import ROOT as r
 import json
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--input_tag", help = "input_tag", type=str, default="")
+args = parser.parse_args()
+
 years = { "2016" : 35900, "2017" : 41500, "2018" : 58000 }
 
 # RooFormulaVar::shapeBkg_tth_2018_hgg_FCNCLeptonicTag_0__norm[ actualVars=(fxs_tth_13TeV,fbr_13TeV,fea_tth_2018_FCNCLeptonicTag_0_13TeV,rate_tth_2018_FCNCLeptonicTag_0_13TeV) formula="@0*@1*@2*@3" ] = 5.03217e-06
@@ -13,7 +18,7 @@ def printYields(coupling, proc, tag):
 
     for year, lumi in years.items():
         #file = r.TFile("../Signal/outdir_fcnc_%s_%s/CMS-HGG_sigfit_fcnc_%s_%s_%s.root" % (coupling, year, coupling, year, tag))
-        file = r.TFile("../Plots/FinalResults/Datacard_tth_scale1_unc40_%s_FCNC.root" % (coupling.lower()))
+        file = r.TFile("../Plots/FinalResults/Datacard_fcnc_%s%s_FCNC.root" % (coupling.lower(), args.input_tag))
         ws = file.Get("w")
         mH = ws.var('MH')
         type = "Sig" if "fcnc" in proc else "Bkg"
@@ -25,8 +30,8 @@ def printYields(coupling, proc, tag):
 
         else:
             evt_yield = norm.getVal() * lumi
-        if "fcnc" in proc:
-            evt_yield *= 0.01
+        #if "fcnc" in proc: #TODO do we actually need this? pretty sure it is taken care of in datacards...
+        #    evt_yield *= 0.01
         #print "nEvts for mH = %.1f is: %.10f" % (m, evt_yield)
             #if m == 125.:
         print "Yield for year %s is: %.10f" % (year, evt_yield)
@@ -35,7 +40,7 @@ def printYields(coupling, proc, tag):
         if "fcnc" not in proc:
             results[coupling][tag]["smhiggs"][year] += evt_yield  
 
-    print "Total yield for mH = 125 is: %.10f" % total_yield
+    print "Total yield is: %.10f" % total_yield
     results[coupling][tag][proc]["yield"] = total_yield
     if "fcnc" not in proc:
         results[coupling][tag]["smhiggs"]["yield"] += total_yield
