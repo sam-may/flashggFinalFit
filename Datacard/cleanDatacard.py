@@ -97,10 +97,11 @@ with open(opts.outfilename,'w') as outFile:
               print 'DoubleSided: replacing %1.3f/%1.3f with %1.3f'%(valLo, valHi, max(valHi,valLo))
           elif opts.removeDoubleSided and valHi < 0.999999 and valLo < 0.999999:
             #line += '%1.3f '%(0.5*(valHi+valLo))
-            line += '%1.3f '%(min(valHi,valLo))
+            newUnc = 1 + (1 - min(valHi, valLo))
+            line += '%1.3f '%(newUnc)
             if opts.verbose:
               #print 'DoubleSided: replacing %1.3f/%1.3f with %1.3f'%(valLo, valHi, 0.5*(valHi+valLo))
-              print 'DoubleSided: replacing %1.3f/%1.3f with %1.3f'%(valLo, valHi, min(valHi,valLo))
+              print 'DoubleSided: replacing %1.3f/%1.3f with %1.3f'%(valLo, valHi, newUnc)
           else:
             line += '%1.3f/%1.3f '%(valLo,valHi)
         else:
