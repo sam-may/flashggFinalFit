@@ -1,0 +1,66 @@
+{
+    "Hct": {
+        "2016": {
+            "FCNCHadronicTag_0": 1.0338361173089623, 
+            "FCNCHadronicTag_1": 1.033785551977199, 
+            "FCNCHadronicTag_2": 1.0338237846668452, 
+            "FCNCHadronicTag_3": 1.034154908313628, 
+            "FCNCLeptonicTag_0": 1.0339922056220163, 
+            "FCNCLeptonicTag_1": 1.0342201698271463, 
+            "FCNCLeptonicTag_2": 1.0341015620916454, 
+            "all": 1.033835848560083
+        }, 
+        "2017": {
+            "FCNCHadronicTag_0": 1.0338363184776957, 
+            "FCNCHadronicTag_1": 1.0337865605518692, 
+            "FCNCHadronicTag_2": 1.0338257068609538, 
+            "FCNCHadronicTag_3": 1.0343232467187704, 
+            "FCNCLeptonicTag_0": 1.0339081192488402, 
+            "FCNCLeptonicTag_1": 1.0341002705220967, 
+            "FCNCLeptonicTag_2": 1.0340584547256404, 
+            "all": 1.033833950342257
+        }, 
+        "2018": {
+            "FCNCHadronicTag_0": 1.033833159620369, 
+            "FCNCHadronicTag_1": 1.0337860784686554, 
+            "FCNCHadronicTag_2": 1.0338233548087787, 
+            "FCNCHadronicTag_3": 1.0343348319864527, 
+            "FCNCLeptonicTag_0": 1.0338985765477122, 
+            "FCNCLeptonicTag_1": 1.0341087182052056, 
+            "FCNCLeptonicTag_2": 1.0340480790838413, 
+            "all": 1.0338307894836027
+        }
+    }, 
+    "Hut": {
+        "2016": {
+            "FCNCHadronicTag_0": 1.045597762920602, 
+            "FCNCHadronicTag_1": 1.0589932016663157, 
+            "FCNCHadronicTag_2": 1.0571189947184492, 
+            "FCNCHadronicTag_3": 1.0601184602097546, 
+            "FCNCLeptonicTag_0": 1.0831017636904026, 
+            "FCNCLeptonicTag_1": 1.0737833328929478, 
+            "FCNCLeptonicTag_2": 1.058809599716437, 
+            "all": 1.0597437973111514
+        }, 
+        "2017": {
+            "FCNCHadronicTag_0": 1.0460661318756712, 
+            "FCNCHadronicTag_1": 1.0615076192894424, 
+            "FCNCHadronicTag_2": 1.0603472182393194, 
+            "FCNCHadronicTag_3": 1.067604556955518, 
+            "FCNCLeptonicTag_0": 1.0801265099502508, 
+            "FCNCLeptonicTag_1": 1.075254662376073, 
+            "FCNCLeptonicTag_2": 1.0643859191939677, 
+            "all": 1.0633037659079934
+        }, 
+        "2018": {
+            "FCNCHadronicTag_0": 1.045710367780703, 
+            "FCNCHadronicTag_1": 1.0612158895240595, 
+            "FCNCHadronicTag_2": 1.0601834237934629, 
+            "FCNCHadronicTag_3": 1.0676543859143073, 
+            "FCNCLeptonicTag_0": 1.0794972874530004, 
+            "FCNCLeptonicTag_1": 1.0748721080566597, 
+            "FCNCLeptonicTag_2": 1.0636968374766977, 
+            "all": 1.0628708594980734
+        }
+    }
+}
