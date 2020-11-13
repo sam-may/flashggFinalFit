@@ -547,7 +547,7 @@ void FinalModelConstruction::getRvFractionFunc(string name){
   // fill the holders/TGraph
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh = allMH_[i];
-    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_=="bbh" || proc_=="thq" || proc_=="thw" || proc_ =="fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_=="bbh" || proc_=="thq" || proc_=="thw" || proc_ =="fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
     mhValues.push_back(mh);
     double rvN = rvDatasets[mh]->sumEntries();
     double wvN = wvDatasets[mh]->sumEntries();
@@ -1231,7 +1231,7 @@ void FinalModelConstruction::makeSTDdatasets(){
 	if (sqrts_ ==13) catname = Form("%s",cat_.c_str());
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
 		RooDataSet *data = (RooDataSet*)rvDatasets[mh]->Clone(Form("sig_%s_mass_m%d_%s",proc_.c_str(),mh,catname.c_str()));
 		data->append(*wvDatasets[mh]);
 		stdDatasets.insert(pair<int,RooDataSet*>(mh,data));
@@ -1244,7 +1244,7 @@ void FinalModelConstruction::makeFITdatasets(){
 	if (sqrts_ ==13) catname = Form("%s",cat_.c_str());
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
 		RooDataSet *data = (RooDataSet*)rvFITDatasets[mh]->Clone(Form("sig_%s_mass_m%d_%s",proc_.c_str(),mh,catname.c_str()));
 		data->append(*wvFITDatasets[mh]);
 		fitDatasets.insert(pair<int,RooDataSet*>(mh,data));
@@ -1267,7 +1267,7 @@ void FinalModelConstruction::plotPdf(string outDir){
   std::vector<int> colorList ={7,9,4,2,8,5,1,14};//kCyan,kMagenta,kBlue, kRed,kGreen,kYellow,kBlack, kGray};
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
     stdDatasets[mh]->plotOn(dataPlot,Binning(160),MarkerColor(colorList[i]));
     std::cout << "FMC LC DEBUG this dataset for mh=" << mh << std::endl;
     stdDatasets[mh]->Print();
@@ -1356,17 +1356,17 @@ void FinalModelConstruction::getNormalization(){
   for (unsigned int i=0; i<allMH_.size(); i++){
     double mh = double(allMH_[i]);
 
-    // comment out skipping of off-mass points below since we now use the ws shifter to make all mass points
-    //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
     RooDataSet *data = stdDatasets[mh];
 	double effAcc =0.;
 	if (intLumi) {
     // calcu eA as sumEntries / totalxs * totalbr * intL
     float sumEntries = data->sumEntries(); 
     if (sumEntries <= 0 ) {
-    sumEntries =0.00000001; //negative eff*acc makes no sense...
+    sumEntries =0.0000000001; //negative eff*acc makes no sense...
     fitToConstant=1;
     }
+
     effAcc = (sumEntries/(intLumi->getVal()*norm->GetXsection(mh,procLowerCase_)*norm->GetBR(mh)));
 
         std::cout << "[INFO] (FinalModelConstruction) intLumi " << intLumi->getVal() <<", effAcc " << effAcc << std::endl;
@@ -1381,17 +1381,13 @@ void FinalModelConstruction::getNormalization(){
 		return ;
 		}
     //effAcc = 0.0000000001;
-    // comment out skipping of off-mass points below since we now use the ws shifter to make all mass points
-    /*
     if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") ){
-      if (proc_ == "fcnc_hut" || proc_ == "fcnc_hct")
-          temp->SetPoint(0,mh,effAcc);
-      else
-          temp->SetPoint(0,mh,effAcc);
+      temp->SetPoint(0,mh,effAcc);
+      temp->SetPoint(0,mh,effAcc);
       fitToConstant=1;
     }
-    else */ 
-    temp->SetPoint(i,mh,effAcc);
+    else 
+        temp->SetPoint(i,mh,effAcc);
     //fitToConstant=1; // don't use eff*acc to set normalization, take directly from workspace
   }
   //if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW") ) temp->RemovePoint(0);
@@ -1403,7 +1399,7 @@ void FinalModelConstruction::getNormalization(){
   //if not, fit to a pol2, but make sure that the min/max is noit in the range 120->130
   //because we don;t expect a drastic change in that range...
   TCanvas *tc_lc = new TCanvas("c","c",500,500);
-  if (isProblemCategory_) fitToConstant=1;
+  //if (isProblemCategory_) fitToConstant=1; // don't fit any categories to constant (want to avoid changes in M125 norm simply due to stat fluctuations
   TF1 *pol;
   if (!fitToConstant){
     TF1 *pol2= new TF1("pol","pol2",120,130); // set to y= ax^2+bx+c
@@ -1416,11 +1412,14 @@ void FinalModelConstruction::getNormalization(){
     float a=pol->GetParameter(2) ;// y = [0] + [1]*x + [2]*x*x
     float parabola_extremum_x = -b/(2*a);
     if (verbosity_>1) std::cout << "[INFO] e*a fit to pol2 has vertex at " <<  parabola_extremum_x << std::endl;
+
+    // Don't do linear fit (quadratic fit instead)
+    /*
     if ( parabola_extremum_x  > 120. && parabola_extremum_x < 130){ // we don't want our parabola to have an unphysical turn-over point between 120 and 130 GeV
       TF1 *pol1= new TF1("pol","pol1",120,130); // set to linear fit in this case
       pol=pol1;
       temp->Fit(pol,"Q");
-    }
+    } */
   } else {
     TF1 *pol0= new TF1("pol","pol0",120,130); //  problem dataset, set to constant fit
      pol=pol0;

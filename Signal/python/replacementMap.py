@@ -10,7 +10,9 @@ replacementProcWV = {
   "stage1":"GG2H_0J",
   "stage1_1":"GG2H_0J_PTH_GT10",
   "stage1_2":"GG2H_0J_PTH_GT10",
-  "fcnc":"tth",
+  "fcnc":"thq",
+  "fcnc_hut":"fcnc_hut",
+  "fcnc_hct":"fcnc_hct",
   "stage1_2_ts1":"GG2H_0J_PTH_GT10",
   "stage1_2_ts2":"VBF_GE2J_MJJ_350_700_PTH_0_200_PTHJJ_0_25",
   "stage1_2_ts3":"QQ2HLNU_PTV_0_75"
@@ -18,6 +20,8 @@ replacementProcWV = {
 # Replacement cat for WV fit: 
 replacementCatWV = {
   "fcnc":"FCNCHadronicTag_3",
+  "fcnc_hut":"FCNCHadronicTag_3",
+  "fcnc_hct":"FCNCHadronicTag_3",
   "hig-16-040":"UntaggedTag_2",
   "stage1":"RECO_0J_Tag1",
   "stage1_1":"RECO_0J_PTH_GT10_Tag1",
@@ -36,13 +40,33 @@ replacementCatWV = {
 replacementProcRVMap = {
 
   "fcnc":[
-      "FCNCHadronicTag_0:tth",
-      "FCNCHadronicTag_1:tth",
-      "FCNCHadronicTag_2:tth",
-      "FCNCHadronicTag_3:tth",
-      "FCNCLeptonicTag_0:tth",
-      "FCNCLeptonicTag_1:tth",
-      "FCNCLeptonicTag_2:tth"
+      "FCNCHadronicTag_0:thq",
+      "FCNCHadronicTag_1:thq",
+      "FCNCHadronicTag_2:thq",
+      "FCNCHadronicTag_3:thq",
+      "FCNCLeptonicTag_0:thq",
+      "FCNCLeptonicTag_1:thq",
+      "FCNCLeptonicTag_2:thq"
+  ],
+
+  "fcnc_hut":[
+      "FCNCHadronicTag_0:fcnc_hut",
+      "FCNCHadronicTag_1:fcnc_hut",
+      "FCNCHadronicTag_2:fcnc_hut",
+      "FCNCHadronicTag_3:fcnc_hut",
+      "FCNCLeptonicTag_0:fcnc_hut",
+      "FCNCLeptonicTag_1:fcnc_hut",
+      "FCNCLeptonicTag_2:fcnc_hut"
+  ],
+
+  "fcnc_hct":[
+      "FCNCHadronicTag_0:fcnc_hct",
+      "FCNCHadronicTag_1:fcnc_hct",
+      "FCNCHadronicTag_2:fcnc_hct",
+      "FCNCHadronicTag_3:fcnc_hct",
+      "FCNCLeptonicTag_0:fcnc_hct",
+      "FCNCLeptonicTag_1:fcnc_hct",
+      "FCNCLeptonicTag_2:fcnc_hct"
   ],
 
   # HIG-16-040 categorisation
@@ -444,6 +468,27 @@ replacementCatRVMap = {
       "FCNCLeptonicTag_1:FCNCLeptonicTag_2",
       "FCNCLeptonicTag_2:FCNCLeptonicTag_2"
   ],
+
+  "fcnc_hut":[
+      "FCNCHadronicTag_0:FCNCHadronicTag_0",
+      "FCNCHadronicTag_1:FCNCHadronicTag_1",
+      "FCNCHadronicTag_2:FCNCHadronicTag_2",
+      "FCNCHadronicTag_3:FCNCHadronicTag_3",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_0",
+      "FCNCLeptonicTag_1:FCNCLeptonicTag_1",
+      "FCNCLeptonicTag_2:FCNCLeptonicTag_2"
+  ],
+
+  "fcnc_hct":[
+      "FCNCHadronicTag_0:FCNCHadronicTag_0",
+      "FCNCHadronicTag_1:FCNCHadronicTag_1",
+      "FCNCHadronicTag_2:FCNCHadronicTag_2",
+      "FCNCHadronicTag_3:FCNCHadronicTag_3",
+      "FCNCLeptonicTag_0:FCNCLeptonicTag_0",
+      "FCNCLeptonicTag_1:FCNCLeptonicTag_1",
+      "FCNCLeptonicTag_2:FCNCLeptonicTag_2"
+  ],
+ 
 
   # HIG-16-040 categorisation
   "hig-16-040":[
