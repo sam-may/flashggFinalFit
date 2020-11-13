@@ -294,12 +294,21 @@ def get_options():
   parser.add_option('--loadDataFrame', dest='loadDataFrame', default='', help='Load dataFrame. Crucial generated with same options or likely to fail!') 
   parser.add_option('--tth_unc', dest='tth_unc', default=0.4, type='float', help='Additional systematic uncertainty to apply on ttH')
   parser.add_option('--tth_scale', dest='tth_scale', default=1.0, type='float', help='factor by which to scale ttH normalization')
+  parser.add_option('--fcnc_unc', dest='fcnc_unc', default='theory_uncertainties/fcnc_individual_uncs.json', type=str, help="json with per-year, per-category uncertainties for fcnc normalization")
+  parser.add_option('--btag_SF_norm', dest='btag_SF_norm', default='theory_uncertainties/btag_normSFs.json', type=str, help="json with per-year, per-process uncertainties for fcnc and sm higgs normalization correction factors for b-tagging")
   parser.add_option('--output', dest='output', default='Datacard_dummy1.txt', help='Datacard name') 
   return parser.parse_args()
 (opt,args) = get_options()
 
 # ttH unc
 create_theory_syst_json(mergedYear_cats, "theory_uncertainties/fcnc.json", opt.tth_unc)
+
+# FCNC unc
+#fcnc_unc = json.load(opt.fcnc_unc)
+
+# b-tag SF corrections
+with open(opt.btag_SF_norm) as f_in:
+    btag_sfs = json.load(f_in)
 
 # For loading dataframe
 skipData = False
@@ -430,6 +439,14 @@ if not skipData:
         #    if "Leptonic" in cat:
         #        print "Scaling FCNC leptonic yield by 2/1.527"
         #        _rate *= 1./1.527
+
+        if proc in btag_sfs.keys():
+            if "Hadronic" in cat:
+                corr = btag_sfs[proc][year]["Hadronic"]
+            elif "Leptonic" in cat:
+                corr = btag_sfs[proc][year]["Leptonic"]
+            print "INFO: Scaling %s rate by %.3f for b-tag correction" % (proc, corr) 
+            _rate *= corr
     # Prune NOTAG and if FWDH in process name
 	if( cat == "NOTAG" )|( "FWDH" in proc ): _prune = 1
 	else: _prune = 0
@@ -601,6 +618,8 @@ if not skipData:
     print " --> [VERBOSE] Adding theory systematics variations to dataFrame"
     # Add constant systematics to dataFrame
     for s in theory_systematics:
+      #if "norm_fcnc" in s['name']:
+      #  data = addFCNCSyst(data, fcnc_unc)
       if s['type'] == 'constant': data = addConstantSyst(data,s,opt)
     # Theory factory: group scale weights after calculation in relevant grouping scheme
     if opt.doSTXSBinMerging: 
