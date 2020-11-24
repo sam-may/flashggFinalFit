@@ -72,7 +72,7 @@ with open(args.input, "r") as f_in:
         if coupling.lower() not in line:
             continue
 
-        lines[i] = "norm_fcnc_%s                                       lnN   " % coupling.lower()
+        lines[i] = "norm_fcnc_%s_tt                                       lnN   " % coupling.lower()
         for cat in cats:
             #for year in years:
             for proc in procs:
@@ -86,14 +86,30 @@ with open(args.input, "r") as f_in:
                 if "fcnc" in proc:
                     year = proc.split("_")[2]
                     #print cat, year, proc, fcnc_unc[coupling][year][cat]
-                    #lines[i] += "%.3f" % (1.085)
-                    lines[i] += "%.3f" % fcnc_unc[coupling][year][cat] 
+                    #lines[i] += "%.3f" % fcnc_unc[coupling][year][cat] 
+                    lines[i] += "%.3f/%.3f" % (fcnc_unc[coupling][year][cat]["tt"][0], fcnc_unc[coupling][year][cat]["tt"][1])
                 else:
                     print cat, year, proc
                     lines[i] += "-"
                 lines[i] += "    "
         lines[i] += "\n"
-
+        lines[i] += "norm_fcnc_%s_st                                       lnN   " % coupling.lower()
+        for cat in cats:
+            for proc in procs:
+                if proc == "process":
+                    continue
+                if proc == "bkg_mass":
+                    lines[i] += "-"
+                    lines[i] += "    "
+                    continue
+                year = proc.split("_")[1]
+                if "fcnc" in proc:
+                    year = proc.split("_")[2]
+                    lines[i] += "%.3f/%.3f" % (fcnc_unc[coupling][year][cat]["st"][0], fcnc_unc[coupling][year][cat]["st"][1])
+                else:
+                    lines[i] += "-"
+                lines[i] += "    "
+        lines[i] += "\n"
 
 with open(args.input.replace(".txt", "_mod.txt"), "w") as f_out:
     for line in lines:
