@@ -123,7 +123,7 @@ signal_shape_systematics = [
 # correlateAcrossYears = -1 : partially correlated
 
 experimental_systematics = [ 
-		{'name':'lumi_13TeV','title':'lumi_13TeV','type':'constant','prior':'lnN','correlateAcrossYears':0,'value':{'2016':'1.025','2017':'1.023','2018':'1.025'}},
+		#{'name':'lumi_13TeV','title':'lumi_13TeV','type':'constant','prior':'lnN','correlateAcrossYears':0,'value':{'2016':'1.025','2017':'1.023','2018':'1.025'}},
 		{'name':'lumi_13TeV_Uncorrelated','title':'lumi_13TeV_Uncorrelated','type':'constant','prior':'lnN','correlateAcrossYears':0,'value':{'2016':'1.022','2017':'1.020','2018':'1.015'}},
 		{'name':'lumi_13TeV_X_Y_Factorization','title':'lumi_13TeV_X_Y_Factorization','type':'constant','prior':'lnN','correlateAcrossYears':-1,'value':{'2016':'1.009','2017':'1.008','2018':'1.020'}},
 		{'name':'lumi_13TeV_Length_Scale','title':'lumi_13TeV_Length_Scale','type':'constant','prior':'lnN','correlateAcrossYears':-1,'value':{'2016':'-','2017':'1.003','2018':'1.002'}},
