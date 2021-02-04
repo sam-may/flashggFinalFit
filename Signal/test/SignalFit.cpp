@@ -722,7 +722,7 @@ int main(int argc, char *argv[]){
     for (int mhIndex=0; mhIndex< massList_.size() ; mhIndex++){
       int mh=massList_[mhIndex];
       if (skipMass(mh)) continue;
-      if( (mh!=125) && (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct") ) continue;
+      if( (mh!=125) && (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct" || proc == "wh") ) continue;
       RooDataSet *dataRV; 
       RooDataSet *dataWV; 
       RooDataSet *dataRVRef; 
@@ -757,7 +757,7 @@ int main(int argc, char *argv[]){
         
         // if there are few atcual entries or if there is an  overall negative sum of weights...
         // or if it was specified that one should use the replacement dataset, then need to replace!
-        if (nEntriesRV < 1000 || sEntriesRV < 0 || ( userSkipRV)){
+        if (nEntriesRV < 3000 || sEntriesRV < 0 || ( userSkipRV)){
           std::cout << "[INFO] too few entries to use for fits in RV! nEntries " << nEntriesRV << " sumEntries " << sEntriesRV << "userSkipRV " << userSkipRV<< std::endl;
           isProblemCategory=true;
           
@@ -808,7 +808,7 @@ int main(int argc, char *argv[]){
       
         // if there are few atcual entries or if there is an  overall negative sum of weights...
         // or if it was specified that one should use the replacement dataset, then need to replace!
-        if (nEntriesWV < 1000 || sEntriesWV < 0 || (userSkipWV)){
+        if (nEntriesWV < 3000 || sEntriesWV < 0 || (userSkipWV)){
           std::cout << "[INFO] too few entries to use for fits in WV! nEntries " << nEntriesWV << " sumEntries " << sEntriesWV << "userSkipWV " << userSkipWV << std::endl;
         
           //things are simpler this time, since almost all WV are bad aside from ggh-UntaggedTag3
@@ -909,7 +909,7 @@ int main(int argc, char *argv[]){
     // right vertex
     if (verbose_) std::cout << "[INFO] preapraing initialfit RV, massList size "<< massList_.size() << std::endl;
     int maxOrder = 1;
-    if( (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct") ) maxOrder=0;
+    if( (proc=="testBBH" || proc=="testTHQ" || proc=="testTHW" || proc == "bbh" || proc == "thq" || proc == "thw" || proc == "fcnc" || proc == "fcnc_hut" || proc == "fcnc_hct" || proc == "wh") ) maxOrder=0;
     SimultaneousFit simultaneousFitRV(mass_,MH,mhLow_,mhHigh_,skipMasses_,binnedFit_,nBins_,massList_,cat,proc,Form("%s/rv",plotDir_.c_str()), /*maxOrder of MH depende of RooPolyVars*/ maxOrder);
     simultaneousFitRV.setVerbosity(verbose_);
     if (!cloneFits_) {

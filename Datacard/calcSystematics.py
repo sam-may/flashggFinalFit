@@ -66,8 +66,12 @@ def factoryType(d,s):
   ws = f.Get("tagsDumper/cms_hgg_13TeV")
   f.Close()
   # Check if syst is var (weight) in workspace
-  if ws.allVars().selectByName("%s*"%(s['name'])).getSize():
+  if ws.allVars().selectByName("%s*"%(s['name'])).getSize(): 
     nWeights = ws.allVars().selectByName("%s*"%(s['name'])).getSize()
+
+    if "hf" in s['name'] or "lf" in s['name']:
+        nWeights -= ws.allVars().selectByName("%s*stats*"%(s['name'])).getSize()
+
     if nWeights == 2: return "a_w"
     elif nWeights == 1: return "s_w"
     else:

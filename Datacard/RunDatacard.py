@@ -8,7 +8,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--tag", help = "tag to identify this datacard production", type=str, default="fcnc")
 parser.add_argument("--years", help = "which years to consider", type=str, default = "2016,2017,2018")
-parser.add_argument("--inputWSDir", help = "directories with input ws", type=str, default = "/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.3_21Oct2020/")
+parser.add_argument("--inputWSDir", help = "directories with input ws", type=str, default = "/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.10_22Jan20201/")
 parser.add_argument("--signal_model_dir", help = "dir with sigfits", type=str, default="../Signal/outdir_fcnc_COUPLING")
 parser.add_argument("--bkg_model_dir", help = "dir with background model", type=str, default="../Background")
 parser.add_argument("--cats", help = "cats", type=str, default="FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCHadronicTag_2,FCNCHadronicTag_3,FCNCLeptonicTag_0,FCNCLeptonicTag_1,FCNCLeptonicTag_2")
@@ -22,6 +22,8 @@ args = parser.parse_args()
 command_list = []
 command_list2 = []
 command_list3 = []
+
+parallel_utils.run("python extract_tt_st_ratios.py --input_ws_dir %s" % args.inputWSDir) 
 
 years = args.years.split(",")
 couplings = args.couplings.split(",")
@@ -39,17 +41,22 @@ for coupling in couplings:
                 os.system("cp %s %s" % (file, "../Plots/FinalResults/Models_" + coupling + "/signal_" + year + "/" + file.split("/")[-1].replace("sigfit_fcnc_%s" % coupling, "sigfit_mva").replace("_" + year, "")))
 
 
+    #if coupling == "Hut":
+    #    cats = "FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCHadronicTag_2,FCNCHadronicTag_3,FCNCLeptonicTag_0,FCNCLeptonicTag_1"
+    #else:
+    cats = args.cats
+
     os.system("mkdir -p ../Plots/FinalResults/Models_%s/background_merged" % coupling)
     os.system("cp %s/CMS-HGG_multipdf_fcnc_%s.root ../Plots/FinalResults/Models_%s/background_merged/CMS-HGG_mva_13TeV_multipdf.root" % (args.bkg_model_dir, coupling, coupling))
 
-    command_list.append("python makeDatacard.py --fcnc_unc %s --tth_unc %.6f --tth_scale %.6f --procs 'bbh,tth,ggh,wh,zh,thq,thw,fcnc_%s' --inputWSDir %s --cats %s --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (args.fcnc_unc, args.tth_unc, args.tth_scale, coupling.lower(), "fcnc" + "_" + coupling + "_workspaces", args.cats, args.years, "Models_" + coupling, 'Datacard_' + coupling + "_" + args.tag + '.txt'))
+    command_list.append("python makeDatacard.py --fcnc_unc %s --tth_unc %.6f --tth_scale %.6f --procs 'bbh,tth,ggh,wh,zh,thq,thw,fcnc_%s' --inputWSDir %s --cats %s --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (args.fcnc_unc, args.tth_unc, args.tth_scale, coupling.lower(), "fcnc" + "_" + coupling + "_workspaces", cats, args.years, "Models_" + coupling, 'Datacard_' + coupling + "_" + args.tag + '.txt'))
     command_list2.append("python convert_smhiggs_tobkg.py --input %s --fcnc_unc %s" % ('Datacard_' + coupling + "_" + args.tag + '.txt', args.fcnc_unc))
     command_list3.append("python cleanDatacard.py --datacard %s --removeDoubleSided --verbose" % ('Datacard_' + coupling + "_" + args.tag + '_mod.txt'))
-    for cat in args.cats.split(","):
+    for cat in cats.split(","):
         command_list.append("python makeDatacard.py --fcnc_unc %s --tth_unc %.6f --tth_scale %.6f --procs 'bbh,tth,ggh,wh,zh,thq,thw,fcnc_%s' --inputWSDir %s --cats %s --years %s --mergeYears --removeNoTag --doSystematics --modelWSDir %s --output %s" % (args.fcnc_unc, args.tth_unc, args.tth_scale, coupling.lower(), "fcnc" + "_" + coupling + "_workspaces", cat, args.years, "Models_" + coupling, 'Datacard_' + coupling + "_" + cat + "_" + args.tag + '.txt'))
         command_list2.append("python convert_smhiggs_tobkg.py --input %s --fcnc_unc %s" % ('Datacard_' + coupling + "_" + cat + "_" + args.tag + '.txt', args.fcnc_unc))
         command_list3.append("python cleanDatacard.py --datacard %s --removeDoubleSided --verbose" % ('Datacard_' + coupling + "_" + cat + "_" + args.tag + '_mod.txt'))
 
-parallel_utils.submit_jobs(command_list, 6)
+parallel_utils.submit_jobs(command_list, 12)
 parallel_utils.submit_jobs(command_list2, 12)
 parallel_utils.submit_jobs(command_list3, 12)

@@ -50,7 +50,7 @@
         "QCDscale_fcnc_hut":[1.001,0.999],
         "pdf_Higgs_fcnc_hut":1.001,
         "alphaS_fcnc_hut":1.001,
-        "norm_fcnc_hut":1.001
+        "norm_fcnc_hut":1.085
     },
 
      "fcnc_hct" : {

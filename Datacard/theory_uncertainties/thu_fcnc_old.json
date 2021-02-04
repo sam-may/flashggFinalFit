@@ -1,0 +1,218 @@
+{
+    "FCNCHadronicTag_0": {
+        "QCDscale_bbh": [
+            1.202, 
+            0.761
+        ], 
+        "QCDscale_fcnc": [
+            1.001, 
+            0.999
+        ], 
+        "QCDscale_ggh": [
+            1.047, 
+            0.931
+        ], 
+        "QCDscale_thq": [
+            1.065, 
+            0.851
+        ], 
+        "QCDscale_thw": [
+            1.049, 
+            0.933
+        ], 
+        "QCDscale_tth": [
+            1.058, 
+            0.908
+        ], 
+        "QCDscale_vbf": [
+            1.004, 
+            0.997
+        ], 
+        "QCDscale_wh": [
+            1.005, 
+            0.993
+        ], 
+        "QCDscale_zh": [
+            1.038, 
+            0.969
+        ], 
+        "alphaS_fcnc": 1.001, 
+        "alphaS_ggh": 1.026, 
+        "alphaS_thq": 1.012, 
+        "alphaS_thw": 1.015, 
+        "alphaS_tth": 1.02, 
+        "alphaS_vbf": 1.005, 
+        "alphaS_wh": 1.009, 
+        "alphaS_zh": 1.009, 
+        "pdf_Higgs_fcnc": 1.001, 
+        "pdf_Higgs_ggh": 1.019, 
+        "pdf_Higgs_thq": 1.035, 
+        "pdf_Higgs_thw": 1.061, 
+        "pdf_Higgs_tth": 1.03, 
+        "pdf_Higgs_vbf": 1.021, 
+        "pdf_Higgs_wh": 1.017, 
+        "pdf_Higgs_zh": 1.013
+    }, 
+    "FCNCHadronicTag_1": {
+        "QCDscale_bbh": [
+            1.202, 
+            0.761
+        ], 
+        "QCDscale_fcnc": [
+            1.001, 
+            0.999
+        ], 
+        "QCDscale_ggh": [
+            1.047, 
+            0.931
+        ], 
+        "QCDscale_thq": [
+            1.065, 
+            0.851
+        ], 
+        "QCDscale_thw": [
+            1.049, 
+            0.933
+        ], 
+        "QCDscale_tth": [
+            1.058, 
+            0.908
+        ], 
+        "QCDscale_vbf": [
+            1.004, 
+            0.997
+        ], 
+        "QCDscale_wh": [
+            1.005, 
+            0.993
+        ], 
+        "QCDscale_zh": [
+            1.038, 
+            0.969
+        ], 
+        "alphaS_fcnc": 1.001, 
+        "alphaS_ggh": 1.026, 
+        "alphaS_thq": 1.012, 
+        "alphaS_thw": 1.015, 
+        "alphaS_tth": 1.02, 
+        "alphaS_vbf": 1.005, 
+        "alphaS_wh": 1.009, 
+        "alphaS_zh": 1.009, 
+        "pdf_Higgs_fcnc": 1.001, 
+        "pdf_Higgs_ggh": 1.019, 
+        "pdf_Higgs_thq": 1.035, 
+        "pdf_Higgs_thw": 1.061, 
+        "pdf_Higgs_tth": 1.03, 
+        "pdf_Higgs_vbf": 1.021, 
+        "pdf_Higgs_wh": 1.017, 
+        "pdf_Higgs_zh": 1.013
+    }, 
+    "FCNCLeptonicTag_0": {
+        "QCDscale_bbh": [
+            1.202, 
+            0.761
+        ], 
+        "QCDscale_fcnc": [
+            1.001, 
+            0.999
+        ], 
+        "QCDscale_ggh": [
+            1.047, 
+            0.931
+        ], 
+        "QCDscale_thq": [
+            1.065, 
+            0.851
+        ], 
+        "QCDscale_thw": [
+            1.049, 
+            0.933
+        ], 
+        "QCDscale_tth": [
+            1.058, 
+            0.908
+        ], 
+        "QCDscale_vbf": [
+            1.004, 
+            0.997
+        ], 
+        "QCDscale_wh": [
+            1.005, 
+            0.993
+        ], 
+        "QCDscale_zh": [
+            1.038, 
+            0.969
+        ], 
+        "alphaS_fcnc": 1.001, 
+        "alphaS_ggh": 1.026, 
+        "alphaS_thq": 1.012, 
+        "alphaS_thw": 1.015, 
+        "alphaS_tth": 1.02, 
+        "alphaS_vbf": 1.005, 
+        "alphaS_wh": 1.009, 
+        "alphaS_zh": 1.009, 
+        "pdf_Higgs_fcnc": 1.001, 
+        "pdf_Higgs_ggh": 1.019, 
+        "pdf_Higgs_thq": 1.035, 
+        "pdf_Higgs_thw": 1.061, 
+        "pdf_Higgs_tth": 1.03, 
+        "pdf_Higgs_vbf": 1.021, 
+        "pdf_Higgs_wh": 1.017, 
+        "pdf_Higgs_zh": 1.013
+    }, 
+    "FCNCLeptonicTag_1": {
+        "QCDscale_bbh": [
+            1.202, 
+            0.761
+        ], 
+        "QCDscale_fcnc": [
+            1.001, 
+            0.999
+        ], 
+        "QCDscale_ggh": [
+            1.047, 
+            0.931
+        ], 
+        "QCDscale_thq": [
+            1.065, 
+            0.851
+        ], 
+        "QCDscale_thw": [
+            1.049, 
+            0.933
+        ], 
+        "QCDscale_tth": [
+            1.058, 
+            0.908
+        ], 
+        "QCDscale_vbf": [
+            1.004, 
+            0.997
+        ], 
+        "QCDscale_wh": [
+            1.005, 
+            0.993
+        ], 
+        "QCDscale_zh": [
+            1.038, 
+            0.969
+        ], 
+        "alphaS_fcnc": 1.001, 
+        "alphaS_ggh": 1.026, 
+        "alphaS_thq": 1.012, 
+        "alphaS_thw": 1.015, 
+        "alphaS_tth": 1.02, 
+        "alphaS_vbf": 1.005, 
+        "alphaS_wh": 1.009, 
+        "alphaS_zh": 1.009, 
+        "pdf_Higgs_fcnc": 1.001, 
+        "pdf_Higgs_ggh": 1.019, 
+        "pdf_Higgs_thq": 1.035, 
+        "pdf_Higgs_thw": 1.061, 
+        "pdf_Higgs_tth": 1.03, 
+        "pdf_Higgs_vbf": 1.021, 
+        "pdf_Higgs_wh": 1.017, 
+        "pdf_Higgs_zh": 1.013
+    }
+}

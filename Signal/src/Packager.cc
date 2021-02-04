@@ -66,7 +66,7 @@ void Packager::packageOutput(bool split, string process , string tag){
                                 if( split_ ) { // no need for all this if only considering one proc,cat...
                                         if( process!=(*proc) || tag!=catname ) { continue; }
                                 }
-        if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW" || *proc=="bbh" || *proc=="thq" || *proc=="thw" || *proc=="fcnc" || *proc=="fcnc_hut" || *proc=="fcnc_hct") ) continue;
+        if( (mh!=125) && (*proc=="testBBH" || *proc=="testTHQ" || *proc=="testTHW" || *proc=="bbh" || *proc=="thq" || *proc=="thw" || *proc=="fcnc" || *proc=="fcnc_hut" || *proc=="fcnc_hct" || *proc == "wh") ) continue;
                 //else { std::cout << "Not skipping Proc and mass: " << *proc << ", " << mh << std::endl; }
 
                 RooDataSet *tempData = 0;

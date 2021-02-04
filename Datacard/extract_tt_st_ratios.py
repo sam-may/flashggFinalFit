@@ -8,7 +8,7 @@ import math
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("--input_ws_dir", help = "directory with input workspaces", type=str, default="/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.3_21Oct2020")
+parser.add_argument("--input_ws_dir", help = "directory with input workspaces", type=str, default="/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.7_1Dec2020")
 args = parser.parse_args()
 
 tt_unc = [1.056, 0.939]

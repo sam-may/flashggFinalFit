@@ -1,0 +1,83 @@
+{
+    "bbh": {
+        "QCDscale_bbh": [
+            1.202, 
+            0.761
+        ]
+    }, 
+    "fcnc_hct": {
+        "QCDscale_fcnc_hct": [
+            1.001, 
+            0.999
+        ], 
+        "alphaS_fcnc_hct": 1.001, 
+        "norm_fcnc_hct": 1.001, 
+        "pdf_Higgs_fcnc_hct": 1.001
+    }, 
+    "fcnc_hut": {
+        "QCDscale_fcnc_hut": [
+            1.001, 
+            0.999
+        ], 
+        "alphaS_fcnc_hut": 1.001, 
+        "norm_fcnc_hut": 1.085, 
+        "pdf_Higgs_fcnc_hut": 1.001
+    }, 
+    "ggh": {
+        "QCDscale_ggh": [
+            1.047, 
+            0.931
+        ], 
+        "alphaS_ggh": 1.026, 
+        "pdf_Higgs_ggh": 1.019
+    }, 
+    "thq": {
+        "QCDscale_thq": [
+            1.065, 
+            0.851
+        ], 
+        "alphaS_thq": 1.012, 
+        "pdf_Higgs_thq": 1.035
+    }, 
+    "thw": {
+        "QCDscale_thw": [
+            1.049, 
+            0.933
+        ], 
+        "alphaS_thw": 1.015, 
+        "pdf_Higgs_thw": 1.061
+    }, 
+    "tth": {
+        "QCDscale_tth": [
+            1.058, 
+            0.908
+        ], 
+        "additional_unc_tth": 0.4, 
+        "alphaS_tth": 1.02, 
+        "pdf_Higgs_tth": 1.03
+    }, 
+    "vbf": {
+        "QCDscale_vbf": [
+            1.004, 
+            0.997
+        ], 
+        "alphaS_vbf": 1.005, 
+        "pdf_Higgs_vbf": 1.021
+    }, 
+    "wh": {
+        "QCDscale_wh": [
+            1.005, 
+            0.993
+        ], 
+        "alphaS_wh": 1.009, 
+        "pdf_Higgs_wh": 1.017
+    }, 
+    "zh": {
+        "QCDscale_zh": [
+            1.038, 
+            0.969
+        ], 
+        "alphaS_zh": 1.009, 
+        "pdf_Higgs_zh": 1.013
+    }
+}

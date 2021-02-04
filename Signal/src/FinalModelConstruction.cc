@@ -547,7 +547,7 @@ void FinalModelConstruction::getRvFractionFunc(string name){
   // fill the holders/TGraph
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh = allMH_[i];
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_=="bbh" || proc_=="thq" || proc_=="thw" || proc_ =="fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_=="bbh" || proc_=="thq" || proc_=="thw" || proc_ =="fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct" || proc_ == "wh") && mh!=125 ) continue;
     mhValues.push_back(mh);
     double rvN = rvDatasets[mh]->sumEntries();
     double wvN = wvDatasets[mh]->sumEntries();
@@ -809,7 +809,14 @@ void FinalModelConstruction::buildRvWvPdf(string name, int nGrv, int nGwv, bool 
   }
 
   // sum the RV and WV pdfs
+  //TString cat_s = catname;
+  //if (proc_.c_str() == "wh" && cat_s.Contains("FCNCLeptonicTag_2")) {
+  //  finalPDF = new RooAddPdf(Form("%s_%s_%s",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s",name.c_str(),proc_.c_str(),catname.c_str()),    
+  //} 
+
+  //else { 
   finalPdf = new RooAddPdf(Form("%s_%s_%s",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s",name.c_str(),proc_.c_str(),catname.c_str()),RooArgList(*rvPdfs[0],*wvPdfs[0]),RooArgList(*rvFraction));
+  //}
   if (doSecondaryModels){
     assert(secondaryModelVarsSet);
 		RooFormulaVar *rvFraction_SM = new RooFormulaVar(Form("%s_%s_%s_rvFrac_SM",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),"TMath::Min(@0+@1,1.0)",RooArgList(*vertexNuisance,*rvFracFunc_SM));
@@ -891,6 +898,12 @@ vector<RooAbsPdf*> FinalModelConstruction::build_DCBpGaus_Pdf(string name, int n
   if (!frac) frac = splines[Form("frac")]; // in case we don't have a constrained frac
   if (verbosity_>1) std::cout << "[INFO] retrieved parameter frac"  << " ? " << frac << std::endl;
   frac->SetName(Form("frac_%s",ext.c_str()));
+
+  //if (frac->getVal() < 0.0) {
+  //  std::cout << "Found frac val of: " << frac->getVal() << ", setting it to 0.0001" << endl;
+  //
+  //}
+
   RooArgList *pdfs_holder = new RooArgList();
   pdfs_holder->add(*dcb);
   pdfs_holder->add(*gaus);
@@ -1231,7 +1244,7 @@ void FinalModelConstruction::makeSTDdatasets(){
 	if (sqrts_ ==13) catname = Form("%s",cat_.c_str());
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct" || proc_ == "wh") && mh!=125 ) continue;
 		RooDataSet *data = (RooDataSet*)rvDatasets[mh]->Clone(Form("sig_%s_mass_m%d_%s",proc_.c_str(),mh,catname.c_str()));
 		data->append(*wvDatasets[mh]);
 		stdDatasets.insert(pair<int,RooDataSet*>(mh,data));
@@ -1244,7 +1257,7 @@ void FinalModelConstruction::makeFITdatasets(){
 	if (sqrts_ ==13) catname = Form("%s",cat_.c_str());
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct" || proc_ == "wh") && mh!=125 ) continue;
 		RooDataSet *data = (RooDataSet*)rvFITDatasets[mh]->Clone(Form("sig_%s_mass_m%d_%s",proc_.c_str(),mh,catname.c_str()));
 		data->append(*wvFITDatasets[mh]);
 		fitDatasets.insert(pair<int,RooDataSet*>(mh,data));
@@ -1267,7 +1280,7 @@ void FinalModelConstruction::plotPdf(string outDir){
   std::vector<int> colorList ={7,9,4,2,8,5,1,14};//kCyan,kMagenta,kBlue, kRed,kGreen,kYellow,kBlack, kGray};
   for (unsigned int i=0; i<allMH_.size(); i++){
     int mh=allMH_[i];
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct" || proc_ == "wh") && mh!=125 ) continue;
     stdDatasets[mh]->plotOn(dataPlot,Binning(160),MarkerColor(colorList[i]));
     std::cout << "FMC LC DEBUG this dataset for mh=" << mh << std::endl;
     stdDatasets[mh]->Print();
@@ -1356,7 +1369,7 @@ void FinalModelConstruction::getNormalization(){
   for (unsigned int i=0; i<allMH_.size(); i++){
     double mh = double(allMH_[i]);
 
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") && mh!=125 ) continue;
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct" || proc_ == "wh") && mh!=125 ) continue;
     RooDataSet *data = stdDatasets[mh];
 	double effAcc =0.;
 	if (intLumi) {
@@ -1381,7 +1394,7 @@ void FinalModelConstruction::getNormalization(){
 		return ;
 		}
     //effAcc = 0.0000000001;
-    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") ){
+    if( (proc_=="testBBH" || proc_=="testTHQ" || proc_=="testTHW" || proc_== "bbh" || proc_== "thq" || proc_== "thw" || proc_== "fcnc" || proc_== "fcnc_hut" || proc_== "fcnc_hct") || proc_ == "wh"){
       temp->SetPoint(0,mh,effAcc);
       temp->SetPoint(0,mh,effAcc);
       fitToConstant=1;
