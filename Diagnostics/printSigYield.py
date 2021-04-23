@@ -4,6 +4,8 @@ import json
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--input_tag", help = "input_tag", type=str, default="")
+parser.add_argument("--mH", help = "value to fix mH to", type=float, default=125.)
+parser.add_argument("--couplings", help = "which couplings to run for", type=str, default = "Hut,Hct")
 args = parser.parse_args()
 
 years = { "2016" : 35900, "2017" : 41500, "2018" : 58000 }
@@ -17,23 +19,21 @@ def printYields(coupling, proc, tag):
     total_yield = 0
 
     for year, lumi in years.items():
-        #file = r.TFile("../Signal/outdir_fcnc_%s_%s/CMS-HGG_sigfit_fcnc_%s_%s_%s.root" % (coupling, year, coupling, year, tag))
         file = r.TFile("../Plots/FinalResults/Datacard_fcnc_%s%s_FCNC.root" % (coupling.lower(), args.input_tag))
         ws = file.Get("w")
         mH = ws.var('MH')
         type = "Sig" if "fcnc" in proc else "Bkg"
-        #print 'shape%s_%s_%s_hgg_%s__norm' % (type, proc, year, tag)
         norm = ws.function('shape%s_%s_%s_hgg_%s__norm' % (type, proc, year, tag))
+        mH.setVal(args.mH)
 
         if not norm:
             evt_yield = 0.
-
         else:
             evt_yield = norm.getVal() * lumi
-        #if "fcnc" in proc: #TODO do we actually need this? pretty sure it is taken care of in datacards...
-        #    evt_yield *= 0.01
-        #print "nEvts for mH = %.1f is: %.10f" % (m, evt_yield)
-            #if m == 125.:
+
+        if "fcnc" in proc: # not sure why we need this, because the factor of 0.01 should have already been taken care of in datacards...
+            evt_yield *= 0.01 
+
         print "Yield for year %s is: %.10f" % (year, evt_yield)
         total_yield += evt_yield
         results[coupling][tag][proc][year] = evt_yield
@@ -47,10 +47,9 @@ def printYields(coupling, proc, tag):
 
 tags = ["FCNCHadronicTag_0", "FCNCHadronicTag_1", "FCNCHadronicTag_2", "FCNCHadronicTag_3", "FCNCLeptonicTag_0", "FCNCLeptonicTag_1", "FCNCLeptonicTag_2"]
 procs = ["fcnc_COUPLING", "tth","ggh","vbf","wh","zh","thq", "thw"] 
-couplings = ["Hut", "Hct"]
+couplings = args.couplings.split(",")
 
-
-redo = False
+redo = True
 
 if redo:
     for coupling in couplings: 
@@ -71,8 +70,6 @@ if redo:
 else:
     with open("yields_from_datacard.json", "r") as f_in:
         results = json.load(f_in)
-
-limit = { "Hut" : 0.2617, "Hct" : 0.3328 }
 
 for coupling in couplings:
     table = ""

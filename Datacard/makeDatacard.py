@@ -478,6 +478,8 @@ if not skipData:
         if proc == "fcnc_hut" or proc == "fcnc_hct": 
             print "INFO: Scaling FCNC rate by 0.01"
             _rate *= 0.01
+            #print "INFO: Scaling FCNC rate by another factor of 0.1"
+            #_rate *= 0.1
         if proc == "tth":
             print "INFO: Scaling tth rate by %.3f" % (opt.tth_scale)
             _rate *= opt.tth_scale

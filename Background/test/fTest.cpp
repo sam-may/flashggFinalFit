@@ -825,12 +825,14 @@ int main(int argc, char* argv[]){
 			RooAbsPdf *cache_pdf=NULL;
 			std::vector<int> pdforders;
 
+            //if (*funcType == "Bernstein" && order <
+
 			int counter =0;
-			//	while (prob<0.05){
 			while (prob<0.05 && order < 7){ //FIXME
 				RooAbsPdf *bkgPdf = getPdf(pdfsModel,*funcType,order,Form("ftest_pdf_%d_%s",(cat+catOffset),ext.c_str()));
-				if (!bkgPdf){
-					// assume this order is not allowed
+				if (!bkgPdf || (*funcType == "Bernstein" && order <= 1)){
+                    cout << "Skipping func: " << *funcType << " order " << order << endl;
+                    // assume this order is not allowed
 					order++;
 				}
 				else {

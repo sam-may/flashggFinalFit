@@ -8,9 +8,9 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--years", help = "which years to consider", type=str, default = "2016,2017,2018")
 parser.add_argument("--couplings", help = "which couplings to run for", type=str, default = "Hut,Hct")
-parser.add_argument("--procs", help = "which processes to consider", type=str, default = "fcnc_COUPLING,tth,ggh,vbf,wh,zh,thq,thw")
+parser.add_argument("--procs", help = "which processes to consider", type=str, default = "fcnc_COUPLING,tth,ggh,vbf,wh,zh,thq,thw,bbh")
 parser.add_argument("--cats", help = "which categories to consider", type=str, default = "FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCHadronicTag_2,FCNCHadronicTag_3,FCNCLeptonicTag_0,FCNCLeptonicTag_1,FCNCLeptonicTag_2")
-parser.add_argument("--limits", help = "json with exp limits", type=str, default = "../Combine/plot_results_tth_scale1_unc40.json")
+parser.add_argument("--limits", help = "json with exp limits", type=str, default = "../Combine/plot_results_fcncv5.10_9Feb2021_unblind_fixMH.json")
 args = parser.parse_args()
 
 signal_ws_dir = "../Signal/outdir_fcnc_COUPLING_YEAR/"
@@ -23,7 +23,14 @@ procs = args.procs.split(",")
 cats = args.cats.split(",")
 
 #limit = { "Hut" : 0.4094, "Hct" : 0.4891 }
-limit = { "Hut" : 0.2617, "Hct" : 0.3328 } 
+#limit = { "Hut" : 0.2617, "Hct" : 0.3328 } 
+#limit = { "Hut" : 0.2867, "Hct" : 0.3422 } # v5.1_18Sep2020
+#limit = { "Hut" : 0.2945, "Hct" : 0.3469 } # v5.2_5Oct2020
+#limit = { "Hut" : 0.2656, "Hct" : 0.3234 } # v5.3_26Oct2020_fixtH
+#limit = { "Hut" : 0.2625, "Hct" : 0.3234 } # fcncv5.3_13Nov2020_mH125p38
+#limit = { "Hut" : 0.2336, "Hct" : 0.2781 } # v5.8_7/8Dec2020
+#limit = { "Hut" : 0.2266, "Hct" : 0.2742 } # v5.10_27Jan2021
+limit = { "Hut" : 0.2236, "Hct" : 0.3662 } # v5.10_9Feb2021_unblind_fixMH
 
 with open(args.limits, "r") as f_in:
     exp_lim = json.load(f_in)
@@ -106,13 +113,13 @@ with open("yields.json", "w") as f_out:
 for coupling in couplings:
     table = ""
     table += "\\begin{center} \\Fontvi \n"
-    table += "\\begin{tabular}{ l r"
+    table += "\\begin{tabular}{ l r "
     for i in range(len(procs)+3):
         table += " r "
         if i == 1 or i == 3:
             table += "|"
     table += "}\\hline \\hline \n"
-    table += " & Exp. Lim. & \\multicolumn{2}{c|}{Yield} & \\multicolumn{2}{c|}{Bkg Composition} & \\multicolumn{%d}{c}{SM Higgs Composition (\\%%)} \\\\ \n" % (len(procs) -1)
+    table += " & Obs. (Exp.) Lim. & \\multicolumn{2}{c|}{Yield} & \\multicolumn{2}{c|}{Bkg Composition} & \\multicolumn{%d}{c}{SM Higgs Composition (\\%%)} \\\\ \n" % (len(procs) -1)
     table += " & & FCNC (%s) & Tot. Bkg & Non-Res. Bkg & SM Higgs & " % coupling
     for p in procs:
         if "COUPLING" in p:
@@ -123,7 +130,7 @@ for coupling in couplings:
     table += " \\\\ \\hline \n"
     for cat in cats:
         table += cat.replace("_", " ") + "&"
-        table += " %.3f & " % exp_lim[coupling][cat]["exp"]
+        table += " %.3f (%.3f) & " % (exp_lim[coupling][cat]["obs"], exp_lim[coupling][cat]["exp"])
         table += " %.3f &" % yields[coupling][cat]["fcnc_%s" % coupling.lower()]["yield"]
         total_bkg = yields[coupling][cat]["total_bkg"]["yield"]
         table += " %.2f &" % total_bkg

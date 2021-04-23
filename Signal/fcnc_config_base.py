@@ -1,6 +1,6 @@
 signalScriptCfg = {
         # Setup
-        'inputWSDir' : '/home/users/sjmay/ttH/FCNC_Workspaces/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.10_22Jan20201',
+        'inputWSDir' : '/home/users/smay/ttH/FCNC_Workspaces_v2/CMSSW_10_6_1_patch2/src/flashgg/Systematics/test/workspaces_COUPLING_YEAR_v5.11_21Apr2021',
         #'cats' : 'FCNCHadronicTag_3',
         'cats' : 'FCNCHadronicTag_0,FCNCHadronicTag_1,FCNCHadronicTag_2,FCNCHadronicTag_3,FCNCLeptonicTag_0,FCNCLeptonicTag_1,FCNCLeptonicTag_2',
         'ext' : 'fcnc_COUPLING_YEAR',

@@ -241,7 +241,7 @@ for c in h_data:
   leg.SetTextSize(0.045)
   leg.AddEntry(h_data[c],"Data","ep")
   if opt.unblind:
-    leg.AddEntry(h_sbpdfs[c]['pdfNBins'],"S+B fit","l")
+    leg.AddEntry(h_sbpdfs[c]['pdfNBins'],"S+B model (exp.)","l")
     leg.AddEntry(h_bpdfs[c]['pdfNBins'],"B component","l")
   else:
     leg.AddEntry(h_bpdfs[c]['pdfNBins'],"B model","l")
@@ -344,8 +344,8 @@ for c in h_data:
   lat1.DrawLatex(0.87,0.93,"B component subtracted")
 
   if "hut" in opt.parameterMap:
-      canv.SaveAs("sPlusB_Hut_%s.pdf" % c)
-      canv.SaveAs("sPlusB_Hut_%s.png" % c)
+      canv.SaveAs("sPlusB_Hut_%s%s.pdf" % (c, "_unblind" if opt.unblind else ""))
+      canv.SaveAs("sPlusB_Hut_%s%s.png" % (c, "_unblind" if opt.unblind else ""))
   elif "hct" in opt.parameterMap:
-      canv.SaveAs("sPlusB_Hct_%s.pdf" % c)
-      canv.SaveAs("sPlusB_Hct_%s.png" % c)
+      canv.SaveAs("sPlusB_Hct_%s%s.pdf" % (c, "_unblind" if opt.unblind else ""))
+      canv.SaveAs("sPlusB_Hct_%s%s.png" % (c, "_unblind" if opt.unblind else ""))

@@ -753,8 +753,8 @@ RooAbsReal* FinalModelConstruction::getRateWithPhotonSyst(string name){
 
 void FinalModelConstruction::setupSystematics(){
   
-	vertexNuisance = new RooRealVar(Form("CMS_hgg_nuisance_deltafracright"),Form("CMS_hgg_nuisance_deltafracright"),0.,-1.,1.);
-	vertexNuisance->setConstant(true);
+	//vertexNuisance = new RooRealVar(Form("CMS_hgg_nuisance_deltafracright"),Form("CMS_hgg_nuisance_deltafracright"),0.,-1.,1.);
+	//vertexNuisance->setConstant(true);
 	if (isCutBased_) {
 		r9barrelNuisance = new RooRealVar(Form("CMS_hgg_nuisance_%dTeVdeltar9barrel",sqrts_),Form("CMS_hgg_nuisance_%dTeVdeltar9barrel",sqrts_),0.,-1.,1.);
 		r9mixedNuisance = new RooRealVar(Form("CMS_hgg_nuisance_%dTeVdeltar9mixed",sqrts_),Form("CMS_hgg_nuisance_%dTeVdeltar9mixed",sqrts_),0.,-1.,1.);
@@ -790,7 +790,8 @@ void FinalModelConstruction::buildRvWvPdf(string name, int nGrv, int nGwv, bool 
   if (!rvFractionSet_) getRvFractionFunc(Form("%s_%s_%s_rvFracFunc",name.c_str(),proc_.c_str(),catname.c_str()));
   if(verbosity_>1) std::cout << " [INFO] Doing FinalModelConstruction: set up systematics" << std::endl;
   if (!systematicsSet_) setupSystematics();
-  RooFormulaVar *rvFraction = new RooFormulaVar(Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),"TMath::Min(@0+@1,1.0)",RooArgList(*vertexNuisance,*rvFracFunc));
+  RooFormulaVar *rvFraction = new RooFormulaVar(Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()), "1", RooArgList(*rvFracFunc));
+  //RooFormulaVar *rvFraction = new RooFormulaVar(Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),Form("%s_%s_%s_rvFrac",name.c_str(),proc_.c_str(),catname.c_str()),"TMath::Min(@0+@1,1.0)",RooArgList(*vertexNuisance,*rvFracFunc));
   vector<RooAbsPdf*> rvPdfs;
   vector<RooAbsPdf*> wvPdfs;
 
