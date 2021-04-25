@@ -1,0 +1,228 @@
+{
+    "Hct": {
+        "2016": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.0233437161769787, 
+                "yield_no_pu": 8.314164383960815, 
+                "yield_yes_pu": 8.508247877588742
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 1.0086457940489013, 
+                "yield_no_pu": 9.320800606147714, 
+                "yield_yes_pu": 9.40138632855934
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 1.0034468073309195, 
+                "yield_no_pu": 24.11013525526596, 
+                "yield_yes_pu": 24.193238246213273
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 0.9951536101758779, 
+                "yield_no_pu": 49.42450551915249, 
+                "yield_yes_pu": 49.1849750985422
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 1.0213287533043391, 
+                "yield_no_pu": 5.25348131820374, 
+                "yield_yes_pu": 5.365531525228661
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 1.0001028236847875, 
+                "yield_no_pu": 5.299898552554168, 
+                "yield_yes_pu": 5.300443507652342
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 0.9946930587778605, 
+                "yield_no_pu": 4.524046907197999, 
+                "yield_yes_pu": 4.500038056175297
+            }
+        }, 
+        "2017": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.073716464179609, 
+                "yield_no_pu": 9.64438655918724, 
+                "yield_yes_pu": 10.355336635511868
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 1.0543762278520905, 
+                "yield_no_pu": 10.436052220528154, 
+                "yield_yes_pu": 11.003525373947909
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 1.0466281595165714, 
+                "yield_no_pu": 26.509904429721303, 
+                "yield_yes_pu": 27.74601248223941
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 1.028656784750917, 
+                "yield_no_pu": 51.821831323580824, 
+                "yield_yes_pu": 53.30687838921901
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 1.0803094413601355, 
+                "yield_no_pu": 5.849881025948207, 
+                "yield_yes_pu": 6.319681703165363
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 1.0443034344311257, 
+                "yield_no_pu": 5.626862150036459, 
+                "yield_yes_pu": 5.876151468353582
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 1.0279889102285054, 
+                "yield_no_pu": 4.644082786299748, 
+                "yield_yes_pu": 4.774065602499238
+            }
+        }, 
+        "2018": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.0157701151599776, 
+                "yield_no_pu": 10.3256257799992, 
+                "yield_yes_pu": 10.488462087648621
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 0.9983565421359399, 
+                "yield_no_pu": 10.873919255099509, 
+                "yield_yes_pu": 10.856048426986561
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 0.9969693441249303, 
+                "yield_no_pu": 27.61320573606701, 
+                "yield_yes_pu": 27.52951961187349
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 0.9917164066560488, 
+                "yield_no_pu": 54.42788057837129, 
+                "yield_yes_pu": 53.97702214908692
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 1.0137477060413809, 
+                "yield_no_pu": 6.17313361180868, 
+                "yield_yes_pu": 6.258000038057993
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 0.9999732486113201, 
+                "yield_no_pu": 5.728067252703568, 
+                "yield_yes_pu": 5.727914018950106
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 0.9882040698437701, 
+                "yield_no_pu": 4.6998289455953, 
+                "yield_yes_pu": 4.64439009160683
+            }
+        }
+    }, 
+    "Hut": {
+        "2016": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.0275643689198803, 
+                "yield_no_pu": 8.20149169639626, 
+                "yield_yes_pu": 8.427560639209062
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 1.0085085115512964, 
+                "yield_no_pu": 17.685646238738627, 
+                "yield_yes_pu": 17.836124764053075
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 0.996544729892393, 
+                "yield_no_pu": 30.148963936702785, 
+                "yield_yes_pu": 30.044791122836973
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 0.9817214406989168, 
+                "yield_no_pu": 49.285895637094654, 
+                "yield_yes_pu": 48.38502047098502
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 0.9976830344940713, 
+                "yield_no_pu": 4.993255475204933, 
+                "yield_yes_pu": 4.981686274506593
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 0.981344770590142, 
+                "yield_no_pu": 5.712933181783228, 
+                "yield_yes_pu": 5.606357102673872
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 0.9627421293859894, 
+                "yield_no_pu": 5.960540854048304, 
+                "yield_yes_pu": 5.738463794118648
+            }
+        }, 
+        "2017": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.0878303095573048, 
+                "yield_no_pu": 9.395968084741071, 
+                "yield_yes_pu": 10.221218870214436
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 1.0585034033967295, 
+                "yield_no_pu": 19.593371285007834, 
+                "yield_yes_pu": 20.739650189196546
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 1.041256649415998, 
+                "yield_no_pu": 32.84232129383281, 
+                "yield_yes_pu": 34.19728542946004
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 1.0161586643419467, 
+                "yield_no_pu": 52.111213771498115, 
+                "yield_yes_pu": 52.95326138328318
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 1.087824763279843, 
+                "yield_no_pu": 5.421892052536805, 
+                "yield_yes_pu": 5.8980684385797115
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 1.0507990535453697, 
+                "yield_no_pu": 6.081429785010641, 
+                "yield_yes_pu": 6.390360662291803
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 1.0250581622902875, 
+                "yield_no_pu": 6.009822879587318, 
+                "yield_yes_pu": 6.1604179966399
+            }
+        }, 
+        "2018": {
+            "FCNCHadronicTag_0": {
+                "corr": 1.0174582598095177, 
+                "yield_no_pu": 10.437472489500578, 
+                "yield_yes_pu": 10.619692595976971
+            }, 
+            "FCNCHadronicTag_1": {
+                "corr": 1.003896491433181, 
+                "yield_no_pu": 21.01115207876137, 
+                "yield_yes_pu": 21.093021852837524
+            }, 
+            "FCNCHadronicTag_2": {
+                "corr": 0.9971473472821751, 
+                "yield_no_pu": 34.612827309206295, 
+                "yield_yes_pu": 34.514088933311086
+            }, 
+            "FCNCHadronicTag_3": {
+                "corr": 0.9849111715415422, 
+                "yield_no_pu": 53.9470112156954, 
+                "yield_yes_pu": 53.13301401761527
+            }, 
+            "FCNCLeptonicTag_0": {
+                "corr": 1.0178498294918876, 
+                "yield_no_pu": 5.793054862540885, 
+                "yield_yes_pu": 5.896459904074391
+            }, 
+            "FCNCLeptonicTag_1": {
+                "corr": 1.0036321756889843, 
+                "yield_no_pu": 6.366965133391318, 
+                "yield_yes_pu": 6.390091069361432
+            }, 
+            "FCNCLeptonicTag_2": {
+                "corr": 0.9895224185443648, 
+                "yield_no_pu": 6.096912465147398, 
+                "yield_yes_pu": 6.0330315681659386
+            }
+        }
+    }
+}
